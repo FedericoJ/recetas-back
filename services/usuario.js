@@ -46,7 +46,38 @@ async function create(usuario){
     return {message};
   }
 
-  async function buscarUsuario(mail){
+
+  async function crearInvitado(usuario){
+
+      try{
+        
+        const result = await db.query(
+          `INSERT INTO usuarios 
+          (mail,nickname,habilitado,tipo_usuario,fecAlta,diasAlta) 
+          VALUES 
+          ('${usuario.mail}', '${usuario.nickname}', 'No',
+          '${usuario.tipo_usuario}','${usuario.fecAlta}',${usuario.diasAlta})`
+        );
+
+      
+        let message = 'Error creando un invitado';
+      
+        if (result.affectedRows) {
+          message = 'Usuario Invitado creado correctamente';
+        }
+      
+        return {code: 201, message:message};
+
+
+      }catch(e){
+        return {code: 400, message:e.message};
+
+      }
+    
+  }
+
+
+  async function buscarUsuarioByMail(mail){
 
     
     const rows = await db.query(
@@ -62,6 +93,65 @@ async function create(usuario){
 
   }
 
+  async function buscarUsuarioByAlias(alias){
+
+    
+    const rows = await db.query(
+      `SELECT mail, nickname,idUsuario FROM usuarios
+      WHERE nickname='${alias}'`
+    );
+    const data = helper.emptyOrRows(rows);
+  
+    return {
+      data
+    }
+
+
+  }
+
+  async function updateUser (usuario ) {
+
+    var hashedPassword = bcrypt.hashSync(usuario.password, 8);
+    var message='';
+
+    try {
+        // Find the User by Alias
+        
+        let data = await buscarUsuarioByAlias(usuario.nickname);
+        
+        if ((data.data.length ===0)){
+          
+            return {code: 202, message: "No se encuentra usuario con ese alias"};
+        }
+
+        console.log(data);
+       
+        user = data.data[0];
+
+
+        const result = await db.query(
+           `UPDATE usuarios SET
+              habilitado='Si',
+              nombre='${usuario.nombre}',
+              avatar='${usuario.avatar}',
+              password='${hashedPassword}'
+          WHERE idUsuario='${user.idUsuario}'`
+      );
+        
+
+      if (result.affectedRows) {
+        message = 'Usuario modificado correctamente';
+      }
+      return{code:201,message:message}
+
+    } catch (e) {
+        // return a Error message describing the reason     
+        return {code: 400, message: e.message};
+    }
+
+  }
+
+
 
   async function loginUser (usuario ) {
 
@@ -70,7 +160,7 @@ async function create(usuario){
         // Find the User 
         
 
-        let data = await buscarUsuario(usuario.mail);
+        let data = await buscarUsuarioByMail(usuario.mail);
         
         if ((data.empty)){
             return {code: 202, message: "Invalid username or password"};
@@ -108,5 +198,7 @@ async function create(usuario){
 module.exports = {
   getMultiple,
   create,
-  loginUser
+  loginUser,
+  updateUser,
+  crearInvitado
 }
