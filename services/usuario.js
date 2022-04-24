@@ -30,10 +30,16 @@ async function create(usuario){
 
     const result = await db.query(
       `INSERT INTO usuarios 
-      (mail,nickname,habilitado,nombre,avatar,tipo_usuario,fecAlta,diasAlta,password) 
+      (mail,nickname,habilitado,nombre,avatar,tipo_usuario) 
       VALUES 
-      (${usuario.mail}, ${usuario.nickname}, ${usuario.habilitado}, ${usuario.nombre},
-         ${usuario.avatar},${usuario.tipo_usuario},${usuario.fecAlta},${usuario.diasAlta},${hashedPassword})`
+      ('${usuario.mail}', '${usuario.nickname}', '${usuario.habilitado}', '${usuario.nombre}',
+         '${usuario.avatar}','${usuario.tipo_usuario}');`
+    );
+
+    
+    db.query(
+      `INSERT INTO login (idUsuario,diasAlta,fecAlta,password)
+    VALUES((select max(IdUsuario) from usuarios),'${usuario.diasAlta}','${usuario.fecAlta}','${usuario.password}');`
     );
 
   
