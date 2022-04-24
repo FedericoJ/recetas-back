@@ -39,7 +39,7 @@ async function create(usuario){
     
     db.query(
       `INSERT INTO login (idUsuario,diasAlta,fecAlta,password)
-    VALUES((select max(IdUsuario) from usuarios),'${usuario.diasAlta}','${usuario.fecAlta}','${usuario.password}');`
+    VALUES((select max(IdUsuario) from usuarios),'${usuario.diasAlta}','${usuario.fecAlta}','${hashedPassword}');`
     );
 
   
@@ -87,8 +87,9 @@ async function create(usuario){
 
     
     const rows = await db.query(
-      `SELECT * FROM usuarios
-      WHERE mail='${mail}'`
+      `SELECT * FROM usuarios,login
+      WHERE usuarios.idUsuario=login.idUsuario
+      AND mail='${mail}'`
     );
     const data = helper.emptyOrRows(rows);
   
