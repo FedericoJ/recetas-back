@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const usuarioRouter = require("./routes/usuario");
 const ingredienteRouter = require('./routes/ingredientes');
+const recetaRouter = require('./routes/receta');
 
 app.use(express.json());
 app.use(
@@ -29,6 +30,7 @@ app.use((err, req, res, next) => {
 
 app.use("/usuario",usuarioRouter);
 app.use("/ingredientes",ingredienteRouter);
+app.use("/receta",recetaRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
