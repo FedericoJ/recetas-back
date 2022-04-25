@@ -11,11 +11,12 @@ async function getFavoritos(usuario){
 
   try{
     const rows = await db.query(
-      `select c.calificacion, r.nombre, u.nickname from favoritos f
+      `select avg(c.calificacion), r.nombre, u.nickname, c.idreceta from favoritos f
       join calificaciones c on f.idreceta = c.idreceta
       join recetas r on f.idreceta = r.idreceta
       join usuarios u on r.idusuario = u.idusuario 
-      where f.idusuario ='${usuario.idUsuario}'`
+      where f.idusuario ='${usuario.idUsuario}'
+      group by c.idreceta, r.nombre, u.nickname`
     );
     const data = helper.emptyOrRows(rows);
     
