@@ -26,31 +26,41 @@ async function getMultiple(page = 1){
 
 async function create(usuario){
 
-    var hashedPassword = bcrypt.hashSync(usuario.password, 8);
+  try{
 
-    const result = await db.query(
-      `INSERT INTO usuarios 
-      (mail,nickname,habilitado,nombre,avatar,tipo_usuario) 
-      VALUES 
-      ('${usuario.mail}', '${usuario.nickname}', '${usuario.habilitado}', '${usuario.nombre}',
-         '${usuario.avatar}','${usuario.tipo_usuario}');`
-    );
+      var hashedPassword = bcrypt.hashSync(usuario.password, 8);
+
+
+      const result = await db.query(
+        `INSERT INTO usuarios 
+        (mail,nickname,habilitado,nombre,avatar,tipo_usuario) 
+        VALUES 
+        ('${usuario.mail}', '${usuario.nickname}', '${usuario.habilitado}', '${usuario.nombre}',
+          '${usuario.avatar}','${usuario.tipo_usuario}');`
+      );
+
+      
+      db.query(
+        `INSERT INTO login (idUsuario,diasAlta,fecAlta,password)
+      VALUES((select max(IdUsuario) from usuarios),'${usuario.diasAlta}','${usuario.fecAlta}','${hashedPassword}');`
+      );
 
     
-    db.query(
-      `INSERT INTO login (idUsuario,diasAlta,fecAlta,password)
-    VALUES((select max(IdUsuario) from usuarios),'${usuario.diasAlta}','${usuario.fecAlta}','${hashedPassword}');`
-    );
+      let message = 'Error creando un usuario';
+    
+      if (result.affectedRows) {
+        message = 'Usuario creado correctamente';
+      }
+    
+      return {code: 201, message:message};
 
-  
-    let message = 'Error creando un usuario';
-  
-    if (result.affectedRows) {
-      message = 'Usuario creado correctamente';
-    }
-  
-    return {message};
+
+  }catch(e){
+    return {code: 400, message:e.message};
+
   }
+
+}
 
 
   async function crearInvitado(usuario){

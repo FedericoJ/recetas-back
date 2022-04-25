@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 
 module.exports = {
 
-  async sendEmailToRecoveryPass(email, token) {
+  async sendEmailToRecoveryPass(email) {
 
         let linkRecuperador =Math.round(Math.random()*999999);//`http://localhost:3000/recoverypassword/?token=${token}&mail=${email}`
 
@@ -18,16 +18,18 @@ module.exports = {
                 secure: false, // use SSL
                 port: 25,
                 auth: {
-                user: 'apigrupo9@gmail.com',
+                user: 'recetapp1@gmail.com',
                 pass: 'uade2021'
                 },
                 tls: {
                 rejectUnauthorized: false
                 } 
             });
-        
+            
+            console.log('llegue hasta amigo');
+
             let info = await transporter.sendMail({
-                from: '"Recetas" <apigrupo9@gmail.com>', // sender address
+                from: '"Recetas" <recetapp1@gmail.com>', // sender address
                 to: email,
                 subject: "Recuperar Contraseña ✔", // Subject line
                 text: "Recuperar Contraseña", // plain text body
@@ -35,6 +37,8 @@ module.exports = {
             });
 
             //Agregar Insert del codigo enviado
+
+            return {code: 200, message: 'Mail de recuperación enviado'}; 
 
         }catch(e){
 

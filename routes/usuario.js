@@ -50,7 +50,7 @@ router.post('/create', async function(req, res, next) {
   router.get('/SendRecoveryPassword', async function(req, res, next) {
     try {
 
-      const result= await mailSender.sendEmailToRecoveryPass(req.body);  
+      const result= await mailSender.sendEmailToRecoveryPass(req.body.mail);  
       
       res.status(result.code).json({result});
 
