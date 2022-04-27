@@ -40,4 +40,17 @@ router.post('/guardarMultimedia', async function(req, res, next) {
     }
   });
 
+  router.get('/getFactorConversion', async function(req, res, next) {
+    try {
+
+      const result= await multimedia.getConversiones(req.body);  
+      
+      res.status(result.code).json(result.factorConversion);
+
+    } catch (err) {
+      console.error(`Error obteniendo los tipos de receta`, err.message);
+      next(err);
+    }
+  });
+
   module.exports = router;

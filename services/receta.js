@@ -17,7 +17,7 @@ async function getRecetaPorUsuario(receta){
       WHERE t.idTipo=r.idTipo 
       and usr.idUsuario=r.idUsuario 
       and R.idReceta=RA.idReceta
-      and r.idUsuario='${receta.idUsuario}'`
+      and r.idUsuario='${receta.idUsuario}' and RA.snAutorizada ='S' `
     );
     const data = helper.emptyOrRows(rows);
     
@@ -55,6 +55,84 @@ async function valorarReceta(receta){
   
 }
 
+async function getRecetaPorNombre(receta){
+
+  try {
+
+    const rows = await db.query(
+
+      `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre, R.descripcion, R.foto, R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada
+      from recetas R, recetasAdicional RA, usuario usr, tipos t
+      where R.idReceta=U.idReceta 
+      and U.idIngrediente=I.idIngrediente 
+      and R.idReceta=RA.idReceta
+      and usr.idUsuario = R.idUsuario
+      and t.idTipo=R.idTipo
+      and UPPER(R.nombre)  like UPPER('% '${receta.nombre}' %') and RA.snAutorizada ='S'`
+    );
+    const data = helper.emptyOrRows(rows);
+
+    return {code: 201, receta:data};
+
+  }catch(e){
+    return {code: 400, message: e.message};
+  }
+  
+
+}
+
+async function buscarRecetaPorUsuarioyNombre(nombre,idUsuario){
+
+  try{
+    const rows = await db.query(
+      `select idReceta from recetas
+      where UPPER(nombre) like  UPPER('%${nombre}%') and idUsuario = ${idUsuario}`
+    );
+    const data = helper.emptyOrRows(rows);
+  
+    return {
+      data
+    }
+  }  catch(e){
+    return -1;
+  }
+ 
+
+}
+
+
+async function eliminarReceta(receta){
+
+  try{
+    /*const rows = await db.query(
+      `delete from favoritos 
+      where idUsuario =${favorito.idUsuario}
+      and idReceta =${favorito.idReceta} `
+    );
+     if (rows.affectedRows) {
+      message = 'Favorito eliminado correctamente';
+    }*/
+
+    data = await buscarRecetaPorUsuarioyNombre(receta,idUsuario);
+
+
+    let message = 'Error al guardar en favorito';
+    
+   
+  
+    return {code: 201, message:data};
+
+  }catch(e){
+
+    return {code: 400, message: e.message};
+  }
+  
+
+}
+
+
+
 
 
 async function getRecetaPorIngrediente(receta){
@@ -71,7 +149,7 @@ async function getRecetaPorIngrediente(receta){
       R.idReceta=RA.idReceta
       and usr.idUsuario = R.idUsuario
       and t.idTipo=R.idTipo
-      and UPPER(i.nombre)  like UPPER('% '${receta.idIngrediente}' %') and snAutorizada ='S'`
+      and UPPER(i.nombre)  like UPPER('% '${receta.idIngrediente}' %') and RA.snAutorizada ='S'`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -120,7 +198,7 @@ async function getRecetaPorTipo(receta){
       where R.idReceta=RA.idReceta
       and R.idTipo=T.idTipo
       and usr.idUsuario=R.idUsuario
-      and UPPER(T.descripcion) like UPPER('%${receta.idTipo}%')`
+      and UPPER(T.descripcion) like UPPER('%${receta.idTipo}%') and RA.snAutorizada ='S'`
     );
     const data = helper.emptyOrRows(rows);
 

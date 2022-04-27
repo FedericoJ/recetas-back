@@ -11,12 +11,12 @@ async function getFavoritos(usuario){
 
   try{
     const rows = await db.query(
-      `select avg(c.calificacion), r.nombre, u.nickname, c.idreceta from favoritos f
+      `select avg(c.calificacion) as calificacion, r.nombre, u.nickname, c.idreceta , f.idfavorito from favoritos f
       join calificaciones c on f.idreceta = c.idreceta
       join recetas r on f.idreceta = r.idreceta
       join usuarios u on r.idusuario = u.idusuario 
       where f.idusuario ='${usuario.idUsuario}'
-      group by c.idreceta, r.nombre, u.nickname`
+      group by c.idreceta, r.nombre, u.nickname,f.idfavorito`
     );
     const data = helper.emptyOrRows(rows);
     
@@ -30,14 +30,14 @@ async function getFavoritos(usuario){
 
 }
 
-async function cargarFavorito(receta,usuario){
+async function cargarFavorito(favorito){
 
   try{
     const rows = await db.query(
       `insert into favoritos
       (idReceta,idUsuario)
       VALUES
-      (${receta.idReceta},${usuario.idUsuario});`
+      (${favorito.idReceta},${favorito.idUsuario});`
     );
 
     let message = 'Error al guardar en favorito';
@@ -54,17 +54,22 @@ async function cargarFavorito(receta,usuario){
   
 }
 
-async function eliminarFavorito(usuario,receta){
+async function eliminarFavorito(favorito){
 
   try{
     const rows = await db.query(
       `delete from favoritos 
-      where idUsuario ='${usuario.idUsuario}'
-      and idReceta ='${receta.idReceta}' `
+      where idUsuario =${favorito.idUsuario}
+      and idReceta =${favorito.idReceta} `
     );
-    const data = helper.emptyOrRows(rows);
+
+   let message = 'Error al guardar en favorito';
     
-    return {code: 201, favorito:data};
+    if (rows.affectedRows) {
+      message = 'Favorito eliminado correctamente';
+    }
+  
+    return {code: 201, message:message};
 
   }catch(e){
 

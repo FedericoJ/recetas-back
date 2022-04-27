@@ -72,9 +72,33 @@ async function getTiposreceta() {
 
 }
 
+async function getConversiones(unidad) {
+
+    try {
+
+
+        const result = await db.query(
+            `select ROUND(factorConversiones,3)as conversion from conversiones 
+            where idUnidadOrigen= ${unidad.idOrigen} and idUnidadDestino=${unidad.idDestino};`
+        );
+
+        const data = helper.emptyOrRows(result);
+
+        return { code: 201, factorConversion: data };
+
+    } catch (e) {
+        // return a Error message describing the reason     
+        return { code: 400, message: e.message };
+    }
+
+}
+
+
+
 
 module.exports = {
     guardarMultimedia,
     getMultimedia,
-    getTiposreceta
+    getTiposreceta,
+    getConversiones
 }
