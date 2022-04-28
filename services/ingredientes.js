@@ -51,6 +51,55 @@ async function getMultimedia(multimedia) {
 
 }
 
+async function getIngredientes(multimedia) {
+
+    // Creating a new Mongoose Object by using the new keyword
+    try {
+        // Find the User 
+
+        const result = await db.query(
+            `select nombre from Ingredientes I
+            where UPPER(I.nombre)=UPPER('${multimedia.descripcion}')`
+        );
+
+        const data = helper.emptyOrRows(result);
+
+        return { code: 201, multimedia: data };
+
+    } catch (e) {
+        // return a Error message describing the reason     
+        return { code: 400, message: e.message };
+    }
+
+}
+
+async function getIngredienteUtilizadoPorReceta(multimedia) {
+
+    // Creating a new Mongoose Object by using the new keyword
+    try {
+        // Find the User 
+
+        const result = await db.query(
+            `select I.nombre, U.cantidad, UNI.descripcion, UNI.IdUnidad, R.idReceta
+            from Ingredientes I, Utilizados U, recetas R, unidades UNI
+            where I.IdIngrediente=U.IdIngrediente
+            and R.IdReceta=U.IdReceta
+            and UNI.idUnidad=U.Idunidad
+            and R.IdReceta=${multimedia.idReceta}`
+        );
+
+        const data = helper.emptyOrRows(result);
+
+        return { code: 201, multimedia: data };
+
+    } catch (e) {
+        // return a Error message describing the reason     
+        return { code: 400, message: e.message };
+    }
+
+}
+
+
 async function getTiposreceta() {
 
     // Creating a new Mongoose Object by using the new keyword
@@ -98,7 +147,9 @@ async function getConversiones(unidad) {
 
 module.exports = {
     guardarMultimedia,
+    getIngredientes,
     getMultimedia,
     getTiposreceta,
-    getConversiones
+    getConversiones,
+    getIngredienteUtilizadoPorReceta
 }
