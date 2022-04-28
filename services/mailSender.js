@@ -1,5 +1,6 @@
 "use strict";
 const nodemailer = require("nodemailer");
+const usuario = require('../services/usuario');
 
 
 module.exports = {
@@ -37,6 +38,16 @@ module.exports = {
             });
 
             //Agregar Insert del codigo enviado
+
+            const result = await usuario.crearCodigoVerificacion(linkRecuperador,email);
+
+            if (result.code != 201){
+
+                return {code: 404, message: {result}};
+
+            } 
+
+
 
             return {code: 200, message: 'Mail de recuperación enviado'}; 
 

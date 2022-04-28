@@ -60,6 +60,19 @@ router.post('/create', async function(req, res, next) {
     }
   });
 
+  router.get('/validarCodigoRecuperacion', async function(req, res, next) {
+    try {
+
+      const result= await usuario.consultarCodigoVigente(req.body);  
+      
+      res.status(result.code).json({result});
+
+    } catch (err) {
+      console.error(`Error validando codigo de recuperacion de usuario`, err.message);
+      next(err);
+    }
+  });
+
 
   router.put('/modificarUsuario', async function(req, res, next) {
     try {

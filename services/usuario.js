@@ -209,20 +209,19 @@ async function create(usuario){
   }
 
 
-  async function crearCodigoVerificacion(usuario){
+  async function crearCodigoVerificacion(codigo,mail){
 
     try{
       
       const result = await db.query(
-        `INSERT INTO usuarios 
-        (mail,nickname,habilitado,tipo_usuario,fecAlta,diasAlta) 
+        `INSERT INTO recuperacionpass 
+        ( codigoRecuperacion,snUtilizado,mail)
         VALUES 
-        ('${usuario.mail}', '${usuario.nickname}', 'No',
-        '${usuario.tipo_usuario}','${usuario.fecAlta}',${usuario.diasAlta})`
+        ('${codigo}', 'N', '${mail}')`
       );
 
     
-      let message = 'Error creando un invitado';
+      let message = 'Error creando un codigo de recuperacion';
     
       if (result.affectedRows) {
         message = 'Usuario Invitado creado correctamente';
@@ -239,6 +238,49 @@ async function create(usuario){
 }
 
 
+async function consultarCodigoVigente (usuario ) {
+
+  // Creating a new Mongoose Object by using the new keyword
+  try {
+      // Find the verification code
+      
+
+      const rows = await db.query(
+        `select  1  from recuperacionpass 
+        where codigoRecuperacion = ${usuario.codigo}
+        and snUtilizado = 'N'
+        and mail ='${usuario.mail}'`
+      );
+
+      const data = helper.emptyOrRows(rows); 
+
+
+      if ((data.length ===0)){
+          return {code: 202, message: "No se encuentra un codigo vigente"};
+      }
+
+      const result = await db.query(
+        `UPDATE recuperacionpass SET
+        snUtilizado='S'
+       WHERE codigoRecuperacion=${usuario.codigo}`
+   );
+     
+
+   if (result.affectedRows) {
+    return {code: 201, message:"Codigo encontrado como la cola de fede"};
+   }
+  
+  
+      
+
+  } catch (e) {
+      // return a Error message describing the reason     
+      return {code: 400, message: e.message};
+  }
+
+}
+
+
 
 
 module.exports = {
@@ -246,5 +288,7 @@ module.exports = {
   create,
   loginUser,
   updateUser,
-  crearInvitado
+  crearInvitado,
+  crearCodigoVerificacion,
+  consultarCodigoVigente
 }

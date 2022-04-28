@@ -7,7 +7,7 @@ const favorito =require('../services/favorito');
 /* GET programming languages. */
 router.get('/recetaPorUsuario', async function(req, res, next) {
   try {
-    const result = await receta.getRecetaPorUsuario(req.body);
+    const result = await receta.getRecetaPorNombre(req.body);
     res.status(result.code).json({result});
   } catch (err) {
     console.error(`Error obteniendo recetas por usuarios `, err.message);
