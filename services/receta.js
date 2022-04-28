@@ -162,7 +162,7 @@ async function getRecetaPorIngrediente(receta){
             R.idReceta=RA.idReceta
             and usr.idUsuario = R.idUsuario
             and t.idTipo=R.idTipo
-            and UPPER(i.nombre)  like UPPER('% '${receta.idIngrediente}' %') and RA.snAutorizada ='S'`
+            and UPPER(i.nombre)  like UPPER('% ${receta.idIngrediente} %') and RA.snAutorizada ='S'`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -190,7 +190,7 @@ async function getRecetaSinIngrediente(receta){
             R.idReceta=RA.idReceta
             and usr.idUsuario = R.idUsuario
             and t.idTipo=R.idTipo
-            and UPPER(i.nombre)  not like UPPER('% '${receta.idIngrediente}' %') and RA.snAutorizada ='S'`
+            and UPPER(i.nombre)  not like UPPER('% ${receta.idIngrediente} %') and RA.snAutorizada ='S'`
     );
     const data = helper.emptyOrRows(rows);
 
