@@ -186,6 +186,7 @@ async function create(usuario){
        
         user = data.data[0];
 
+        
 
         let passwordIsValid = bcrypt.compareSync(usuario.password,user.password );
 
@@ -208,6 +209,34 @@ async function create(usuario){
   }
 
 
+  async function crearCodigoVerificacion(usuario){
+
+    try{
+      
+      const result = await db.query(
+        `INSERT INTO usuarios 
+        (mail,nickname,habilitado,tipo_usuario,fecAlta,diasAlta) 
+        VALUES 
+        ('${usuario.mail}', '${usuario.nickname}', 'No',
+        '${usuario.tipo_usuario}','${usuario.fecAlta}',${usuario.diasAlta})`
+      );
+
+    
+      let message = 'Error creando un invitado';
+    
+      if (result.affectedRows) {
+        message = 'Usuario Invitado creado correctamente';
+      }
+    
+      return {code: 201, message:message};
+
+
+    }catch(e){
+      return {code: 400, message:e.message};
+
+    }
+  
+}
 
 
 

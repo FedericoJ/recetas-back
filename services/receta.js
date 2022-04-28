@@ -105,23 +105,35 @@ async function buscarRecetaPorUsuarioyNombre(nombre,idUsuario){
 async function eliminarReceta(receta){
 
   try{
-    /*const rows = await db.query(
-      `delete from favoritos 
-      where idUsuario =${favorito.idUsuario}
-      and idReceta =${favorito.idReceta} `
-    );
-     if (rows.affectedRows) {
-      message = 'Favorito eliminado correctamente';
-    }*/
-
+    
     data = await buscarRecetaPorUsuarioyNombre(receta,idUsuario);
 
 
-    let message = 'Error al guardar en favorito';
+    idReceta =data.data[0].idReceta;
+
+
+    const rowsDelete = await db.query(`delete from utilizados
+      where idReceta =${idReceta}`)
+
+      if (rowsDelete.affectedRows){
+
+        const rows = await db.query(
+          `delete from recetas 
+          where idReceta =${idReceta}`
+        
+        );
+
+        if (rows.affectedRows) {
+          message = 'Receta eliminada correctamente';
+        }
+
+
+      }
+
+    let message = 'Error al eliminar la receta';
     
-   
-  
-    return {code: 201, message:data};
+
+    return {code: 201, message};
 
   }catch(e){
 
