@@ -74,4 +74,13 @@ router.post('/create', async function(req, res, next) {
     }
   });
 
+  router.get('/helloWorld', async function (req, res, next) {
+    try {
+      res.status(201).json({message: 'Hola Mundo'});
+    } catch (err) {
+      console.error(`Error Hola Mundo`, err.message);
+      next(err);
+    }
+  });
+
 module.exports = router;
