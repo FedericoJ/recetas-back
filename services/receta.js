@@ -242,7 +242,7 @@ async function getValoracionPromedio(receta){
 
   try{
     const rows = await db.query(
-      `select  AVG(calificacion) from calificaciones where idReceta =${receta.idReceta}`
+      `select AVG(calificacion) from calificaciones where idReceta =${receta.idReceta}`
     );
     const data = helper.emptyOrRows(rows);
     
@@ -262,6 +262,7 @@ module.exports = {
   getRecetaPorUsuario,
   getRecetaPorIngrediente,
   getRecetaSinIngrediente,
+  getRecetaPorNombre,
   getRecetaPorTipo,
   valorarReceta,
   getValoracionesByReceta,
