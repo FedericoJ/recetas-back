@@ -116,4 +116,26 @@ router.delete('/eliminarFavorito', async function(req, res, next) {
   }
 });
 
+
+// Seccion de Fotos
+
+router.post('/guardarFoto', async function(req, res, next) {
+  try {
+    res.json(await receta.guardarFoto(req.body));
+  } catch (err) {
+    console.error(`Error valorando receta`, err.message);
+    next(err);
+  }
+});
+
+router.get('/getFoto', async function(req, res, next) {
+  try {
+    const result = await receta.getFoto(req.body);
+    res.status(result.code).json({result});
+  } catch (err) {
+    console.error(`Error obteniendo los favoritos por usuario`, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;

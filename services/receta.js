@@ -268,6 +268,56 @@ async function getValoracionPromedio(receta){
 
 }
 
+async function guardarFoto(receta) {
+
+
+  try {
+      const result = await db.query(
+          `insert into fotos (idReceta,urlFoto,extension) 
+          VALUES 
+          (${receta.idReceta}, '${receta.url}', '${receta.extension}')`
+      );
+
+
+      let message = 'Error guardando los datos multimedia de la receta';
+
+      if (result.affectedRows) {
+          message = 'Multimedia guardada correctamente para : ';
+      }
+
+      return { code: 201, message: message }
+
+  } catch (e) {
+
+      return { code: 400, message: e.message };
+  }
+
+}
+
+
+async function getFoto(receta) {
+
+
+  try {
+      // Find the User 
+
+      const result = await db.query(
+          `select idReceta,urlFoto,extension from fotos
+          where idReceta=${receta.idReceta}`
+      );
+
+      const data = helper.emptyOrRows(result);
+
+      return { code: 201, foto: data };
+
+  } catch (e) {
+      // return a Error message describing the reason     
+      return { code: 400, message: e.message };
+  }
+
+}
+
+
 
 
 module.exports = {
@@ -277,6 +327,8 @@ module.exports = {
   getRecetaPorNombre,
   getRecetaPorTipo,
   valorarReceta,
+  guardarFoto,
   getValoracionesByReceta,
-  getValoracionPromedio
+  getValoracionPromedio,
+  getFoto
 }
