@@ -152,17 +152,18 @@ async function getRecetaPorIngrediente(receta){
 
     const rows = await db.query(
 
-      `select R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as Alias, 
+      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as Alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as Foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, 
       RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
-        from recetas R, utilizados U, ingredientes I, recetasAdicional RA, usuarios usr, tipos t
-            where R.idReceta=U.idReceta and
-            U.idIngrediente=I.idIngrediente and
-            R.idReceta=RA.idReceta
+        from recetas R, recetasAdicional RA, usuarios usr, tipos t
+            where R.idReceta=RA.idReceta
             and usr.idUsuario = R.idUsuario
             and t.idTipo=R.idTipo
-            and UPPER(i.nombre)  like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'`
+            and exists (select 1 from Utilizados U, Ingredientes I
+							where U.idReceta=R.IdReceta and U.idIngrediente=I.IdIngrediente
+                            and UPPER(i.nombre) like UPPER('%${receta.nombre}%'))
+			and RA.snAutorizada ='S'`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -180,17 +181,18 @@ async function getRecetaSinIngrediente(receta){
   try{
     
     const rows = await db.query(
-      `select R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as Alias, 
+      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as Alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as Foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, 
       RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
-        from recetas R, utilizados U, ingredientes I, recetasAdicional RA, usuarios usr, tipos t
-            where R.idReceta=U.idReceta and
-            U.idIngrediente=I.idIngrediente and
-            R.idReceta=RA.idReceta
+        from recetas R, recetasAdicional RA, usuarios usr, tipos t
+            where R.idReceta=RA.idReceta
             and usr.idUsuario = R.idUsuario
             and t.idTipo=R.idTipo
-            and UPPER(i.nombre)  not like UPPER('% ${receta.idIngrediente} %') and RA.snAutorizada ='S'`
+            and not exists (select 1 from Utilizados U, Ingredientes I
+							where U.idReceta=R.IdReceta and U.idIngrediente=I.IdIngrediente
+                            and UPPER(i.nombre) like UPPER('%${receta.nombre}%'))
+			and RA.snAutorizada ='S'`
     );
     const data = helper.emptyOrRows(rows);
 
