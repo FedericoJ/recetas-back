@@ -68,7 +68,7 @@ async function getRecetaPorNombre(receta){
       where R.IdReceta=RA.IdReceta and
       R.IdUsuario=U.IdUsuario and
       T.IdTipo=R.IdTipo
-      and UPPER(R.nombre)  like UPPER('% '${receta.nombre}' %') and RA.snAutorizada ='S'`
+      and UPPER(R.nombre)  like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'`
     );
     const data = helper.emptyOrRows(rows);
 
