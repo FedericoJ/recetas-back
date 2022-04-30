@@ -126,7 +126,7 @@ async function create(usuario){
 
   }
 
-  async function updateUser (usuario ) {
+  async function updateUser (usuario) {
 
     var hashedPassword = bcrypt.hashSync(usuario.password, 8);
     var message='';

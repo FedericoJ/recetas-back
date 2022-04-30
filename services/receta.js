@@ -256,7 +256,7 @@ async function getValoracionPromedio(receta){
 
   try{
     const rows = await db.query(
-      `select AVG(calificacion) from calificaciones where idReceta =${receta.idReceta}`
+      `select AVG(calificacion) as PromedioCalificacion from calificaciones where idReceta =${receta.idReceta}`
     );
     const data = helper.emptyOrRows(rows);
     
