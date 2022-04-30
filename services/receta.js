@@ -6,6 +6,39 @@ var jwt = require('jsonwebtoken');
 const env = process.env.NODE_ENV || 'development';
 const configClave = require('../config/config.json')[env]
 
+async function postReceta(receta){
+
+  try{
+
+    const result = await db.query(
+      `INSERT INTO recetas 
+      (idUsuario,nombre,descripcion,foto,porciones,cantidadPersonas,idTipo) 
+      VALUES 
+      ('${receta.idUsuario}', '${receta.nombre}', '${receta.descripcion}', '${receta.foto}',
+        '${receta.porciones}','${receta.cantidadPersonas}', '${receta.idTipo}');`
+    );
+
+  
+    let message = 'Error creando un usuario';
+  
+    if (result.affectedRows) {
+      message = 'Usuario creado correctamente';
+      db.query(
+        `INSERT INTO recetasadicional (idReceta,fecAlta,SnAutorizada)
+      VALUES((select max(idReceta) from recetas),'${receta.fecAlta}', 'N');`
+      );
+    }
+  
+    return {code: 201, message:message};
+
+
+}catch(e){
+  return {code: 400, message:e.message};
+
+}
+
+}
+
 
 async function getRecetaPorUsuario(receta){
 
@@ -284,7 +317,7 @@ async function guardarFoto(receta) {
       let message = 'Error guardando los datos multimedia de la receta';
 
       if (result.affectedRows) {
-          message = 'Multimedia guardada correctamente para : ';
+          message = 'Foto guardada correctamente';
       }
 
       return { code: 201, message: message }
@@ -319,6 +352,56 @@ async function getFoto(receta) {
 
 }
 
+// Pasos
+
+async function postPaso(paso) {
+
+
+  try {
+      const result = await db.query(
+          `insert into pasos (idReceta,nroPaso,texto) 
+          VALUES 
+          (${paso.idReceta}, '${paso.nroPaso}', '${paso.texto}')`
+      );
+
+
+      let message = 'Error guardando el paso';
+
+      if (result.affectedRows) {
+          message = 'Paso guardado correctamente';
+      }
+
+      return { code: 201, message: message }
+
+  } catch (e) {
+
+      return { code: 400, message: e.message };
+  }
+
+}
+
+
+async function getPasos(paso) {
+
+
+  try {
+      // Find the User 
+
+      const result = await db.query(
+          `select idPaso, idReceta, nroPaso, texto from pasos
+          where idReceta=${paso.idReceta}`
+      );
+
+      const data = helper.emptyOrRows(result);
+
+      return { code: 201, foto: data };
+
+  } catch (e) {
+      // return a Error message describing the reason     
+      return { code: 400, message: e.message };
+  }
+
+}
 
 
 
@@ -332,5 +415,8 @@ module.exports = {
   guardarFoto,
   getValoracionesByReceta,
   getValoracionPromedio,
-  getFoto
+  getFoto,
+  postReceta,
+  postPaso,
+  getPasos
 }

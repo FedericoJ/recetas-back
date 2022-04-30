@@ -53,15 +53,15 @@ router.post('/guardarMultimedia', async function(req, res, next) {
     }
   });
 
-  router.get('/getIngredienteUtilizadoPorReceta', async function(req, res, next) {
+  router.post('/postIngredientes', async function(req, res, next) {
     try {
 
-      const result= await multimedia.getIngredienteUtilizadoPorReceta(req.body);  
+      const result= await multimedia.postIngredientes(req.body);  
       
       res.status(result.code).json({result});
 
     } catch (err) {
-      console.error(`Error obteniendo los ingredientes por receta`, err.message);
+      console.error(`Error obteniendo los ingredientes`, err.message);
       next(err);
     }
   });
@@ -78,5 +78,28 @@ router.post('/guardarMultimedia', async function(req, res, next) {
       next(err);
     }
   });
+
+  // Utilizados
+router.post('/postIngredienteUtilizadoPorReceta', async function(req, res, next) {
+  try {
+    res.json(await multimedia.postIngredienteUtilizadoPorReceta(req.body));
+  } catch (err) {
+    console.error(`Error creando el ingrediente utilizado.`, err.message);
+    next(err);
+  }
+});
+
+router.get('/getIngredienteUtilizadoPorReceta', async function(req, res, next) {
+  try {
+
+    const result= await multimedia.getIngredienteUtilizadoPorReceta(req.body);  
+    
+    res.status(result.code).json({result});
+
+  } catch (err) {
+    console.error(`Error obteniendo los ingredientes por receta`, err.message);
+    next(err);
+  }
+});
 
   module.exports = router;

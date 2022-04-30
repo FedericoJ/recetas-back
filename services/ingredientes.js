@@ -73,6 +73,31 @@ async function getIngredientes(multimedia) {
 
 }
 
+async function postIngredientes(ingrediente) {
+
+
+    try {
+        const result = await db.query(
+            `insert into ingredientes (nombre) 
+            VALUES ('${ingrediente.nombre}')`
+        );
+
+
+        let message = 'Error creando el ingrediente';
+
+        if (result.affectedRows) {
+            message = 'Ingrediente creado correctamente';
+        }
+
+        return { code: 201, message: message }
+
+    } catch (e) {
+
+        return { code: 400, message: e.message };
+    }
+
+}
+
 async function getIngredienteUtilizadoPorReceta(multimedia) {
 
     // Creating a new Mongoose Object by using the new keyword
@@ -98,6 +123,33 @@ async function getIngredienteUtilizadoPorReceta(multimedia) {
     }
 
 }
+
+async function postIngredienteUtilizadoPorReceta(utilizado) {
+
+
+    try {
+        const result = await db.query(
+            `insert into utilizados (idReceta, idIngrediente, cantidad, idUnidad, Observaciones) 
+            VALUES 
+            (${utilizado.idReceta}, '${utilizado.idIngrediente}', '${utilizado.cantidad}',
+            '${utilizado.idUnidad}','${utilizado.Observaciones}')`
+        );
+  
+  
+        let message = 'Error guardando el ingrediente utilizado';
+  
+        if (result.affectedRows) {
+            message = 'Ingrediente utilizado guardado correctamente';
+        }
+  
+        return { code: 201, message: message }
+  
+    } catch (e) {
+  
+        return { code: 400, message: e.message };
+    }
+  
+  }
 
 
 async function getTiposreceta() {
@@ -151,5 +203,7 @@ module.exports = {
     getMultimedia,
     getTiposreceta,
     getConversiones,
-    getIngredienteUtilizadoPorReceta
+    getIngredienteUtilizadoPorReceta,
+    postIngredienteUtilizadoPorReceta,
+    postIngredientes
 }

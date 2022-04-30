@@ -5,6 +5,16 @@ const favorito =require('../services/favorito');
 
 
 /* GET programming languages. */
+router.post('/postReceta', async function(req, res, next) {
+  try {
+    const result = await receta.postReceta(req.body);
+    res.status(result.code).json({result});
+  } catch (err) {
+    console.error(`Error dando de alta la receta. `, err.message);
+    next(err);
+  }
+});
+
 router.get('/recetaPorUsuario', async function(req, res, next) {
   try {
     const result = await receta.getRecetaPorUsuario(req.body);
@@ -137,5 +147,26 @@ router.get('/getFoto', async function(req, res, next) {
     next(err);
   }
 });
+
+// Pasos
+router.post('/postPaso', async function(req, res, next) {
+  try {
+    res.json(await receta.postPaso(req.body));
+  } catch (err) {
+    console.error(`Error creando el paso.`, err.message);
+    next(err);
+  }
+});
+
+router.get('/getPasos', async function(req, res, next) {
+  try {
+    const result = await receta.getPasos(req.body);
+    res.status(result.code).json({result});
+  } catch (err) {
+    console.error(`Error obteniendo los pasos.`, err.message);
+    next(err);
+  }
+});
+
 
 module.exports = router;
