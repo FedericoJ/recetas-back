@@ -60,6 +60,15 @@ router.post('/create', async function(req, res, next) {
     }
   });
 
+  router.post('/crearInvitadoUpdate', async function(req, res, next) {
+    try {
+      res.json(await usuario.crearInvitadoUpdate(req.body));
+    } catch (err) {
+      console.error(`Error actualizando información del usuario`, err.message);
+      next(err);
+    }
+  });
+
 
   router.get('/login', async function(req, res, next) {
     try {

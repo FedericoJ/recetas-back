@@ -5,6 +5,8 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const env = process.env.NODE_ENV || 'development';
 const configClave = require('../config/config.json')[env]
+//MRV(08-05): Agrego lo del mail para enviar una vez registrado!
+const mailSender=require('../services/mailSender');
 
 console.log(configClave.SECRET);
 
@@ -95,20 +97,26 @@ async function modificarPass(usuario){
   async function crearInvitado(usuario){
 
       try{
-        
+        //MRV(08-05): Acá tendría que validar que no exista un usuario con ese mail o alias, sino hay, inserto el registro
         const result = await db.query(
           `INSERT INTO usuarios 
-          (mail,nickname,habilitado,tipo_usuario,fecAlta,diasAlta) 
+          (mail, nickname, tipo_usuario, habilitado) 
           VALUES 
-          ('${usuario.mail}', '${usuario.nickname}', 'No',
-          '${usuario.tipo_usuario}','${usuario.fecAlta}',${usuario.diasAlta})`
+          ('${usuario.mail}', '${usuario.nickname}', 'Visitante', 'No')`
+        );
+        //MRV(08-05): Inserto password 1 porque no puede ser NULL -> Ojo que esto no se tiene que insertar si el mail/alias existe.
+        await db.query(
+          `INSERT INTO login (idUsuario,diasAlta,fecAlta,password)
+          VALUES((select max(IdUsuario) from usuarios),'30',now(),1);`
         );
 
       
         let message = 'Error creando un invitado';
       
         if (result.affectedRows) {
-          message = 'Usuario Invitado creado correctamente';
+          message = 'Usuario Invitado creado correctamente. Se enviará el mail!';
+          await mailSender.sendEmailToCompleteRegistration(usuario.mail);
+          //Aca tiene que enviar el mail
         }
       
         return {code: 201, message:message};
@@ -120,6 +128,40 @@ async function modificarPass(usuario){
       }
     
   }
+
+  async function crearInvitadoUpdate(usuario){
+
+    var hashedPassword = bcrypt.hashSync(usuario.password, 8);
+
+    try{
+      const result = await db.query(
+        //MRV(08-05): ¿Hay que chequear los dias de alta para poder habilitarlo y que termine el login?
+        `update usuarios
+        set nombre='${usuario.nombre}', habilitado='Si'
+        where mail='${usuario.mail}'`
+      );
+      await db.query(
+        `update login
+        set password='${hashedPassword}'
+        where idusuario=(select idusuario from usuarios where mail='${usuario.mail}')`
+      );
+    
+      let message = 'Error creando un invitado';
+    
+      if (result.affectedRows) {
+        message = 'Registración exitosa. Por favor logueese!';
+        //Aca tiene que enviar el mail
+      }
+    
+      return {code: 201, message:message};
+
+
+    }catch(e){
+      return {code: 400, message:e.message};
+
+    }
+  
+}
 
 
   async function buscarUsuarioByMail(mail){
@@ -362,6 +404,7 @@ module.exports = {
   loginUser,
   updateUser,
   crearInvitado,
+  crearInvitadoUpdate,
   crearCodigoVerificacion,
   consultarCodigoVigente,
   getUsuario,
