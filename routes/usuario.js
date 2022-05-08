@@ -14,11 +14,38 @@ router.get('/consultarUsuario', async function(req, res, next) {
   }
 });
 
+router.get('/getUsuario', async function(req, res, next) {
+  try {
+    res.json(await usuario.getUsuario(req.body));
+  } catch (err) {
+    console.error(`Error al obtener el usuario`, err.message);
+    next(err);
+  }
+});
+
 router.post('/create', async function(req, res, next) {
     try {
       res.json(await usuario.create(req.body));
     } catch (err) {
       console.error(`Error creando un usuario`, err.message);
+      next(err);
+    }
+  });
+
+  router.post('/modificarPass', async function(req, res, next) {
+    try {
+      res.json(await usuario.modificarPass(req.body));
+    } catch (err) {
+      console.error(`Error modificando la Pass`, err.message);
+      next(err);
+    }
+  });
+
+  router.post('/modificarUsuario', async function(req, res, next) {
+    try {
+      res.json(await usuario.postUsuario(req.body));
+    } catch (err) {
+      console.error(`Error actualizando al Usuario`, err.message);
       next(err);
     }
   });

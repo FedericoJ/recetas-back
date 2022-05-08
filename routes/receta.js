@@ -25,6 +25,36 @@ router.get('/recetaPorUsuario', async function(req, res, next) {
   }
 });
 
+router.get('/recetaPorId', async function(req, res, next) {
+  try {
+    const result = await receta.getRecetaPorId(req.body);
+    res.status(result.code).json({result});
+  } catch (err) {
+    console.error(`Error obteniendo la receta `, err.message);
+    next(err);
+  }
+});
+
+router.get('/recetasSemana', async function(req, res, next) {
+  try {
+    const result = await receta.getRecetasSemana();
+    res.status(result.code).json({result});
+  } catch (err) {
+    console.error(`Error obteniendo las recetas destacadas de la semana`, err.message);
+    next(err);
+  }
+});
+
+router.get('/getComentariosPorReceta', async function(req, res, next) {
+  try {
+    const result = await receta.getComentariosPorReceta(req.body);
+    res.status(result.code).json({result});
+  } catch (err) {
+    console.error(`Error obteniendo recetas por usuarios `, err.message);
+    next(err);
+  }
+});
+
 router.get('/recetaPorNombre', async function(req, res, next) {
   try {
     const result = await receta.getRecetaPorNombre(req.body);
@@ -63,6 +93,26 @@ router.get('/recetaPorTipo', async function(req, res, next) {
     res.status(result.code).json({result});
   } catch (err) {
     console.error(`Error obteniendo las recetas por tipo`, err.message);
+    next(err);
+  }
+});
+
+router.get('/recetaPorNombreTipo', async function(req, res, next) {
+  try {
+    const result = await receta.getRecetaPorNombreTipo(req.body);
+    res.status(result.code).json({result});
+  } catch (err) {
+    console.error(`Error obteniendo las recetas por tipo`, err.message);
+    next(err);
+  }
+});
+
+router.get('/buscarRecetaPorUsuarioyNombre', async function(req, res, next) {
+  try {
+    const result = await receta.buscarRecetaPorUsuarioyNombre(req.body);
+    res.status(result.code).json({result});
+  } catch (err) {
+    console.error(`Error obteniendo las por usuario y nombre`, err.message);
     next(err);
   }
 });

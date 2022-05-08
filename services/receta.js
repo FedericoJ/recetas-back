@@ -39,6 +39,30 @@ async function postReceta(receta){
 
 }
 
+async function getRecetasSemana(receta){
+
+  try{
+    const rows = await db.query(
+      `select  R.IdReceta, R.Nombre, R.Descripcion, R.foto, avg(C.calificacion) as CalificacionProm
+      from recetas R
+      join Calificaciones C on C.IdReceta=R.IdReceta
+      join recetasAdicional RA on RA.IdReceta=R.IdReceta
+      where RA.SnAutorizada='S'
+      group by R.IdReceta, R.Nombre, R.Descripcion, R.foto
+      order by avg(C.calificacion) desc
+      limit 5`
+    );
+    const data = helper.emptyOrRows(rows);
+    
+    return {code: 201, receta:data};
+
+  }catch(e){
+
+    return {code: 400, message: e.message};
+  }
+  
+
+}
 
 async function getRecetaPorUsuario(receta){
 
@@ -50,7 +74,31 @@ async function getRecetaPorUsuario(receta){
       WHERE t.idTipo=r.idTipo 
       and usr.idUsuario=r.idUsuario 
       and R.idReceta=RA.idReceta
-      and r.idUsuario='${receta.idUsuario}' and RA.snAutorizada ='S' `
+      and r.idUsuario='${receta.idUsuario}' `
+    );
+    const data = helper.emptyOrRows(rows);
+    
+    return {code: 201, receta:data};
+
+  }catch(e){
+
+    return {code: 400, message: e.message};
+  }
+  
+
+}
+
+async function getRecetaPorId(receta){
+
+  try{
+    const rows = await db.query(
+      `select R.IdReceta, R.IdUsuario, R.nombre, R.Descripcion, R.foto, R.porciones, R.CantidadPersonas,
+        R.IdTipo, T.descripcion as DescripcionTipo, RA.FecAlta, RA.SnAutorizada, avg (C.calificacion)
+      from recetas R
+      join recetasadicional RA on RA.IdReceta=R.IdReceta
+      join Tipos T on T.IdTipo=R.IdTIpo
+      join Calificaciones C on C.IdReceta=R.IdReceta
+      where r.idreceta='${receta.idReceta}'`
     );
     const data = helper.emptyOrRows(rows);
     
@@ -263,6 +311,31 @@ async function getRecetaPorTipo(receta){
 
 }
 
+async function getRecetaPorNombreTipo(receta){
+  try{
+
+    const rows = await db.query(
+      `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre, R.descripcion, R.foto, R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada
+      from recetas R, recetasAdicional RA, tipos T , usuarios usr
+      where R.idReceta=RA.idReceta
+      and R.idTipo=T.idTipo
+      and usr.idUsuario=R.idUsuario
+      and UPPER(T.descripcion) like UPPER('%${receta.descripcion}%') and RA.snAutorizada ='S'`
+    );
+    const data = helper.emptyOrRows(rows);
+
+
+    return {code: 201, receta:data};
+
+  }catch(e){
+
+    return {code: 400, message: e.message};
+
+  }
+
+}
+
 
 async function getValoracionesByReceta(receta){
 
@@ -407,10 +480,12 @@ async function getPasos(paso) {
 
 module.exports = {
   getRecetaPorUsuario,
+  getRecetaPorId,
   getRecetaPorIngrediente,
   getRecetaSinIngrediente,
   getRecetaPorNombre,
   getRecetaPorTipo,
+  getRecetaPorNombreTipo,
   valorarReceta,
   guardarFoto,
   getValoracionesByReceta,
@@ -418,5 +493,7 @@ module.exports = {
   getFoto,
   postReceta,
   postPaso,
-  getPasos
+  getPasos,
+  getRecetasSemana,
+  buscarRecetaPorUsuarioyNombre
 }

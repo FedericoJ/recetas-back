@@ -62,6 +62,35 @@ async function create(usuario){
 
 }
 
+async function modificarPass(usuario){
+
+  try{
+
+      var hashedPassword = bcrypt.hashSync(usuario.password, 8);
+
+
+      const result = await db.query(
+        `update login 
+        set password='${hashedPassword}'
+        where IdUsuario='${usuario.IdUsuario}'`
+      );
+    
+      let message = 'Error modificando la pass';
+    
+      if (result.affectedRows) {
+        message = 'Password modificada correctamente';
+      }
+    
+      return {code: 201, message:message};
+
+
+  }catch(e){
+    return {code: 400, message:e.message};
+
+  }
+
+}
+
 
   async function crearInvitado(usuario){
 
@@ -108,6 +137,50 @@ async function create(usuario){
     }
 
 
+  }
+
+  async function getUsuario(usuario){
+
+    try {
+  
+      const rows = await db.query(
+  
+        `select S.IdUsuario, S.Mail, S.NickName, S.Habilitado, S.Nombre, S.Avatar, S.Tipo_Usuario, L.diasAlta, L.fecAlta
+        from Usuarios S
+        join login L on L.IdUsuario=S.IdUsuario
+        where S.IdUsuario='${usuario.IdUsuario}'`
+      );
+      const data = helper.emptyOrRows(rows);
+  
+      return {code: 201, usuario:data};
+  
+    }catch(e){
+      return {code: 400, message: e.message};
+    }
+    
+  
+  }
+
+
+  async function postUsuario(usuario){
+
+    try {
+  
+      const rows = await db.query(
+  
+        `update usuarios
+        set Nombre='${usuario.nombre}', avatar=' ${usuario.avatar}'
+        where IdUsuario='${usuario.IdUsuario}'`
+      );
+      const data = helper.emptyOrRows(rows);
+  
+      return {code: 201, usuario:data};
+  
+    }catch(e){
+      return {code: 400, message: e.message};
+    }
+    
+  
   }
 
   async function buscarUsuarioByAlias(alias){
@@ -290,5 +363,8 @@ module.exports = {
   updateUser,
   crearInvitado,
   crearCodigoVerificacion,
-  consultarCodigoVigente
+  consultarCodigoVigente,
+  getUsuario,
+  postUsuario,
+  modificarPass
 }
