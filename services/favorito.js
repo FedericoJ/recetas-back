@@ -65,14 +65,14 @@ async function eliminarFavorito(favorito){
       and idReceta =${favorito.idReceta} `
     );
 
-   let message = 'Error al guardar en favorito';
+   let message = 'Error al eliminar el favorito';
     
     if (rows.affectedRows) {
       message = 'Favorito eliminado correctamente';
+      
     }
-  
     return {code: 201, message:message};
-
+    
   }catch(e){
 
     return {code: 400, message: e.message};
