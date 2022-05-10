@@ -45,22 +45,12 @@ router.get('/recetasSemana', async function(req, res, next) {
   }
 });
 
-router.get('/getComentariosPorReceta', async function(req, res, next) {
-  try {
-    const result = await receta.getComentariosPorReceta(req.body);
-    res.status(result.code).json({result});
-  } catch (err) {
-    console.error(`Error obteniendo recetas por usuarios `, err.message);
-    next(err);
-  }
-});
-
 router.get('/recetaPorNombre', async function(req, res, next) {
   try {
     const result = await receta.getRecetaPorNombre(req.body);
     res.status(result.code).json({result});
   } catch (err) {
-    console.error(`Error obteniendo recetas por usuarios `, err.message);
+    console.error(`Error obteniendo receta por nombre `, err.message);
     next(err);
   }
 });

@@ -19,10 +19,10 @@ async function postReceta(receta){
     );
 
   
-    let message = 'Error creando un usuario';
+    let message = 'Error creando la receta';
   
     if (result.affectedRows) {
-      message = 'Usuario creado correctamente';
+      message = 'Receta creada correctamente';
       db.query(
         `INSERT INTO recetasadicional (idReceta,fecAlta,SnAutorizada)
       VALUES((select max(idReceta) from recetas),'${receta.fecAlta}', 'N');`
