@@ -102,7 +102,7 @@ router.get('/buscarRecetaPorUsuarioyNombre', async function(req, res, next) {
     const result = await receta.buscarRecetaPorUsuarioyNombre(req.body);
     res.status(result.code).json({result});
   } catch (err) {
-    console.error(`Error obteniendo las por usuario y nombre`, err.message);
+    console.error(`Error obteniendo las recetas por usuario y nombre de receta`, err.message);
     next(err);
   }
 });

@@ -844,10 +844,724 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** `Cannot POST`
 
 
+## Obtener Pasos por IdReceta
+* **URL**
+
+  http://localhost:3000/receta/getPasos
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "IdReceta": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+       "code": 201,
+        "foto": [
+            {
+                "idPaso": 15,
+                "idReceta": 8,
+                "nroPaso": 1,
+                "texto": "Paso numero 1"
+            },
+            {
+                "idPaso": 16,
+                "idReceta": 8,
+                "nroPaso": 2,
+                "texto": "Paso numero 1"
+            },
+            {
+                "idPaso": 17,
+                "idReceta": 8,
+                "nroPaso": 2,
+                "texto": "Paso numero 1"
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Obtener Pasos de un Usuario
+* **URL**
+
+  http://localhost:3000/receta/recetaPorUsuario
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "IdUsuario": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 201,
+        "receta": [
+            {
+                "idReceta": 4,
+                "idUsuario": 11,
+                "alias": "TPAD",
+                "nombre": "Biscochuelo marmolado",
+                "descripcion": "Biscochuelo marmolado casero",
+                "foto": "BiscochoMarmolado.jpg",
+                "porciones": 16,
+                "cantidadPersonas": 8,
+                "idTipo": 2,
+                "descTipo": "Tortas",
+                "fecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            },
+            {
+                "idReceta": 5,
+                "idUsuario": 11,
+                "alias": "TPAD",
+                "nombre": "Fideos matarazzo",
+                "descripcion": "Fideos matarazzo con salsa",
+                "foto": "MataFideos.jpg",
+                "porciones": 2,
+                "cantidadPersonas": 2,
+                "idTipo": 3,
+                "descTipo": "Pastas",
+                "fecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Calificar una Receta
+
+* **URL**
+
+  http://localhost:3000/receta/valorarReceta
+
+* **Metodo:**
+
+  `POST`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+   ```json
+    {
+        "IdUsuario": "[Integer]",
+        "IdReceta": "[Integer]",
+        "Calificacion": "[Integer]",
+        "Comentarios": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 201,
+      "message": "Valoracion creada correctamente"
+    }
+    ```
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot POST`
+
+
+## Obtener Recetas por Nombre
+* **URL**
+
+  http://localhost:3000/receta/RecetaPorNombre
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Nombre": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 201,
+        "receta": [
+            {
+                "IdReceta": 2,
+                "IdUsuario": 10,
+                "Alias": "mrv",
+                "Nombre": "Budin marmolado",
+                "Descripcion": "Budin marmolado bien esponjoso",
+                "Foto": "Budin.jpg",
+                "Porciones": 16,
+                "CantidadPersonas": 8,
+                "FecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Obtener recetas buscando que tenga un ingrediente
+* **URL**
+
+  http://localhost:3000/receta/recetaPorIngrediente
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Nombre": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 201,
+        "receta": [
+            {
+                "IdReceta": 2,
+                "IdUsuario": 10,
+                "Alias": "mrv",
+                "Nombre": "Budin marmolado",
+                "Descripcion": "Budin marmolado bien esponjoso",
+                "Foto": "Budin.jpg",
+                "Porciones": 16,
+                "CantidadPersonas": 8,
+                "IdTipo": 1,
+                "DescTipo": "Budines",
+                "FecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Obtener recetas buscando que no tenga un ingrediente
+* **URL**
+
+  http://localhost:3000/receta/recetaSinIngrediente
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Nombre": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+                "code": 201,
+        "receta": [
+            {
+                "IdReceta": 4,
+                "IdUsuario": 11,
+                "Alias": "TPAD",
+                "Nombre": "Biscochuelo marmolado",
+                "Descripcion": "Biscochuelo marmolado casero",
+                "Foto": "BiscochoMarmolado.jpg",
+                "Porciones": 16,
+                "CantidadPersonas": 8,
+                "IdTipo": 2,
+                "DescTipo": "Tortas",
+                "FecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            },
+            {
+                "IdReceta": 3,
+                "IdUsuario": 10,
+                "Alias": "mrv",
+                "Nombre": "Biscochuelo",
+                "Descripcion": "Biscochuelo de vainilla casero",
+                "Foto": "Biscocho.jpg",
+                "Porciones": 16,
+                "CantidadPersonas": 8,
+                "IdTipo": 2,
+                "DescTipo": "Tortas",
+                "FecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Obtener recetas por IdTipo
+* **URL**
+
+  http://localhost:3000/receta/recetaPorTipo
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "IdTipo": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+       "code": 201,
+        "receta": [
+            {
+                "idReceta": 3,
+                "idUsuario": 10,
+                "alias": "mrv",
+                "nombre": "Biscochuelo",
+                "descripcion": "Biscochuelo de vainilla casero",
+                "foto": "Biscocho.jpg",
+                "porciones": 16,
+                "cantidadPersonas": 8,
+                "idTipo": 2,
+                "descTipo": "Tortas",
+                "fecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            },
+            {
+                "idReceta": 4,
+                "idUsuario": 11,
+                "alias": "TPAD",
+                "nombre": "Biscochuelo marmolado",
+                "descripcion": "Biscochuelo marmolado casero",
+                "foto": "BiscochoMarmolado.jpg",
+                "porciones": 16,
+                "cantidadPersonas": 8,
+                "idTipo": 2,
+                "descTipo": "Tortas",
+                "fecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Obtener recetas por Descripcion Tipo
+* **URL**
+
+  http://localhost:3000/receta/RecetaPorNombreTipo
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Descripcion": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+       "code": 201,
+        "receta": [
+            {
+                "idReceta": 2,
+                "idUsuario": 10,
+                "alias": "mrv",
+                "nombre": "Budin marmolado",
+                "descripcion": "Budin marmolado bien esponjoso",
+                "foto": "Budin.jpg",
+                "porciones": 16,
+                "cantidadPersonas": 8,
+                "idTipo": 1,
+                "descTipo": "Budines",
+                "fecAlta": "2022-04-30T03:00:00.000Z",
+                "SnAutorizada": "S"
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Obtener recetas por Usuario y nombre de receta
+* **URL**
+
+  http://localhost:3000/receta/buscarRecetaPorUsuarioyNombre
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Nombre": "[String]",
+        "IdUSuario": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+       "code": 201,
+        "receta": [
+            {
+                "idReceta": 8
+            },
+            {
+                "idReceta": 9
+            },
+            {
+                "idReceta": 10
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Obtener valoraciones de una receta
+* **URL**
+
+  http://localhost:3000/receta/getValoracionesByReceta
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "IdReceta": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+       "code": 201,
+        "receta": [
+            {
+                "idUsuario": 10,
+                "nickname": "mrv",
+                "comentarios": "Muy buena receta! Pero tiene sus cositas a mejorar!",
+                "calificacion": 4,
+                "idReceta": 2
+            },
+            {
+                "idUsuario": 11,
+                "nickname": "TPAD",
+                "comentarios": "Nunca mas",
+                "calificacion": 2,
+                "idReceta": 2
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+
+## Obtener valoracion promedio de una receta
+* **URL**
+
+  http://localhost:3000/receta/getValoracionPromedio
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "IdReceta": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 201,
+        "receta": [
+            {
+                "PromedioCalificacion": "3.0000"
+            }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
 
 
 
 # Usuarios
+
+## Buscar Usuario
+* **URL**
+
+  http://localhost:3000/usuario/getUsuario
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "IdUsuario": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 201,
+        "usuario": [
+          {
+              "IdUsuario": 10,
+              "Mail": "mrv@ad.com",
+              "NickName": "mrv",
+              "Habilitado": "Si",
+              "Nombre": "Martincito",
+              "Avatar": " Si.jpg",
+              "Tipo_Usuario": "Visitante",
+              "diasAlta": 10,
+              "fecAlta": "2022-04-30T03:00:00.000Z"
+          }
+        ]
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Editar Usuario
+
+* **URL**
+
+  http://localhost:3000/usuario/modificarUsuario
+
+* **Metodo:**
+
+  `POST`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+   ```json
+    {
+        "IdUSuario": "[Integer]",
+        "Nombre": "[String]",
+        "Avatar": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 201,
+        "usuario": {
+          "fieldCount": 0,
+          "affectedRows": 1,
+          "insertId": 0,
+          "info": "Rows matched: 1  Changed: 0  Warnings: 0",
+          "serverStatus": 2,
+          "warningStatus": 0,
+          "changedRows": 0
+        }
+    }
+    ```
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot POST`
+
 ## Crear Usuario
 
 * **URL**
@@ -897,6 +1611,190 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     * **Codigo:** 202 <br />
   * **Contenido:** `DNI ya existente`
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot POST`
+
+
+## Modificar Password Usuario
+
+* **URL**
+
+  http://localhost:3000/usuario/modificarPass
+
+* **Metodo:**
+
+  `POST`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+   ```json
+    {
+        "IdUsuario": "[Integer]",
+        "Password": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 201,
+      "message": "Password modificada correctamente"
+    }
+    ```
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot POST`
+
+
+## Loguear Usuario
+* **URL**
+
+  http://localhost:3000/usuario/login
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Mail": "[String]",
+        "Password": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 201,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6MTY1MjIyNTM4OCwiZXhwIjoxNjUyMzExNzg4fQ.TT-I-jp18AIRbix5J57YR34w-2gFje1a3B3rSP0VATE",
+        "usuario": {
+            "data": [
+                {
+                    "idUsuario": 31,
+                    "mail": "prueba@gmail.com",
+                    "nickname": "mrv45",
+                    "habilitado": "Si",
+                    "nombre": "Prueba",
+                    "avatar": null,
+                    "tipo_usuario": "Visitante",
+                    "idLogin": 22,
+                    "diasAlta": 30,
+                    "fecAlta": "2022-05-08T03:00:00.000Z",
+                    "password": "$2a$08$ZXki1/L9YhLERws2XZoIqed3LmgvUBECTHfIOKZTqSXfNYhYcwEDe"
+                }
+            ]
+        }
+    }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+## Crear Invitado - Paso 1
+
+* **URL**
+
+  http://localhost:3000/usuario/crearInvitado
+
+* **Metodo:**
+
+  `POST`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+   ```json
+    {
+        "Mail": "[String]",
+        "NickName": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 201,
+      "message": "Usuario Invitado creado correctamente. Se enviará el mail!"
+    }
+    ```
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot POST`
+
+
+  ## Terminar Registro de Invitado - Paso 2
+
+* **URL**
+
+  http://localhost:3000/usuario/crearInvitadoUpdate
+
+* **Metodo:**
+
+  `POST`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+   ```json
+    {
+        "Mail": "[String]",
+        "Nombre": "[String]",
+        "Password": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 201,
+      "message": "Registración exitosa. Por favor logueese!"
+    }
+    ```
+
+* **Respuesta No Exitosa:**
 
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot POST`

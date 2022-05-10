@@ -162,18 +162,17 @@ async function getRecetaPorNombre(receta){
 
 }
 
-async function buscarRecetaPorUsuarioyNombre(nombre,idUsuario){
+async function buscarRecetaPorUsuarioyNombre(receta){
 
   try{
     const rows = await db.query(
       `select idReceta from recetas
-      where UPPER(nombre) like  UPPER('%${nombre}%') and idUsuario = ${idUsuario}`
+      where UPPER(nombre) like  UPPER('%${receta.nombre}%') and idUsuario = ('${receta.idUsuario}')`
     );
     const data = helper.emptyOrRows(rows);
   
-    return {
-      data
-    }
+    return {code: 201, receta:data};
+    
   }  catch(e){
     return -1;
   }
