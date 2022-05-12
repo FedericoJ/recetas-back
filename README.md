@@ -1958,3 +1958,57 @@ Para iniciar este proyecto, se deben correr los comandos:
 
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot POST`
+
+
+## Validar Alias
+
+* **URL**
+
+  http://localhost:3000/usuario/validarAlias
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Alias": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 201,
+       "usuario": [
+        {
+            "1": 1
+        }
+      ]
+    }
+    ```
+
+  * **Codigo:** 202 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 202,
+      "message": "No existe alias"
+    }
+    ```
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`

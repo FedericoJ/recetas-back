@@ -22,6 +22,14 @@ router.get('/getUsuario', async function(req, res, next) {
     next(err);
   }
 });
+router.get('/validarAlias', async function(req, res, next) {
+  try {
+    res.json(await usuario.recomendarAlias(req.body));
+  } catch (err) {
+    console.error(`Error al obtener alias`, err.message);
+    next(err);
+  }
+});
 
 router.get('/buscarUsuarioByMail', async function(req, res, next) {
   try {

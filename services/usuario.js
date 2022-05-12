@@ -241,6 +241,26 @@ async function modificarPass(usuario){
 
   }
 
+  async function recomendarAlias(usuario){
+
+    try{
+      const rows = await db.query(
+        `SELECT distinct 1 FROM usuarios
+        WHERE nickname='${usuario.alias}'`
+      );
+      const data = helper.emptyOrRows(rows);
+  
+      if (data.length==0){
+        return {code: 202, message:"No existe alias"};
+      }     
+
+      return {code: 201, usuario:data};
+
+    }catch(e){
+    return {code: 400, message: e.message};
+    }
+  }
+
   async function updateUser (usuario) {
 
     var hashedPassword = bcrypt.hashSync(usuario.password, 8);
@@ -411,5 +431,6 @@ module.exports = {
   postUsuario,
   modificarPass,
   buscarUsuarioByMail,
-  buscarUsuarioByAlias 
+  buscarUsuarioByAlias,
+  recomendarAlias 
 }
