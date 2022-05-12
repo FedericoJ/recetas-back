@@ -16,7 +16,7 @@ async function guardarMultimedia(multimedia) {
         let message = 'Error guardando los datos multimedia';
 
         if (result.affectedRows) {
-            message = 'Multimedia guardada correctamente para : ';
+            message = 'Multimedia guardada correctamente';
         }
 
         return { code: 201, message: message }

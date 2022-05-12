@@ -382,7 +382,7 @@ async function consultarCodigoVigente (usuario ) {
      
 
    if (result.affectedRows) {
-    return {code: 201, message:"Codigo encontrado como la cola de fede"};
+    return {code: 201, message:"Se ha validado el código correctamente"};
    }
   
   
@@ -409,5 +409,7 @@ module.exports = {
   consultarCodigoVigente,
   getUsuario,
   postUsuario,
-  modificarPass
+  modificarPass,
+  buscarUsuarioByMail,
+  buscarUsuarioByAlias 
 }

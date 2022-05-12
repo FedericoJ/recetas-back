@@ -23,6 +23,15 @@ router.get('/getUsuario', async function(req, res, next) {
   }
 });
 
+router.get('/buscarUsuarioByMail', async function(req, res, next) {
+  try {
+    res.json(await usuario.buscarUsuarioByMail(req.body));
+  } catch (err) {
+    console.error(`Error al obtener el usuario`, err.message);
+    next(err);
+  }
+});
+
 router.post('/create', async function(req, res, next) {
     try {
       res.json(await usuario.create(req.body));
@@ -91,7 +100,7 @@ router.post('/create', async function(req, res, next) {
       res.status(result.code).json({result});
 
     } catch (err) {
-      console.error(`Error creando un usuario`, err.message);
+      console.error(`Error recupernado password `, err.message);
       next(err);
     }
   });

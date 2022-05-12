@@ -140,7 +140,7 @@ Para iniciar este proyecto, se deben correr los comandos:
     {
         "IdPaso": "[Integer]",
         "Tipo_Contenido": "[String]",
-        "Extension": "[Boolean]",
+        "Extension": "[String]",
         "URL": "[String]"
     }
     ```
@@ -150,10 +150,10 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
-    {
+      {
         "code": 201,
-        "message": "Usuario creado correctamente"
-    }
+        "message": "Multimedia guardada correctamente"
+      }
     ```
 
 * **Respuesta No Exitosa:**
@@ -1066,6 +1066,46 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** `Cannot ERROR`
 
 
+  ## Eliminar Receta
+
+* **URL**
+
+  http://localhost:3000/receta/eliminarReceta
+
+* **Metodo:**
+
+  `DEL`
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+   ```json
+    {
+        "nombre": "[String]",
+        "idUsaurio": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "status": 200,
+      "message": "La receta ha sido eliminada exitosamente"
+    }
+    ```
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+
+
 ## Obtener recetas buscando que tenga un ingrediente
 * **URL**
 
@@ -1658,6 +1698,99 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** `Cannot POST`
 
 
+  ## Validar Codigo Recuperacion
+* **URL**
+
+  http://localhost:3000/usuario/validarCodigoRecuperacion
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Mail": "[String]",
+        "Codigo": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 201,
+        "message": "Se ha validado el código correctamente"
+    }
+    ```
+    
+  * **Codigo:** 202 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 202,
+      "message": "No se encuentra un codigo vigente"
+    }
+    ```
+
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+  ## Enviar Código de Recuperación
+* **URL**
+
+  http://localhost:3000/usuario/SendRecoveryPassword
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+*  **Data Params**
+
+   **Requeridos:**
+ 
+    ```json
+    {
+        "Mail": "[String]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 200 <br />
+  * **Contenido:** 
+    ```json
+    {
+        "code": 200,
+        "message": "Mail de recuperación enviado"
+    }
+    ```
+
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+
+
 ## Loguear Usuario
 * **URL**
 
@@ -1751,6 +1884,24 @@ Para iniciar este proyecto, se deben correr los comandos:
     }
     ```
 
+  * **Codigo:** 202 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 202,
+      "message": "El mail ingresado ya existe."
+    }
+    ```
+
+  * **Codigo:** 203 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 203,
+      "message": "El alias ingresado ya existe."
+    }
+    ```
+
 * **Respuesta No Exitosa:**
 
   * **Codigo:** 404 NOT FOUND <br />
@@ -1791,6 +1942,15 @@ Para iniciar este proyecto, se deben correr los comandos:
     {
       "code": 201,
       "message": "Registración exitosa. Por favor logueese!"
+    }
+    ```
+
+  * **Codigo:** 202 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 202,
+      "message": "Contacte al administrador. Su usuario ha caducado"
     }
     ```
 

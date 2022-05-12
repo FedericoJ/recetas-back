@@ -38,7 +38,7 @@ module.exports = {
             });
 
             //Agregar Insert del codigo enviado
-
+            
             const result = await usuario.crearCodigoVerificacion(linkRecuperador,email);
 
             if (result.code != 201){
@@ -52,7 +52,7 @@ module.exports = {
             return {code: 200, message: 'Mail de recuperación enviado'}; 
 
         }catch(e){
-
+            console.log(e.message);
             return {code: 404, message: e.message};
 
 
@@ -60,6 +60,7 @@ module.exports = {
 
     
     },
+    
     async sendEmailToCompleteRegistration(email) {
 
         try{
