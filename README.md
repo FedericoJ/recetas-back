@@ -820,7 +820,7 @@ Para iniciar este proyecto, se deben correr los comandos:
    **Requeridos:**
  
    ```json
-|  { "pasos": [
+   [
       {
         "idReceta": "[Integer]" , 
         "nroPaso": "[Integer]",
@@ -832,7 +832,7 @@ Para iniciar este proyecto, se deben correr los comandos:
         "texto": "[String]"
       },
     ]
-}
+
     ```
 
 * **Respuesta Exitosa:**
