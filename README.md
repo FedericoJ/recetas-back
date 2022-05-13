@@ -820,11 +820,21 @@ Para iniciar este proyecto, se deben correr los comandos:
    **Requeridos:**
  
    ```json
-    {
-        "idReceta": "[Integer]",
-        "NroPaso": "[Integer]",
-        "Texto": "[String]"
-    }
+   **Array
+   
+|  { "pasos": [
+      {
+        "idReceta": "[Integer]" , 
+        "nroPaso": "[Integer]",
+        "texto": "[String]"
+      },
+       {
+        "idReceta": "[Integer]" , 
+        "nroPaso": "[Integer]",
+        "texto": "[String]"
+      },
+    ]
+}
     ```
 
 * **Respuesta Exitosa:**

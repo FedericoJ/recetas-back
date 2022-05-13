@@ -191,7 +191,9 @@ router.get('/getFoto', async function(req, res, next) {
 // Pasos
 router.post('/postPaso', async function(req, res, next) {
   try {
+
     res.json(await receta.postPaso(req.body));
+
   } catch (err) {
     console.error(`Error creando el paso.`, err.message);
     next(err);

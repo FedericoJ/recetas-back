@@ -428,20 +428,22 @@ async function getFoto(receta) {
 
 async function postPaso(paso) {
 
-
+  
   try {
-      const result = await db.query(
-          `insert into pasos (idReceta,nroPaso,texto) 
-          VALUES 
-          (${paso.idReceta}, '${paso.nroPaso}', '${paso.texto}')`
-      );
+
+      paso.forEach(async paso => {
+      
+         const  result = await db.query(
+            `insert into pasos (idReceta,nroPaso,texto) 
+            VALUES 
+            (${paso.idReceta}, '${paso.nroPaso}', '${paso.texto}')`
+        );
+
+    });
 
 
-      let message = 'Error guardando el paso';
+    let message="paso guardado correctamente";
 
-      if (result.affectedRows) {
-          message = 'Paso guardado correctamente';
-      }
 
       return { code: 201, message: message }
 
