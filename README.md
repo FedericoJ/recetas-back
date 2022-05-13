@@ -820,8 +820,6 @@ Para iniciar este proyecto, se deben correr los comandos:
    **Requeridos:**
  
    ```json
-   **Array
-   
 |  { "pasos": [
       {
         "idReceta": "[Integer]" , 
