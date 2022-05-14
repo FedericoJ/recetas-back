@@ -842,7 +842,7 @@ Para iniciar este proyecto, se deben correr los comandos:
     ```json
     {
       "code": 201,
-      "message": "Paso guardado correctamente"
+      "message": "Pasos guardado correctamente"
     }
     ```
 

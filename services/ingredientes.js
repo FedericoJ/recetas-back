@@ -77,17 +77,24 @@ async function postIngredientes(ingrediente) {
 
 
     try {
-        const result = await db.query(
-            `insert into ingredientes (nombre) 
-            VALUES ('${ingrediente.nombre}')`
-        );
 
+        ingrediente.forEach(async ingrediente => {
 
-        let message = 'Error creando el ingrediente';
+       
+            const result = await db.query(
+                `insert into ingredientes (nombre) 
+                VALUES ('${ingrediente.nombre}')`
+            );
 
-        if (result.affectedRows) {
-            message = 'Ingrediente creado correctamente';
-        }
+            if (!result.affectedRows) {
+                return { code: 400, message: "Error a la hora de cargar un ingrediente" };
+            }
+
+         });
+
+        let message = 'Ingrediente creado correctamente';
+
+       
 
         return { code: 201, message: message }
 
@@ -126,21 +133,27 @@ async function getIngredienteUtilizadoPorReceta(multimedia) {
 
 async function postIngredienteUtilizadoPorReceta(utilizado) {
 
+    let message = 'Ingrediente utilizado guardado correctamente';;
+ 
 
     try {
-        const result = await db.query(
-            `insert into utilizados (idReceta, idIngrediente, cantidad, idUnidad, Observaciones) 
-            VALUES 
-            (${utilizado.idReceta}, '${utilizado.idIngrediente}', '${utilizado.cantidad}',
-            '${utilizado.idUnidad}','${utilizado.Observaciones}')`
-        );
-  
-  
-        let message = 'Error guardando el ingrediente utilizado';
-  
-        if (result.affectedRows) {
-            message = 'Ingrediente utilizado guardado correctamente';
-        }
+
+        utilizado.forEach(async utilizado => {
+
+            const result = await db.query(
+                `insert into utilizados (idReceta, idIngrediente, cantidad, idUnidad, Observaciones) 
+                VALUES 
+                (${utilizado.idReceta}, '${utilizado.idIngrediente}', '${utilizado.cantidad}',
+                '${utilizado.idUnidad}','${utilizado.observaciones}')`
+            );
+
+            if (!result.affectedRows) {
+                return { code: 400, message: "No se han podido guardar los ingredientes utilizados" };
+            }
+
+        });
+   
+       
   
         return { code: 201, message: message }
   
