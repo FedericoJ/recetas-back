@@ -70,7 +70,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
       {
@@ -103,7 +103,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
       {
@@ -231,7 +231,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -359,7 +359,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -408,7 +408,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -504,7 +504,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -552,7 +552,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -627,7 +627,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -771,7 +771,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -877,7 +877,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -935,7 +935,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1047,7 +1047,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1139,7 +1139,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1193,7 +1193,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1261,7 +1261,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1329,7 +1329,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1384,7 +1384,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1433,7 +1433,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1488,7 +1488,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1534,7 +1534,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
@@ -1825,7 +1825,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
