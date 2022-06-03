@@ -1,11 +1,13 @@
-const express = require("express");
-const app = express();
+var express = require("express");
+var app = express();
 const port = process.env.PORT ||  3000;
 const usuarioRouter = require("./routes/usuario");
 const ingredienteRouter = require('./routes/ingredientes');
 const recetaRouter = require('./routes/receta');
+var cors = require('cors');
 
 app.use(express.json());
+app.use(cors());
 app.use(
   express.urlencoded({
     extended: true,
@@ -27,6 +29,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
+
 
 app.use("/usuario",usuarioRouter);
 app.use("/ingredientes",ingredienteRouter);
