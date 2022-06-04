@@ -87,7 +87,7 @@ router.post('/create', async function(req, res, next) {
   });
 
 
-  router.get('/login', async function(req, res, next) {
+  router.post('/login', async function(req, res, next) {
     try {
 
       const result= await usuario.loginUser(req.body)  
