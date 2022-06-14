@@ -108,7 +108,7 @@ router.post('/create', async function(req, res, next) {
       res.status(result.code).json({result});
 
     } catch (err) {
-      console.error(`Error recupernado password `, err.message);
+      console.error(`Error recuperando password `, err.message);
       next(err);
     }
   });
