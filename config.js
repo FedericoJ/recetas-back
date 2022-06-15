@@ -1,10 +1,10 @@
 const config = {
     db: {
       /* don't expose password or any sensitive info, done only for demo */
-      host: "localhost",
-      user: "root",
-      password: "123456",
-      database: "recetas",
+      host: "us-cdbr-east-05.cleardb.net",
+      user: "b3f048077a6302",
+      password: "2ff3882b",
+      database: "heroku_74a9ca87042394f",
     },
     listPerPage: 10,
   };
