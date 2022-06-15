@@ -103,9 +103,21 @@ router.post('/create', async function(req, res, next) {
   router.get('/SendRecoveryPassword', async function(req, res, next) {
     try {
 
-      const result= await mailSender.sendEmailToRecoveryPass(req.body.mail);  
+      let linkRecuperador =Math.round(Math.random()*999999);
+
+      const result= await mailSender.sendEmailToRecoveryPass(req.body.mail,linkRecuperador);  
       
-      res.status(result.code).json({result});
+      if (result.code ==200){
+       const  result2 = await usuario.crearCodigoVerificacion(linkRecuperador,req.body.mail);
+
+       res.status(result2.code).json({result2});
+
+      } else{
+
+        res.status(result.code).json({result});
+      }
+      
+      
 
     } catch (err) {
       console.error(`Error recuperando password `, err.message);
