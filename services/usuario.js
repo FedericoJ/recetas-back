@@ -97,6 +97,11 @@ async function modificarPass(usuario){
   async function crearInvitado(usuario){
 
       try{
+        let data = await buscarUsuarioByMail(usuario.mail);
+        if (data.data.length!=0){
+            return {code: 202, message: "Mail already registered"};
+        }
+
         //MRV(08-05): Acá tendría que validar que no exista un usuario con ese mail o alias, sino hay, inserto el registro
         const result = await db.query(
           `INSERT INTO usuarios 
@@ -353,7 +358,7 @@ async function modificarPass(usuario){
       let message = 'Error creando un codigo de recuperacion';
     
       if (result.affectedRows) {
-        message = 'Usuario Invitado creado correctamente';
+        message = 'Codigo de recuperación creado';
       }
     
       return {code: 201, message:message};

@@ -70,7 +70,8 @@ router.post('/create', async function(req, res, next) {
   
   router.post('/crearInvitado', async function(req, res, next) {
     try {
-      res.json(await usuario.crearInvitado(req.body));
+      const result= await usuario.crearInvitado(req.body);
+      res.status(result.code).json({result});
     } catch (err) {
       console.error(`Error creando un usuario invitado`, err.message);
       next(err);
@@ -79,7 +80,8 @@ router.post('/create', async function(req, res, next) {
 
   router.post('/crearInvitadoUpdate', async function(req, res, next) {
     try {
-      res.json(await usuario.crearInvitadoUpdate(req.body));
+      const result= await usuario.crearInvitadoUpdate(req.body);
+      res.status(result.code).json({result});
     } catch (err) {
       console.error(`Error actualizando información del usuario`, err.message);
       next(err);
@@ -100,7 +102,7 @@ router.post('/create', async function(req, res, next) {
     }
   });
 
-  router.get('/SendRecoveryPassword', async function(req, res, next) {
+  router.post('/SendRecoveryPassword', async function(req, res, next) {
     try {
 
       let linkRecuperador =Math.round(Math.random()*999999);
@@ -128,7 +130,7 @@ router.post('/create', async function(req, res, next) {
   router.get('/validarCodigoRecuperacion', async function(req, res, next) {
     try {
 
-      const result= await usuario.consultarCodigoVigente(req.body);  
+      const result= await usuario.consultarCodigoVigente(req.query);  
       
       res.status(result.code).json({result});
 
