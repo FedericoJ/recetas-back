@@ -51,7 +51,9 @@ router.post('/create', async function(req, res, next) {
 
   router.post('/modificarPass', async function(req, res, next) {
     try {
-      res.json(await usuario.modificarPass(req.body));
+      const result= await usuario.modificarPass(req.body);
+      res.status(result.code).json({result});
+      
     } catch (err) {
       console.error(`Error modificando la Pass`, err.message);
       next(err);
