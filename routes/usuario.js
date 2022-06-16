@@ -24,9 +24,10 @@ router.get('/getUsuario', async function(req, res, next) {
 });
 router.get('/validarAlias', async function(req, res, next) {
   try {
-    res.json(await usuario.recomendarAlias(req.body));
+    const result= await usuario.recomendarAlias(req.query);  
+      res.status(result.code).json({result});
   } catch (err) {
-    console.error(`Error al obtener alias`, err.message);
+    console.error(`Error al validar alias`, err.message);
     next(err);
   }
 });
@@ -104,12 +105,12 @@ router.post('/create', async function(req, res, next) {
     }
   });
 
-  router.post('/SendRecoveryPassword', async function(req, res, next) {
+  router.get('/SendRecoveryPassword', async function(req, res, next) {
     try {
 
       let linkRecuperador =Math.round(Math.random()*999999);
 
-      const result= await mailSender.sendEmailToRecoveryPass(req.body.mail,linkRecuperador);  
+      const result= await mailSender.sendEmailToRecoveryPass(req.query.mail,linkRecuperador);  
       
       if (result.code ==200){
        const  result2 = await usuario.crearCodigoVerificacion(linkRecuperador,req.body.mail);
