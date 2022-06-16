@@ -74,7 +74,7 @@ async function modificarPass(usuario){
       const result = await db.query(
         `update login 
         set password='${hashedPassword}'
-        where IdUsuario='${usuario.IdUsuario}'`
+        where IdUsuario=(select IdUsuario from usuarios where mail='${usuario.mail}')`
       );
     
       let message = 'Error modificando la pass';
