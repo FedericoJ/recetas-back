@@ -32,7 +32,7 @@ router.post('/guardarMultimedia', async function(req, res, next) {
 
       const result= await multimedia.getTiposreceta(req.body);  
       
-      res.status(result.code).json({result});
+      res.status(result.code).json(result.multimedia);
 
     } catch (err) {
       console.error(`Error obteniendo los tipos de receta`, err.message);

@@ -38,7 +38,7 @@ router.get('/recetaPorId', async function(req, res, next) {
 router.get('/recetasSemana', async function(req, res, next) {
   try {
     const result = await receta.getRecetasSemana();
-    res.status(result.code).json({result});
+    res.status(result.code).json(result.receta);
   } catch (err) {
     console.error(`Error obteniendo las recetas destacadas de la semana`, err.message);
     next(err);

@@ -43,13 +43,14 @@ async function getRecetasSemana(receta){
 
   try{
     const rows = await db.query(
-      `select  R.IdReceta, R.Nombre, R.Descripcion, R.foto, avg(C.calificacion) as CalificacionProm
+      `select  R.IdReceta, R.Nombre,usr.nickname as alias, R.Descripcion, R.foto, TRUNCATE(avg(C.calificacion),1) as CalificacionProm
       from recetas R
       join Calificaciones C on C.IdReceta=R.IdReceta
       join recetasAdicional RA on RA.IdReceta=R.IdReceta
+      join usuarios usr on usr.idUsuario = R.idUsuario
       where RA.SnAutorizada='S'
       group by R.IdReceta, R.Nombre, R.Descripcion, R.foto
-      order by avg(C.calificacion) desc
+      order by CalificacionProm desc
       limit 5`
     );
     const data = helper.emptyOrRows(rows);
