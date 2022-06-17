@@ -5,7 +5,6 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const env = process.env.NODE_ENV || 'development';
 const configClave = require('../config/config.json')[env]
-//MRV(08-05): Agrego lo del mail para enviar una vez registrado!
 const mailSender=require('../services/mailSender');
 
 console.log(configClave.SECRET);
@@ -102,14 +101,13 @@ async function modificarPass(usuario){
             return {code: 202, message: "Mail already registered"};
         }
 
-        //MRV(08-05): Acá tendría que validar que no exista un usuario con ese mail o alias, sino hay, inserto el registro
         const result = await db.query(
           `INSERT INTO usuarios 
           (mail, nickname, tipo_usuario, habilitado) 
           VALUES 
           ('${usuario.mail}', '${usuario.nickname}', 'Visitante', 'No')`
         );
-        //MRV(08-05): Inserto password 1 porque no puede ser NULL -> Ojo que esto no se tiene que insertar si el mail/alias existe.
+        //MRV(08-05): Inserto password 1 porque no puede ser NULL
         await db.query(
           `INSERT INTO login (idUsuario,diasAlta,fecAlta,password)
           VALUES((select max(IdUsuario) from usuarios),'30',now(),1);`
@@ -140,7 +138,6 @@ async function modificarPass(usuario){
 
     try{
       const result = await db.query(
-        //MRV(08-05): ¿Hay que chequear los dias de alta para poder habilitarlo y que termine el login?
         `update usuarios
         set nombre='${usuario.nombre}', habilitado='Si'
         where mail='${usuario.mail}'`
@@ -308,16 +305,32 @@ async function modificarPass(usuario){
 
   }
 
+  async function buscarUsuarioByMailHabilitado(mail){
+
+    
+    const rows = await db.query(
+      `SELECT * FROM usuarios,login
+      WHERE usuarios.idUsuario=login.idUsuario
+      AND habilitado='Si'
+      AND mail='${mail}'`
+    );
+    const data = helper.emptyOrRows(rows);
+  
+    return {
+      data
+    }
+
+
+  }
 
 
   async function loginUser (usuario ) {
 
-    // Creating a new Mongoose Object by using the new keyword
     try {
         // Find the User 
         
 
-        let data = await buscarUsuarioByMail(usuario.mail);
+        let data = await buscarUsuarioByMailHabilitado(usuario.mail);
         if (data.data.length==0){
             return {code: 202, message: "Invalid username or password"};
         }
@@ -374,7 +387,6 @@ async function modificarPass(usuario){
 
 async function consultarCodigoVigente (usuario ) {
 
-  // Creating a new Mongoose Object by using the new keyword
   try {
       // Find the verification code
       

@@ -113,7 +113,7 @@ router.post('/create', async function(req, res, next) {
       const result= await mailSender.sendEmailToRecoveryPass(req.query.mail,linkRecuperador);  
       
       if (result.code ==200){
-       const  result2 = await usuario.crearCodigoVerificacion(linkRecuperador,req.body.mail);
+       const  result2 = await usuario.crearCodigoVerificacion(linkRecuperador,req.query.mail);
 
        res.status(result2.code).json({result2});
 
