@@ -17,8 +17,8 @@ router.post('/postReceta', async function(req, res, next) {
 
 router.get('/recetaPorUsuario', async function(req, res, next) {
   try {
-    const result = await receta.getRecetaPorUsuario(req.body);
-    res.status(result.code).json({result});
+    const result = await receta.getRecetaPorUsuario(req.query);
+    res.status(result.code).json(result.receta);
   } catch (err) {
     console.error(`Error obteniendo recetas por usuarios `, err.message);
     next(err);
@@ -47,8 +47,8 @@ router.get('/recetasSemana', async function(req, res, next) {
 
 router.get('/recetaPorNombre', async function(req, res, next) {
   try {
-    const result = await receta.getRecetaPorNombre(req.body);
-    res.status(result.code).json({result});
+    const result = await receta.getRecetaPorNombre(req.query);
+    res.status(result.code).json(result.receta);
   } catch (err) {
     console.error(`Error obteniendo receta por nombre `, err.message);
     next(err);
@@ -57,9 +57,9 @@ router.get('/recetaPorNombre', async function(req, res, next) {
 
 router.get('/recetaPorIngrediente', async function(req, res, next) {
   try {
-    const result = await receta.getRecetaPorIngrediente(req.body);
+    const result = await receta.getRecetaPorIngrediente(req.query);
 
-    res.status(result.code).json({result});
+    res.status(result.code).json(result.receta);
 
   } catch (err) {
     console.error(`Error obteniendo recetas por ingrediente`, err.message);
@@ -69,8 +69,8 @@ router.get('/recetaPorIngrediente', async function(req, res, next) {
 
 router.get('/recetaSinIngrediente', async function(req, res, next) {
   try {
-    const result = await receta.getRecetaSinIngrediente(req.body);
-    res.status(result.code).json({result});
+    const result = await receta.getRecetaSinIngrediente(req.query);
+    res.status(result.code).json(result.receta);
   } catch (err) {
     console.error(`Error obteniendo recetas sin un ingrediente especifico`, err.message);
     next(err);
@@ -79,7 +79,7 @@ router.get('/recetaSinIngrediente', async function(req, res, next) {
 
 router.get('/recetaPorTipo', async function(req, res, next) {
   try {
-    const result = await receta.getRecetaPorTipo(req.body);
+    const result = await receta.getRecetaPorTipo(req.query);
     res.status(result.code).json({result});
   } catch (err) {
     console.error(`Error obteniendo las recetas por tipo`, err.message);
@@ -89,8 +89,8 @@ router.get('/recetaPorTipo', async function(req, res, next) {
 
 router.get('/recetaPorNombreTipo', async function(req, res, next) {
   try {
-    const result = await receta.getRecetaPorNombreTipo(req.body);
-    res.status(result.code).json({result});
+    const result = await receta.getRecetaPorNombreTipo(req.query);
+    res.status(result.code).json(result.receta);
   } catch (err) {
     console.error(`Error obteniendo las recetas por tipo`, err.message);
     next(err);
@@ -118,7 +118,7 @@ router.post('/valorarReceta', async function(req, res, next) {
 
 router.get('/getValoracionesByReceta', async function(req, res, next) {
   try {
-    const result = await receta.getValoracionesByReceta(req.body);
+    const result = await receta.getValoracionesByReceta(req.query);
     res.status(result.code).json({result});
   } catch (err) {
     console.error(`Error obteniendo las valoraciones y comentarios de la receta`, err.message);
@@ -128,7 +128,7 @@ router.get('/getValoracionesByReceta', async function(req, res, next) {
 
 router.get('/getValoracionPromedio', async function(req, res, next) {
   try {
-    const result = await receta.getValoracionPromedio(req.body);
+    const result = await receta.getValoracionPromedio(req.query);
     res.status(result.code).json({result});
   } catch (err) {
     console.error(`Error obteniendo las valoraciones promedio`, err.message);
@@ -149,7 +149,7 @@ router.post('/agregarFavorito', async function(req, res, next) {
 
 router.get('/getFavorito', async function(req, res, next) {
   try {
-    const result = await favorito.getFavoritos(req.body);
+    const result = await favorito.getFavoritos(req.query);
     res.status(result.code).json(result.favorito);
   } catch (err) {
     console.error(`Error obteniendo los favoritos por usuario`, err.message);

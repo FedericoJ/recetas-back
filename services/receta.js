@@ -69,13 +69,18 @@ async function getRecetaPorUsuario(receta){
 
   try{
     const rows = await db.query(
-      `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre, R.descripcion, R.foto, R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada
-      FROM recetas r , tipos t , usuarios usr , recetasAdicional RA
-      WHERE t.idTipo=r.idTipo 
-      and usr.idUsuario=r.idUsuario 
-      and R.idReceta=RA.idReceta
-      and r.idUsuario='${receta.idUsuario}' `
+      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
+      R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
+      from recetas R, recetasAdicional RA, usuarios usr, tipos t, calificaciones C
+      where R.idReceta=RA.idReceta
+      and usr.idUsuario = R.idUsuario
+      and t.idTipo=R.idTipo
+      and C.IdReceta=R.IdReceta
+      and UPPER(usr.nickname) like UPPER('%${receta.nombre}%')
+      group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada `
+
     );
     const data = helper.emptyOrRows(rows);
     
@@ -143,14 +148,18 @@ async function getRecetaPorNombre(receta){
 
     const rows = await db.query(
 
-      `select R.IdReceta as IdReceta, R.IdUsuario as IdUsuario, U.nickname as Alias, U.nombre as Nombre,
-      R.nombre as Nombre, R.descripcion as Descripcion, R.foto as Foto, R.porciones as Porciones,
-      R.cantidadPersonas as CantidadPersonas, RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
-      from recetas R, usuarios U, recetasadicional RA, tipos T
+      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, U.nickname as alias, 
+      R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada      
+      from recetas R, usuarios U, recetasadicional RA, tipos T,calificaciones C
       where R.IdReceta=RA.IdReceta and
       R.IdUsuario=U.IdUsuario and
-      T.IdTipo=R.IdTipo
-      and UPPER(R.nombre)  like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'`
+      T.IdTipo=R.IdTipo and
+      R.idReceta=RA.idReceta and
+      R.idReceta = C.idReceta
+      and UPPER(R.nombre)  like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'
+      group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -229,22 +238,28 @@ async function eliminarReceta(receta){
 
 async function getRecetaPorIngrediente(receta){
 
+  console.log(receta);
+
   try {
 
     const rows = await db.query(
 
-      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as Alias, 
-      R.nombre as Nombre, R.descripcion as Descripcion, R.foto as Foto, R.porciones as Porciones, 
-      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, 
-      RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
-        from recetas R, recetasAdicional RA, usuarios usr, tipos t
+      
+
+      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
+      R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
+        from recetas R, recetasAdicional RA, usuarios usr, tipos t, calificaciones C
             where R.idReceta=RA.idReceta
             and usr.idUsuario = R.idUsuario
             and t.idTipo=R.idTipo
+            and C.IdReceta=R.IdReceta
             and exists (select 1 from Utilizados U, Ingredientes I
 							where U.idReceta=R.IdReceta and U.idIngrediente=I.IdIngrediente
                             and UPPER(i.nombre) like UPPER('%${receta.nombre}%'))
-			and RA.snAutorizada ='S'`
+      and RA.snAutorizada ='S'
+      group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -262,18 +277,20 @@ async function getRecetaSinIngrediente(receta){
   try{
     
     const rows = await db.query(
-      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as Alias, 
-      R.nombre as Nombre, R.descripcion as Descripcion, R.foto as Foto, R.porciones as Porciones, 
-      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, 
-      RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
-        from recetas R, recetasAdicional RA, usuarios usr, tipos t
+      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
+      R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
+        from recetas R, recetasAdicional RA, usuarios usr, tipos t, Calificaciones C 
             where R.idReceta=RA.idReceta
             and usr.idUsuario = R.idUsuario
             and t.idTipo=R.idTipo
+            and C.IdReceta=R.IdReceta
             and not exists (select 1 from Utilizados U, Ingredientes I
 							where U.idReceta=R.IdReceta and U.idIngrediente=I.IdIngrediente
                             and UPPER(i.nombre) like UPPER('%${receta.nombre}%'))
-			and RA.snAutorizada ='S'`
+      and RA.snAutorizada ='S'
+      group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -315,13 +332,16 @@ async function getRecetaPorNombreTipo(receta){
   try{
 
     const rows = await db.query(
-      `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre, R.descripcion, R.foto, R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada
-      from recetas R, recetasAdicional RA, tipos T , usuarios usr
+      `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada,TRUNCATE(avg(C.calificacion),1) as CalificacionProm
+      from recetas R, recetasAdicional RA, tipos T , usuarios usr,calificaciones C
       where R.idReceta=RA.idReceta
       and R.idTipo=T.idTipo
+      and R.idReceta = C.idReceta
       and usr.idUsuario=R.idUsuario
-      and UPPER(T.descripcion) like UPPER('%${receta.descripcion}%') and RA.snAutorizada ='S'`
+      and UPPER(T.descripcion) like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'
+      group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
     );
     const data = helper.emptyOrRows(rows);
 
