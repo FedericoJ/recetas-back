@@ -352,9 +352,7 @@ async function modificarPass(usuario){
     try {
         // Find the User 
         let data = await buscarUsuarioByMailHabilitado(usuario.mail);
-        console.log(data.data[0]);
         if (data.data.length==0){
-          console.log("Claro que si");
           return {code: 202, usuario: "Invalid username or password"};
         }
         
