@@ -36,8 +36,9 @@ async function getMultimedia(multimedia) {
         // Find the User 
 
         const result = await db.query(
-            `select tipo_contenido,urlContenido from multimedia
-            where idPaso=${multimedia.idPaso}`
+            `select tipo_contenido,urlContenido,p.idPaso,m.extension from multimedia m 
+            inner join pasos p on p.idPaso = m.idPaso
+            where p.idReceta=${multimedia.idReceta}`
         );
 
         const data = helper.emptyOrRows(result);

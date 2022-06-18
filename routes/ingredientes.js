@@ -17,9 +17,9 @@ router.post('/guardarMultimedia', async function(req, res, next) {
   router.get('/getMultimedia', async function(req, res, next) {
     try {
 
-      const result= await multimedia.getMultimedia(req.body)  
+      const result= await multimedia.getMultimedia(req.query)  
       
-      res.status(result.code).json({result});
+      res.status(result.code).json(result.multimedia);
 
     } catch (err) {
       console.error(`Error obteniendo multimedia`, err.message);

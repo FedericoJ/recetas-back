@@ -493,7 +493,7 @@ async function getPasos(paso) {
 
       const data = helper.emptyOrRows(result);
 
-      return { code: 201, foto: data };
+      return { code: 201, pasos: data };
 
   } catch (e) {
       // return a Error message describing the reason     

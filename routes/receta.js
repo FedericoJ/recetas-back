@@ -202,10 +202,10 @@ router.post('/postPaso', async function(req, res, next) {
 
 router.get('/getPasos', async function(req, res, next) {
   try {
-    const result = await receta.getPasos(req.body);
-    res.status(result.code).json({result});
+    const result = await receta.getPasos(req.query);
+    res.status(result.code).json(result.pasos);
   } catch (err) {
-    console.error(`Error obteniendo los pasos.`, err.message);
+    console.error(`Error obteniendo los pasos`, err.message);
     next(err);
   }
 });
