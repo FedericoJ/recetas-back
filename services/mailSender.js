@@ -24,8 +24,6 @@ module.exports = {
                     }
                  
             });
-            
-            console.log('llegue hasta amigo');
 
             let info = await transporter.sendMail({
                 from: '"Recetas" <recetapp1@distribuidas.com>', // sender address
@@ -55,22 +53,15 @@ module.exports = {
 
         try{
 
-            let linkRecuperador =Math.round(Math.random()*999999);//`http://localhost:3000/recoverypassword/?token=${token}&mail=${email}`
-
-
             let transporter = nodemailer.createTransport({
-                service: 'gmail',
-                host: 'smtp.gmail.com',
-                secure: false, // use SSL
-                port: 25,
+                host: "smtp.mailtrap.io",
+                port: 2525,
                 auth: {
-                user: 'recetapp1@gmail.com',
-                pass: 'uade2021'
-                },
-                tls: {
-                rejectUnauthorized: false
-                } 
-            });
+                  user: "1c8b722665f341",
+                  pass: "7dc0d216ea53cf"
+                }
+             
+        });
 
             let info = await transporter.sendMail({
                 from: '"Recetas" <recetapp1@gmail.com>', // sender address
@@ -78,7 +69,7 @@ module.exports = {
                 subject: "Complete su Login ✔", // Subject line
                 text: "Completar Login", // plain text body
                 //MRV (08/05): El link lo tiene que llevar a la pagina "Finalizar creacion Usuario"
-                html: `<b>Usted se ha registrado en la App, por favor haga click en el siguinte link para finalizar su registración: ${linkRecuperador}</b>`, // html body
+                html: `¡Bienvenido! Usted se ha registrado en <b>RecetApp</b>. Siga los pasos para registrar su password.`, // html body
             });
 
             //Agregar Insert del codigo enviado
@@ -89,7 +80,7 @@ module.exports = {
 
             } 
 
-            return {code: 200, message: 'Mail de recuperación enviado'}; 
+            return {code: 200, message: 'Mail de login enviado'}; 
 
         }catch(e){
 
