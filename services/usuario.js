@@ -351,17 +351,18 @@ async function modificarPass(usuario){
 
     try {
         // Find the User 
-        
-
         let data = await buscarUsuarioByMailHabilitado(usuario.mail);
+        console.log(data.data[0]);
         if (data.data.length==0){
-            return {code: 202, message: "Invalid username or password"};
+          console.log("Claro que si");
+          return {code: 202, usuario: "Invalid username or password"};
         }
+        
         user = data.data[0];
 
         let passwordIsValid = bcrypt.compareSync(usuario.password,user.password );
 
-        if (!passwordIsValid)  return {code: 203, message: "Invalid username or password"}
+        if (!passwordIsValid)  return {code: 203, usuario: "Invalid username or password"}
 
         var token = jwt.sign({
             id: user.idUsuario
