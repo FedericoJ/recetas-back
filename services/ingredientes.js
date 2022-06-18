@@ -73,6 +73,28 @@ async function getIngredientes(multimedia) {
 
 }
 
+async function getUnidades() {
+
+    // Creating a new Mongoose Object by using the new keyword
+    try {
+        // Find the User 
+
+        const result = await db.query(
+            `select descripcion as label,idUnidad as value from unidades`
+        );
+
+        const data = helper.emptyOrRows(result);
+
+        return { code: 201, unidades: data };
+
+    } catch (e) {
+        // return a Error message describing the reason     
+        return { code: 400, message: e.message };
+    }
+
+}
+
+
 async function postIngredientes(ingrediente) {
 
 
@@ -122,7 +144,7 @@ async function getIngredienteUtilizadoPorReceta(multimedia) {
 
         const data = helper.emptyOrRows(result);
 
-        return { code: 201, multimedia: data };
+        return { code: 201, ingredientes: data };
 
     } catch (e) {
         // return a Error message describing the reason     
@@ -218,5 +240,6 @@ module.exports = {
     getConversiones,
     getIngredienteUtilizadoPorReceta,
     postIngredienteUtilizadoPorReceta,
-    postIngredientes
+    postIngredientes,
+    getUnidades
 }
