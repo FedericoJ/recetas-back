@@ -349,7 +349,6 @@ async function modificarPass(usuario){
 
   async function loginUser (usuario ) {
 
-    try {
         // Find the User 
         let data = await buscarUsuarioByMailHabilitado(usuario.mail);
         if (data.data.length==0){
@@ -370,10 +369,9 @@ async function modificarPass(usuario){
 
         return {code: 201, token:token, usuario:data};
 
-    } catch (e) {
+  
         // return a Error message describing the reason     
-        return {code: 400, message: e.message};
-    }
+       // return {code: 400, message: e.message};
 
   }
 
