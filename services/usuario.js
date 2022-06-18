@@ -361,13 +361,13 @@ async function modificarPass(usuario){
 
         if (!passwordIsValid)  return {code: 203, usuario: "Invalid username or password"}
 
-        var token = jwt.sign({
+        /*var token = jwt.sign({
             id: user.idUsuario
-        },configClave.SECRET, {
+        },{'supersecret'}, {
             expiresIn: 86400 // expires in 24 hours
-        });
+        });*/
 
-        return {code: 201, token:token, usuario:data};
+        return {code: 201,/* token:token,*/ usuario:data};
 
   
         // return a Error message describing the reason     
