@@ -96,9 +96,14 @@ async function modificarPass(usuario){
   async function crearInvitado(usuario){
 
       try{
-        let data = await buscarUsuarioByMail(usuario.mail);
+        let data = await buscarUsuarioByMailHabilitado(usuario.mail);
         if (data.data.length!=0){
             return {code: 202, message: "Mail already registered"};
+        }
+
+        let data2 = await buscarUsuarioByMailNoHabilitado(usuario.mail);
+        if (data2.data.length!=0){
+            return {code: 203, message: "Mail already registered but registration is not complete"};
         }
 
         const result = await db.query(
@@ -312,6 +317,24 @@ async function modificarPass(usuario){
       `SELECT * FROM usuarios,login
       WHERE usuarios.idUsuario=login.idUsuario
       AND habilitado='Si'
+      AND mail='${mail}'`
+    );
+    const data = helper.emptyOrRows(rows);
+  
+    return {
+      data
+    }
+
+
+  }
+
+  async function buscarUsuarioByMailNoHabilitado(mail){
+
+    
+    const rows = await db.query(
+      `SELECT * FROM usuarios,login
+      WHERE usuarios.idUsuario=login.idUsuario
+      AND habilitado='No'
       AND mail='${mail}'`
     );
     const data = helper.emptyOrRows(rows);
