@@ -119,7 +119,7 @@ router.post('/valorarReceta', async function(req, res, next) {
 router.get('/getValoracionesByReceta', async function(req, res, next) {
   try {
     const result = await receta.getValoracionesByReceta(req.query);
-    res.status(result.code).json({result});
+    res.status(result.code).json(result.receta);
   } catch (err) {
     console.error(`Error obteniendo las valoraciones y comentarios de la receta`, err.message);
     next(err);
