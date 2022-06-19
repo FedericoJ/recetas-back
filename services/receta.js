@@ -318,7 +318,7 @@ async function getRecetaPorTipo(receta){
       and R.idTipo=T.idTipo
       and R.idReceta = C.idReceta
       and usr.idUsuario=R.idUsuario
-      and UPPER(T.idTipo) like UPPER('%${receta.idTipo}%') and RA.snAutorizada ='S'
+      and T.idTipo =${receta.nombre} and RA.snAutorizada ='S'
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
       R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
     );
