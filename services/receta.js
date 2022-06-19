@@ -311,13 +311,16 @@ async function getRecetaPorTipo(receta){
   try{
 
     const rows = await db.query(
-      `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre, R.descripcion, R.foto, R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada
-      from recetas R, recetasAdicional RA, tipos T , usuarios usr
+      `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada,TRUNCATE(avg(C.calificacion),1) as CalificacionProm
+      from recetas R, recetasAdicional RA, tipos T , usuarios usr,calificaciones C
       where R.idReceta=RA.idReceta
       and R.idTipo=T.idTipo
+      and R.idReceta = C.idReceta
       and usr.idUsuario=R.idUsuario
-      and UPPER(T.idTipo) like UPPER('%${receta.idTipo}%') and RA.snAutorizada ='S'`
+      and UPPER(T.idTipo) like UPPER('%${receta.idTipo}%') and RA.snAutorizada ='S'
+      group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
     );
     const data = helper.emptyOrRows(rows);
 

@@ -80,7 +80,7 @@ router.get('/recetaSinIngrediente', async function(req, res, next) {
 router.get('/recetaPorTipo', async function(req, res, next) {
   try {
     const result = await receta.getRecetaPorTipo(req.query);
-    res.status(result.code).json({result});
+    res.status(result.code).json(result.receta);
   } catch (err) {
     console.error(`Error obteniendo las recetas por tipo`, err.message);
     next(err);
