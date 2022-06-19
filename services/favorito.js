@@ -15,12 +15,12 @@ async function getFavoritos(usuario){
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
       from favoritos f
-      join recetas R on R.idreceta = r.idreceta
+      join recetas R on R.idreceta = f.idreceta
       join Calificaciones C on C.IdReceta=R.IdReceta
       join recetasAdicional RA on RA.IdReceta=R.IdReceta
       join usuarios usr on usr.idUsuario = R.idUsuario
       join Tipos t on t.idTipo=R.idTipo
-      where f.idusuario ='${usuario.idUsuario}'
+      where f.idusuario =${usuario.idUsuario}
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
       R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
     );

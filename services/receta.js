@@ -237,9 +237,6 @@ async function eliminarReceta(receta){
 }
 
 
-
-
-
 async function getRecetaPorIngrediente(receta){
 
   console.log(receta);
