@@ -349,32 +349,29 @@ async function modificarPass(usuario){
 
   async function loginUser (usuario ) {
 
-    try {
         // Find the User 
-        
-
         let data = await buscarUsuarioByMailHabilitado(usuario.mail);
         if (data.data.length==0){
-            return {code: 202, message: "Invalid username or password"};
+          return {code: 202, usuario: "Invalid username or password"};
         }
+        
         user = data.data[0];
 
         let passwordIsValid = bcrypt.compareSync(usuario.password,user.password );
 
-        if (!passwordIsValid)  return {code: 203, message: "Invalid username or password"}
+        if (!passwordIsValid)  return {code: 203, usuario: "Invalid username or password"}
 
-        var token = jwt.sign({
+        /*var token = jwt.sign({
             id: user.idUsuario
-        },configClave.SECRET, {
+        },{'supersecret'}, {
             expiresIn: 86400 // expires in 24 hours
-        });
+        });*/
 
-        return {code: 201, token:token, usuario:data};
+        return {code: 201,/* token:token,*/ usuario:data};
 
-    } catch (e) {
+  
         // return a Error message describing the reason     
-        return {code: 400, message: e.message};
-    }
+       // return {code: 400, message: e.message};
 
   }
 

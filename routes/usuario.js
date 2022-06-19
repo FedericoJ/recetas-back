@@ -97,7 +97,7 @@ router.post('/create', async function(req, res, next) {
 
       const result= await usuario.loginUser(req.body)  
       
-      res.status(result.code).json({result});
+      res.status(result.code).json(result.usuario);
 
     } catch (err) {
       console.error(`Error creando un usuario`, err.message);
@@ -144,7 +144,7 @@ router.post('/create', async function(req, res, next) {
   });
 
 
-  router.put('/modificarUsuario', async function(req, res, next) {
+  /*router.put('/modificarUsuario', async function(req, res, next) {
     try {
 
       const result= await usuario.updateUser(req.body)  
@@ -155,7 +155,7 @@ router.post('/create', async function(req, res, next) {
       console.error(`Error modificando un usuario`, err.message);
       next(err);
     }
-  });
+  });*/
 
   router.get('/helloWorld', async function (req, res, next) {
     try {
