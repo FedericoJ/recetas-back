@@ -221,11 +221,17 @@ async function getConversiones(unidad) {
 
         const data = helper.emptyOrRows(result);
 
-        return { code: 201, factorConversion: data };
+
+        if(data.length){
+            return { code: 201, factorConversion: data[0].conversion };
+        }else{
+            return { code: 201, factorConversion:1 };
+        }
+
 
     } catch (e) {
         // return a Error message describing the reason     
-        return { code: 400, message: e.message };
+        return { code: 400, factorConversion: e.message };
     }
 
 }
