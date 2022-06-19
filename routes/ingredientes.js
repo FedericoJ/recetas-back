@@ -69,7 +69,7 @@ router.post('/guardarMultimedia', async function(req, res, next) {
   router.get('/getFactorConversion', async function(req, res, next) {
     try {
 
-      const result= await multimedia.getConversiones(req.body);  
+      const result= await multimedia.getConversiones(req.query);  
       
       res.status(result.code).json(result.factorConversion);
 

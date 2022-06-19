@@ -11,14 +11,18 @@ async function getFavoritos(usuario){
 
   try{
     const rows = await db.query(
-      `select avg(c.calificacion) as CalificacionPromedio, r.nombre as NombreReceta, 
-        u.nickname as NickNameUsuarioReceta, c.idreceta as IdReceta, f.idfavorito as IdFavorito
+      `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
+      R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
       from favoritos f
-      join calificaciones c on f.idreceta = c.idreceta
-      join recetas r on f.idreceta = r.idreceta
-      join usuarios u on r.idusuario = u.idusuario 
+      join recetas R on R.idreceta = r.idreceta
+      join Calificaciones C on C.IdReceta=R.IdReceta
+      join recetasAdicional RA on RA.IdReceta=R.IdReceta
+      join usuarios usr on usr.idUsuario = R.idUsuario
+      join Tipos t on t.idTipo=R.idTipo
       where f.idusuario ='${usuario.idUsuario}'
-      group by c.idreceta, r.nombre, u.nickname,f.idfavorito`
+      group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
     );
     const data = helper.emptyOrRows(rows);
     
@@ -31,6 +35,34 @@ async function getFavoritos(usuario){
   
 
 }
+
+async function isFavorito(usuario){
+
+  try{
+    const rows = await db.query(
+      `select 1
+      from favoritos f
+      where f.idusuario =${usuario.idUsuario}
+      and f.idReceta =${usuario.idReceta}`
+    );
+    const data = helper.emptyOrRows(rows);
+
+    if (data.length==0){
+      return {code: 202, favorito:2};
+    }
+    
+    return {code: 201, favorito:1};
+
+  }catch(e){
+
+    return {code: 400, favorito: e.message};
+  }
+  
+
+}
+
+
+
 
 async function cargarFavorito(favorito){
 
@@ -85,5 +117,6 @@ async function eliminarFavorito(favorito){
 module.exports = {
   getFavoritos,
   cargarFavorito,
-  eliminarFavorito
+  eliminarFavorito,
+  isFavorito
 }

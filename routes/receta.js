@@ -138,7 +138,7 @@ router.get('/getValoracionPromedio', async function(req, res, next) {
 
 // Agrego sección de favoritos 
 
-router.post('/agregarFavorito', async function(req, res, next) {
+router.post('/cargarFavorito', async function(req, res, next) {
   try {
     res.json(await favorito.cargarFavorito(req.body));
   } catch (err) {
@@ -150,6 +150,16 @@ router.post('/agregarFavorito', async function(req, res, next) {
 router.get('/getFavorito', async function(req, res, next) {
   try {
     const result = await favorito.getFavoritos(req.query);
+    res.status(result.code).json(result.favorito);
+  } catch (err) {
+    console.error(`Error obteniendo los favoritos por usuario`, err.message);
+    next(err);
+  }
+});
+
+router.get('/isFavorito', async function(req, res, next) {
+  try {
+    const result = await favorito.isFavorito(req.query);
     res.status(result.code).json(result.favorito);
   } catch (err) {
     console.error(`Error obteniendo los favoritos por usuario`, err.message);
