@@ -340,7 +340,7 @@ async function getRecetaPorTipo(receta){
   try{
 
     const rows = await db.query(
-      `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones, R.cantidadPersonas,
+      `select R.IdReceta, R.idUsuario, usr.nickname as alias, R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.Porciones, R.CantidadPersonas,
       R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada,TRUNCATE(avg(C.calificacion),1) as CalificacionProm
       from recetas R, recetasAdicional RA, tipos T , usuarios usr,calificaciones C
       where R.idReceta=RA.idReceta
@@ -358,7 +358,7 @@ async function getRecetaPorTipo(receta){
 
   }catch(e){
 
-    return {code: 400, message: e.message};
+    return {code: 400, receta: e.message};
 
   }
 
