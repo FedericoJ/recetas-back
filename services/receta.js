@@ -71,6 +71,14 @@ async function getRecetasSemana(receta){
 
 async function getRecetaPorUsuario(receta){
 
+  var order;
+
+  if (receta.order ==="Abc") order = " order by R.nombre"
+  
+  if(receta.order ==="User") order =" order by usr.nickname"
+
+  if(receta.order =="Date") order =" order by RA.fecAlta"
+
   try{
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
@@ -83,7 +91,8 @@ async function getRecetaPorUsuario(receta){
       and C.IdReceta=R.IdReceta
       and UPPER(usr.nickname) like UPPER('%${receta.nombre}%')
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada `
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada
+      ${order}`
 
     );
     const data = helper.emptyOrRows(rows);
@@ -148,6 +157,14 @@ async function valorarReceta(receta){
 
 async function getRecetaPorNombre(receta){
 
+  var order;
+
+  if (receta.order ==="Abc") order = " order by R.nombre"
+  
+  if(receta.order ==="User") order =" order by usr.nickname"
+
+  if(receta.order =="Date") order =" order by RA.fecAlta"
+
   try {
 
     const rows = await db.query(
@@ -163,7 +180,8 @@ async function getRecetaPorNombre(receta){
       R.idReceta = C.idReceta
       and UPPER(R.nombre)  like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada
+      ${order}`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -239,7 +257,14 @@ async function eliminarReceta(receta){
 
 async function getRecetaPorIngrediente(receta){
 
+  var order;
   console.log(receta);
+
+  if (receta.order ==="Abc") order = " order by R.nombre"
+  
+  if(receta.order ==="User") order =" order by usr.nickname"
+
+  if(receta.order =="Date") order =" order by RA.fecAlta"
 
   try {
 
@@ -260,7 +285,8 @@ async function getRecetaPorIngrediente(receta){
                             and UPPER(i.nombre) like UPPER('%${receta.nombre}%'))
       and RA.snAutorizada ='S'
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada
+      ${order}`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -274,6 +300,14 @@ async function getRecetaPorIngrediente(receta){
 }
 
 async function getRecetaSinIngrediente(receta){
+   var order;
+
+    if (receta.order ==="Abc") order = " order by R.nombre";
+  
+    if(receta.order ==="User") order =" order by usr.nickname";
+
+    if(receta.order =="Date") order =" order by RA.fecAlta";
+
 
   try{
     
@@ -291,7 +325,8 @@ async function getRecetaSinIngrediente(receta){
                             and UPPER(i.nombre) like UPPER('%${receta.nombre}%'))
       and RA.snAutorizada ='S'
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada
+      ${order}`
     );
     const data = helper.emptyOrRows(rows);
 
@@ -333,6 +368,14 @@ async function getRecetaPorTipo(receta){
 }
 
 async function getRecetaPorNombreTipo(receta){
+
+  var order;
+
+  if (receta.order ==="Abc") order = " order by R.nombre"
+  
+  if(receta.order ==="User") order =" order by usr.nickname"
+
+  if(receta.order =="Date") order =" order by RA.fecAlta"
   try{
 
     const rows = await db.query(
@@ -345,7 +388,8 @@ async function getRecetaPorNombreTipo(receta){
       and usr.idUsuario=R.idUsuario
       and UPPER(T.descripcion) like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada
+      ${order}`
     );
     const data = helper.emptyOrRows(rows);
 
