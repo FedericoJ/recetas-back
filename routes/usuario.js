@@ -63,7 +63,8 @@ router.post('/create', async function(req, res, next) {
 
   router.post('/modificarUsuario', async function(req, res, next) {
     try {
-      res.json(await usuario.postUsuario(req.body));
+      const result= await usuario.postUsuario(req.body) ;
+      res.status(result.code).json({result});
     } catch (err) {
       console.error(`Error actualizando al Usuario`, err.message);
       next(err);
