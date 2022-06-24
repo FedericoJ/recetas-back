@@ -185,10 +185,10 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "IdPaso": "[Integer]",
-        "Tipo_Contenido": "[String]",
-        "Extension": "[String]",
-        "URL": "[String]"
+        "idPaso": "[Integer]",
+        "tipo_Contenido": "[String]",
+        "extension": "[String]",
+        "url": "[String]"
     }
     ```
 
@@ -220,15 +220,9 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-   ```json
+      ```
     {
-        "IdPaso": "[Integer]"
+        "idReceta": "[Integer]"
     }
     ```
 
@@ -238,12 +232,20 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** 
     ```json
     {
-        "code": 200,
-        "multimedia": [
-            {
-                "tipo_contenido": "foto",
-                "urlContenido": "www.url.com"
-            }
+        "code": 201,
+        "message": [
+          {
+            "tipo_contenido": "foto",
+            "urlContenido": "https://thumbs.dreamstime.com/b/huevos-y-az%C3%BAcar-en-bol-grande-71426369.jpg",
+            "idPaso": 64,
+            "extension": "jpg"
+          },
+          {
+            "tipo_contenido": "foto",
+            "urlContenido": "https://img.freepik.com/foto-gratis/proceso-elaboracion-masa-tarta-chocolate-mezclar-cacao-polvo-recipiente-metal-masa-mesa-cocina-vista-superior_518173-856.jpg?w=2000",
+            "idPaso": 84,
+            "extension": "jpg"
+          }
         ]
     }
 
@@ -392,15 +394,9 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-   ```json
+    ```
     {
-        "IdReceta": "[Integer]"
+        "idReceta": "[Integer]"
     }
     ```
 
@@ -496,16 +492,10 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
-        "IdOrigen": "[Integer]",
-        "IdDestino": "[Integer]"
+        "idOrigen": "[Integer]",
+        "idDestino": "[Integer]"
     }
     ```
 
@@ -517,6 +507,65 @@ Para iniciar este proyecto, se deben correr los comandos:
     {
       "conversion": 0.001
     }
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
+## Obtener unidades
+* **URL**
+
+  http://localhost:3000/ingredientes/getUnidades
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+   None
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    [
+      {
+          "label": "gr",
+          "value": 1
+      },
+      {
+          "label": "kg",
+          "value": 2
+      },
+      {
+          "label": "l",
+          "value": 3
+      },
+      {
+          "label": "ml",
+          "value": 4
+      },
+      {
+          "label": "cc",
+          "value": 5
+      },
+      {
+          "label": "cm3",
+          "value": 6
+      },
+      {
+          "label": "Cuch.",
+          "value": 7
+      },
+      {
+          "label": "Uni",
+          "value": 8
+      }
+    ]
+    ```
 
 * **Respuesta No Exitosa:**
 
