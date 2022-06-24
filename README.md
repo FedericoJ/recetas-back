@@ -697,60 +697,6 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot ERROR`
 
-
-## Obtener Receta por ID
-* **URL**
-
-  http://localhost:3000/receta/recetaPorId
-
-* **Metodo:**
-
-  `GET`
-  
-*  **URL Parametros**
-
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
-    {
-        "IdReceta": "[Integer]"
-    }
-    ```
-
-* **Respuesta Exitosa:**
-
-  * **Codigo:** 201 <br />
-  * **Contenido:** 
-    ```json
-    {
-      "code": 201,
-        "receta": [
-            {
-                "IdReceta": 7,
-                "IdUsuario": 11,
-                "nombre": "Libritos de grasa",
-                "Descripcion": "Libritos caseros",
-                "foto": "Libritos.jpg",
-                "porciones": 10,
-                "CantidadPersonas": 5,
-                "IdTipo": 4,
-                "DescripcionTipo": "Scones/Libritos",
-                "FecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S",
-                "avg (C.calificacion)": "4.0000"
-            }
-        ]
-    }
-
-* **Respuesta No Exitosa:**
-
-  * **Codigo:** 404 NOT FOUND <br />
-  * **Contenido:** `Cannot ERROR`
-
 ## Crear Receta
 
 * **URL**
@@ -771,14 +717,14 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "IdUsuario": "[Integer]",
-        "Nombre": "[String]",
-        "Descripcion": "[String]",
-        "Foto": "[String]",
-        "Porciones": "[Integer]",
-        "CantidadPersonas":"[Integer]",
-        "IdTipo":"[Integer]",
-        "FecAlta":"[Date]"
+        "idUsuario": "[Integer]",
+        "nombre": "[String]",
+        "descripcion": "[String]",
+        "foto": "[String]",
+        "porciones": "[Integer]",
+        "cantidadPersonas":"[Integer]",
+        "idTipo":"[Integer]",
+        "fecAlta":"[Date]"
     }
     ```
 
@@ -819,9 +765,9 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "IdReceta": "[Integer]",
-        "URL": "[String]",
-        "Extension": "[String]"
+        "idReceta": "[Integer]",
+        "url": "[String]",
+        "extension": "[String]"
     }
     ```
 
@@ -861,7 +807,7 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "IdReceta": "[Integer]"
+        "idReceta": "[Integer]"
     }
     ```
 
@@ -959,15 +905,9 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
-        "IdReceta": "[Integer]"
+        "idReceta": "[Integer]"
     }
     ```
 
@@ -977,26 +917,25 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** 
     ```json
     {
-       "code": 201,
-        "foto": [
-            {
-                "idPaso": 15,
-                "idReceta": 8,
-                "nroPaso": 1,
-                "texto": "Paso numero 1"
-            },
-            {
-                "idPaso": 16,
-                "idReceta": 8,
-                "nroPaso": 2,
-                "texto": "Paso numero 1"
-            },
-            {
-                "idPaso": 17,
-                "idReceta": 8,
-                "nroPaso": 2,
-                "texto": "Paso numero 1"
-            }
+      [
+        {
+            "idPaso": 234,
+            "idReceta": 7,
+            "nroPaso": 1,
+            "texto": "Formar un arenado con la manteca fria y la harina."
+        },
+        {
+            "idPaso": 244,
+            "idReceta": 7,
+            "nroPaso": 2,
+            "texto": "Agregar el resto hasta formar una masa"
+        },
+        {
+            "idPaso": 254,
+            "idReceta": 7,
+            "nroPaso": 3,
+            "texto": "Estrirar, doblar 3 veces y cortar en cuadrados"
+        }
         ]
     }
 
@@ -1017,15 +956,10 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
-        "IdUsuario": "[Integer]"
+      "nombre": "[String]",
+      "ordenar": "[String]"
     }
     ```
 
@@ -1094,10 +1028,10 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "IdUsuario": "[Integer]",
-        "IdReceta": "[Integer]",
-        "Calificacion": "[Integer]",
-        "Comentarios": "[String]"
+        "idUsuario": "[Integer]",
+        "idReceta": "[Integer]",
+        "calificacion": "[Integer]",
+        "comentarios": "[String]"
     }
     ```
 
@@ -1129,15 +1063,10 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
     ```json
     {
-        "Nombre": "[String]"
+        "nombre": "[String]",
+        "order": "[String]"
     }
     ```
 
@@ -1150,16 +1079,19 @@ Para iniciar este proyecto, se deben correr los comandos:
         "code": 201,
         "receta": [
             {
-                "IdReceta": 2,
-                "IdUsuario": 10,
-                "Alias": "mrv",
-                "Nombre": "Budin marmolado",
-                "Descripcion": "Budin marmolado bien esponjoso",
-                "Foto": "Budin.jpg",
-                "Porciones": 16,
-                "CantidadPersonas": 8,
-                "FecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
+              "IdReceta": 6,
+              "IdUsuario": 11,
+              "alias": "TPAD",
+              "Nombre": "Scones de Queso",
+              "Descripcion": "Scones de queso tipo Starbucks para merendar!",
+              "foto": "https://cuk-it.com/wp-content/uploads/2020/08/thumb02-3-1024x576.jpg",
+              "Porciones": 12,
+              "CantidadPersonas": 6,
+              "IdTipo": 4,
+              "DescTipo": "Libritos",
+              "CalificacionProm": "3.2",
+              "FecAlta": "2022-04-30T03:00:00.000Z",
+              "SnAutorizada": "S"
             }
         ]
     }
@@ -1220,16 +1152,11 @@ Para iniciar este proyecto, se deben correr los comandos:
   `GET`
   
 *  **URL Parametros**
-
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
  
-    ```json
+    ```
     {
-        "Nombre": "[String]"
+        "nombre": "[String]",
+        "order": "[String]"
     }
     ```
 
@@ -1242,18 +1169,19 @@ Para iniciar este proyecto, se deben correr los comandos:
         "code": 201,
         "receta": [
             {
-                "IdReceta": 2,
-                "IdUsuario": 10,
-                "Alias": "mrv",
-                "Nombre": "Budin marmolado",
-                "Descripcion": "Budin marmolado bien esponjoso",
-                "Foto": "Budin.jpg",
-                "Porciones": 16,
-                "CantidadPersonas": 8,
-                "IdTipo": 1,
-                "DescTipo": "Budines",
-                "FecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
+              "IdReceta": 6,
+              "IdUsuario": 11,
+              "alias": "TPAD",
+              "Nombre": "Scones de Queso",
+              "Descripcion": "Scones de queso tipo Starbucks para merendar!",
+              "foto": "https://cuk-it.com/wp-content/uploads/2020/08/thumb02-3-1024x576.jpg",
+              "Porciones": 12,
+              "CantidadPersonas": 6,
+              "IdTipo": 4,
+              "DescTipo": "Libritos",
+              "CalificacionProm": "3.2",
+              "FecAlta": "2022-04-30T03:00:00.000Z",
+              "SnAutorizada": "S"
             }
         ]
     }
@@ -1275,15 +1203,10 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
-        "Nombre": "[String]"
+        "nombre": "[String]",
+        "order": "[String]"
     }
     ```
 
@@ -1293,37 +1216,39 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** 
     ```json
     {
-                "code": 201,
-        "receta": [
-            {
-                "IdReceta": 4,
-                "IdUsuario": 11,
-                "Alias": "TPAD",
-                "Nombre": "Biscochuelo marmolado",
-                "Descripcion": "Biscochuelo marmolado casero",
-                "Foto": "BiscochoMarmolado.jpg",
-                "Porciones": 16,
-                "CantidadPersonas": 8,
-                "IdTipo": 2,
-                "DescTipo": "Tortas",
-                "FecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
-            },
-            {
-                "IdReceta": 3,
-                "IdUsuario": 10,
-                "Alias": "mrv",
-                "Nombre": "Biscochuelo",
-                "Descripcion": "Biscochuelo de vainilla casero",
-                "Foto": "Biscocho.jpg",
-                "Porciones": 16,
-                "CantidadPersonas": 8,
-                "IdTipo": 2,
-                "DescTipo": "Tortas",
-                "FecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
-            }
-        ]
+        "code": 201,
+        "message": [
+          {
+              "IdReceta": 3,
+              "IdUsuario": 10,
+              "alias": "mrv",
+              "Nombre": "Bizcochuelo",
+              "Descripcion": "Biscochuelo de vainilla casero",
+              "foto": "https://www.cocinayvino.com/wp-content/uploads/2016/10/26825511_ml-e1476236596579.jpg",
+              "Porciones": 16,
+              "CantidadPersonas": 8,
+              "IdTipo": 2,
+              "DescTipo": "Tortas",
+              "CalificacionProm": "2.0",
+              "FecAlta": "2022-04-30T03:00:00.000Z",
+              "SnAutorizada": "S"
+          },
+          {
+              "IdReceta": 4,
+              "IdUsuario": 11,
+              "alias": "TPAD",
+              "Nombre": "Bizcochuelo marmolado",
+              "Descripcion": "Biscochuelo marmolado casero",
+              "foto": "https://img-global.cpcdn.com/recipes/395808cb8b124c10/680x482cq70/bizcochuelo-marmolado-foto-principal.webp",
+              "Porciones": 16,
+              "CantidadPersonas": 8,
+              "IdTipo": 2,
+              "DescTipo": "Tortas",
+              "CalificacionProm": "3.5",
+              "FecAlta": "2022-04-30T03:00:00.000Z",
+              "SnAutorizada": "S"
+          }
+      ]
     }
 
 * **Respuesta No Exitosa:**
@@ -1351,7 +1276,7 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "IdTipo": "[Integer]"
+        "nombre": "[Integer]"
     }
     ```
 
@@ -1362,36 +1287,38 @@ Para iniciar este proyecto, se deben correr los comandos:
     ```json
     {
        "code": 201,
-        "receta": [
-            {
-                "idReceta": 3,
-                "idUsuario": 10,
-                "alias": "mrv",
-                "nombre": "Biscochuelo",
-                "descripcion": "Biscochuelo de vainilla casero",
-                "foto": "Biscocho.jpg",
-                "porciones": 16,
-                "cantidadPersonas": 8,
-                "idTipo": 2,
-                "descTipo": "Tortas",
-                "fecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
-            },
-            {
-                "idReceta": 4,
-                "idUsuario": 11,
-                "alias": "TPAD",
-                "nombre": "Biscochuelo marmolado",
-                "descripcion": "Biscochuelo marmolado casero",
-                "foto": "BiscochoMarmolado.jpg",
-                "porciones": 16,
-                "cantidadPersonas": 8,
-                "idTipo": 2,
-                "descTipo": "Tortas",
-                "fecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
-            }
-        ]
+        "message": [
+                    {
+                        "IdReceta": 3,
+                        "idUsuario": 10,
+                        "alias": "mrv",
+                        "Nombre": "Bizcochuelo",
+                        "Descripcion": "Biscochuelo de vainilla casero",
+                        "foto": "https://www.cocinayvino.com/wp-content/uploads/2016/10/26825511_ml-e1476236596579.jpg",
+                        "Porciones": 16,
+                        "CantidadPersonas": 8,
+                        "idTipo": 2,
+                        "descTipo": "Tortas",
+                        "fecAlta": "2022-04-30T03:00:00.000Z",
+                        "SnAutorizada": "S",
+                        "CalificacionProm": "2.0"
+                    },
+                    {
+                        "IdReceta": 4,
+                        "idUsuario": 11,
+                        "alias": "TPAD",
+                        "Nombre": "Bizcochuelo marmolado",
+                        "Descripcion": "Biscochuelo marmolado casero",
+                        "foto": "https://img-global.cpcdn.com/recipes/395808cb8b124c10/680x482cq70/bizcochuelo-marmolado-foto-principal.webp",
+                        "Porciones": 16,
+                        "CantidadPersonas": 8,
+                        "idTipo": 2,
+                        "descTipo": "Tortas",
+                        "fecAlta": "2022-04-30T03:00:00.000Z",
+                        "SnAutorizada": "S",
+                        "CalificacionProm": "3.5"
+                    }
+                ]
     }
 
 * **Respuesta No Exitosa:**
@@ -1411,15 +1338,10 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
-        "Descripcion": "[String]"
+        "nombre": "[String]",
+        "order": "[String]"
     }
     ```
 
@@ -1430,22 +1352,23 @@ Para iniciar este proyecto, se deben correr los comandos:
     ```json
     {
        "code": 201,
-        "receta": [
-            {
-                "idReceta": 2,
-                "idUsuario": 10,
-                "alias": "mrv",
-                "nombre": "Budin marmolado",
-                "descripcion": "Budin marmolado bien esponjoso",
-                "foto": "Budin.jpg",
-                "porciones": 16,
-                "cantidadPersonas": 8,
-                "idTipo": 1,
-                "descTipo": "Budines",
-                "fecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
-            }
-        ]
+        "message": [
+                    {
+                        "idReceta": 1,
+                        "idUsuario": 10,
+                        "alias": "mrv",
+                        "Nombre": "Budin naranja",
+                        "Descripcion": "Budin de naranja con semillas de amapola",
+                        "foto": "https://www.clarin.com/img/2019/07/23/bs56zWpBq_1256x620__2.jpg#1591385524188",
+                        "porciones": 8,
+                        "cantidadPersonas": 4,
+                        "idTipo": 1,
+                        "descTipo": "Budines",
+                        "fecAlta": "2022-04-30T03:00:00.000Z",
+                        "SnAutorizada": "S",
+                        "CalificacionProm": "3.5"
+                    }
+                ]
     }
 
 * **Respuesta No Exitosa:**
@@ -1473,8 +1396,8 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "Nombre": "[String]",
-        "IdUSuario": "[Integer]"
+        "nombre": "[String]",
+        "idUSuario": "[Integer]"
     }
     ```
 
@@ -1515,15 +1438,9 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
-        "IdReceta": "[Integer]"
+        "idReceta": "[Integer]"
     }
     ```
 
@@ -1570,13 +1487,7 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
         "IdReceta": "[Integer]"
     }
