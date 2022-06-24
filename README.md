@@ -916,7 +916,7 @@ Para iniciar este proyecto, se deben correr los comandos:
     ```
     {
       "nombre": "[String]",
-      "ordenar": "[String]"
+      "order": "[String]"
     }
     ```
 
@@ -927,35 +927,37 @@ Para iniciar este proyecto, se deben correr los comandos:
     ```json
     {
         "code": 201,
-        "receta": [
-            {
-                "idReceta": 4,
-                "idUsuario": 11,
-                "alias": "TPAD",
-                "nombre": "Biscochuelo marmolado",
-                "descripcion": "Biscochuelo marmolado casero",
-                "foto": "BiscochoMarmolado.jpg",
-                "porciones": 16,
-                "cantidadPersonas": 8,
-                "idTipo": 2,
-                "descTipo": "Tortas",
-                "fecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
-            },
-            {
-                "idReceta": 5,
-                "idUsuario": 11,
-                "alias": "TPAD",
-                "nombre": "Fideos matarazzo",
-                "descripcion": "Fideos matarazzo con salsa",
-                "foto": "MataFideos.jpg",
-                "porciones": 2,
-                "cantidadPersonas": 2,
-                "idTipo": 3,
-                "descTipo": "Pastas",
-                "fecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
-            }
+        "message": [
+                {
+              "IdReceta": 1,
+              "IdUsuario": 10,
+              "alias": "mrv",
+              "Nombre": "Budin naranja",
+              "Descripcion": "Budin de naranja con semillas de amapola",
+              "foto": "https://www.clarin.com/img/2019/07/23/bs56zWpBq_1256x620__2.jpg#1591385524188",
+              "Porciones": 8,
+              "CantidadPersonas": 4,
+              "IdTipo": 1,
+              "DescTipo": "Budines",
+              "CalificacionProm": "3.5",
+              "FecAlta": "2022-04-30T03:00:00.000Z",
+              "SnAutorizada": "S"
+          },
+          {
+              "IdReceta": 2,
+              "IdUsuario": 10,
+              "alias": "mrv",
+              "Nombre": "Budin marmolado",
+              "Descripcion": "Budin marmolado bien esponjoso",
+              "foto": "https://img-global.cpcdn.com/recipes/796ec38d64c576de/680x482cq70/budin-marmolado-foto-principal.webp",
+              "Porciones": 16,
+              "CantidadPersonas": 8,
+              "IdTipo": 1,
+              "DescTipo": "Budines",
+              "CalificacionProm": "3.0",
+              "FecAlta": "2022-04-30T03:00:00.000Z",
+              "SnAutorizada": "N"
+          }
         ]
     }
 
