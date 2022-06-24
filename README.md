@@ -26,7 +26,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
    **Requeridos:**
  
-   ```json
+   ```params
     {
         "IdUsuario": "[Integer]"
     }
