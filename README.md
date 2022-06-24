@@ -20,13 +20,7 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**: Params
-
-   **Requeridos:**
- 
-   ```params
+      ```
     {
         "IdUsuario": "[Integer]"
     }
