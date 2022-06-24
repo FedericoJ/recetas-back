@@ -145,7 +145,7 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** 
     ```json
     {
-        1
+      1
     }
     ```
 
@@ -153,7 +153,7 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** 
     ```json
     {
-        2
+      2
     }
     ```
 
@@ -222,7 +222,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
       ```
     {
-        "idReceta": "[Integer]"
+      "idReceta": "[Integer]"
     }
     ```
 
@@ -263,10 +263,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `GET`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -306,10 +302,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -347,10 +339,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -394,11 +382,11 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-    ```
-    {
-        "idReceta": "[Integer]"
-    }
-    ```
+  ```
+  {
+      "idReceta": "[Integer]"
+  }
+  ```
 
 * **Respuesta Exitosa:**
 
@@ -441,12 +429,6 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
    None
 
 * **Respuesta Exitosa:**
@@ -494,8 +476,8 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     ```
     {
-        "idOrigen": "[Integer]",
-        "idDestino": "[Integer]"
+      "idOrigen": "[Integer]",
+      "idDestino": "[Integer]"
     }
     ```
 
@@ -583,10 +565,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `GET`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -594,7 +572,7 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "IdReceta": "[Integer]"
+        "idReceta": "[Integer]"
     }
     ```
 
@@ -640,11 +618,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 *  **URL Parametros**
 
    None
-
-*  **Data Params**
-
-   **Requeridos:**
-      None
 
 * **Respuesta Exitosa:**
 
@@ -706,10 +679,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -754,10 +723,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -796,10 +761,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `GET`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -807,7 +768,7 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "idReceta": "[Integer]"
+      "idReceta": "[Integer]"
     }
     ```
 
@@ -852,10 +813,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -907,7 +864,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     ```
     {
-        "idReceta": "[Integer]"
+      "idReceta": "[Integer]"
     }
     ```
 
@@ -936,7 +893,7 @@ Para iniciar este proyecto, se deben correr los comandos:
             "nroPaso": 3,
             "texto": "Estrirar, doblar 3 veces y cortar en cuadrados"
         }
-        ]
+      ]
     }
 
 * **Respuesta No Exitosa:**
@@ -1017,10 +974,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1141,7 +1094,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 
 
-
 ## Obtener recetas buscando que tenga un ingrediente
 * **URL**
 
@@ -1155,8 +1107,8 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```
     {
-        "nombre": "[String]",
-        "order": "[String]"
+      "nombre": "[String]",
+      "order": "[String]"
     }
     ```
 
@@ -1205,8 +1157,8 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     ```
     {
-        "nombre": "[String]",
-        "order": "[String]"
+       "nombre": "[String]",
+       "order": "[String]"
     }
     ```
 
@@ -1265,10 +1217,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `GET`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1276,7 +1224,7 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "nombre": "[Integer]"
+      "nombre": "[Integer]"
     }
     ```
 
@@ -1340,8 +1288,8 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     ```
     {
-        "nombre": "[String]",
-        "order": "[String]"
+      "nombre": "[String]",
+      "order": "[String]"
     }
     ```
 
@@ -1385,10 +1333,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `GET`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1396,8 +1340,8 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "nombre": "[String]",
-        "idUSuario": "[Integer]"
+      "nombre": "[String]",
+      "idUSuario": "[Integer]"
     }
     ```
 
@@ -1440,7 +1384,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     ```
     {
-        "idReceta": "[Integer]"
+      "idReceta": "[Integer]"
     }
     ```
 
@@ -1489,7 +1433,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     ```
     {
-        "IdReceta": "[Integer]"
+      "idReceta": "[Integer]"
     }
     ```
 
@@ -1531,7 +1475,7 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "idUsuario": "[Integer]"
+      "idUsuario": "[Integer]"
     }
     ```
 
@@ -1704,8 +1648,8 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     ```
     {
-        "mail": "[String]",
-        "codigo": "[Integer]"
+      "mail": "[String]",
+      "codigo": "[Integer]"
     }
     ```
 
@@ -1749,7 +1693,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
     ```
     {
-        "mail": "[String]"
+      "mail": "[String]"
     }
     ```
 
@@ -1787,8 +1731,8 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "mail": "[String]",
-        "password": "[String]"
+      "mail": "[String]",
+      "password": "[String]"
     }
     ```
 
@@ -1822,7 +1766,7 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Codigo:** 202 <br />
   * **Contenido:** `Invalid username or password`
 
-    * **Codigo:** 203 <br />
+  * **Codigo:** 203 <br />
   * **Contenido:** `Invalid username or password`
 
   * **Codigo:** 404 NOT FOUND <br />
@@ -1940,7 +1884,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
      ```
     {
-        "alias": "[String]"
+      "alias": "[String]"
     }
     ```
 
