@@ -98,12 +98,12 @@ async function modificarPass(usuario){
       try{
         let data = await buscarUsuarioByMailHabilitado(usuario.mail);
         if (data.data.length!=0){
-            return {code: 202, message: "Mail already registered"};
+            return {code: 202, message: "El mail ingresado ya existe."};
         }
 
         let data2 = await buscarUsuarioByMailNoHabilitado(usuario.mail);
         if (data2.data.length!=0){
-            return {code: 203, message: "Mail already registered but registration is not complete"};
+            return {code: 203, message: "Mail registrado pero registración incompleta"};
         }
 
         const result = await db.query(

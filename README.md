@@ -1524,10 +1524,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `GET`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1535,7 +1531,7 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "IdUsuario": "[Integer]"
+        "idUsuario": "[Integer]"
     }
     ```
 
@@ -1576,10 +1572,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1587,9 +1579,9 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "IdUSuario": "[Integer]",
-        "Nombre": "[String]",
-        "Avatar": "[String]"
+        "idUsuario": "[Integer]",
+        "nombre": "[String]",
+        "avatar": "[String]"
     }
     ```
 
@@ -1626,10 +1618,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1661,12 +1649,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Respuesta No Exitosa:**
 
-  * **Codigo:** 202 <br />
-  * **Contenido:** `Email ya existente`
-
-    * **Codigo:** 202 <br />
-  * **Contenido:** `DNI ya existente`
-
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot POST`
 
@@ -1680,10 +1662,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1691,8 +1669,8 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "IdUsuario": "[Integer]",
-        "Password": "[String]"
+        "idUsuario": "[Integer]",
+        "password": "[String]"
     }
     ```
 
@@ -1724,16 +1702,10 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
-        "Mail": "[String]",
-        "Codigo": "[Integer]"
+        "mail": "[String]",
+        "codigo": "[Integer]"
     }
     ```
 
@@ -1775,26 +1747,20 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+    ```
     {
-        "Mail": "[String]"
+        "mail": "[String]"
     }
     ```
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
-    {
-        "code": 200,
-        "message": "Mail de recuperación enviado"
+    "result2": {
+        "code": 201,
+        "message": "Codigo de recuperación creado"
     }
     ```
 
@@ -1813,11 +1779,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Metodo:**
 
-  `GET`
-  
-*  **URL Parametros**
-
-   None
+  `POST`
 
 *  **Data Params**
 
@@ -1825,8 +1787,8 @@ Para iniciar este proyecto, se deben correr los comandos:
  
     ```json
     {
-        "Mail": "[String]",
-        "Password": "[String]"
+        "mail": "[String]",
+        "password": "[String]"
     }
     ```
 
@@ -1838,7 +1800,6 @@ Para iniciar este proyecto, se deben correr los comandos:
     {
         "code": 201,
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6MTY1MjIyNTM4OCwiZXhwIjoxNjUyMzExNzg4fQ.TT-I-jp18AIRbix5J57YR34w-2gFje1a3B3rSP0VATE",
-        "usuario": {
             "data": [
                 {
                     "idUsuario": 31,
@@ -1854,10 +1815,15 @@ Para iniciar este proyecto, se deben correr los comandos:
                     "password": "$2a$08$ZXki1/L9YhLERws2XZoIqed3LmgvUBECTHfIOKZTqSXfNYhYcwEDe"
                 }
             ]
-        }
     }
 
 * **Respuesta No Exitosa:**
+
+  * **Codigo:** 202 <br />
+  * **Contenido:** `Invalid username or password`
+
+    * **Codigo:** 203 <br />
+  * **Contenido:** `Invalid username or password`
 
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot ERROR`
@@ -1872,10 +1838,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1883,8 +1845,8 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "Mail": "[String]",
-        "NickName": "[String]"
+        "mail": "[String]",
+        "nickName": "[String]"
     }
     ```
 
@@ -1893,11 +1855,15 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
-    {
-      "code": 201,
-      "message": "Usuario Invitado creado correctamente. Se enviará el mail!"
-    }
+      {
+          "result": {
+              "code": 201,
+              "message": "Usuario Invitado creado correctamente. Se enviará el mail!"
+          }
+      }
     ```
+
+* **Respuesta No Exitosa:**
 
   * **Codigo:** 202 <br />
   * **Contenido:** 
@@ -1913,11 +1879,9 @@ Para iniciar este proyecto, se deben correr los comandos:
     ```json
     {
       "code": 203,
-      "message": "El alias ingresado ya existe."
+      "message": "Mail registrado pero registración incompleta"
     }
     ```
-
-* **Respuesta No Exitosa:**
 
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot POST`
@@ -1932,10 +1896,6 @@ Para iniciar este proyecto, se deben correr los comandos:
 * **Metodo:**
 
   `POST`
-  
-*  **URL Parametros**
-
-   None
 
 *  **Data Params**
 
@@ -1943,9 +1903,9 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "Mail": "[String]",
-        "Nombre": "[String]",
-        "Password": "[String]"
+        "mail": "[String]",
+        "nombre": "[String]",
+        "password": "[String]"
     }
     ```
 
@@ -1957,15 +1917,6 @@ Para iniciar este proyecto, se deben correr los comandos:
     {
       "code": 201,
       "message": "Registración exitosa. Por favor logueese!"
-    }
-    ```
-
-  * **Codigo:** 202 <br />
-  * **Contenido:** 
-    ```json
-    {
-      "code": 202,
-      "message": "Contacte al administrador. Su usuario ha caducado"
     }
     ```
 
@@ -1987,15 +1938,9 @@ Para iniciar este proyecto, se deben correr los comandos:
   
 *  **URL Parametros**
 
-   None
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-    ```json
+     ```
     {
-        "Alias": "[String]"
+        "alias": "[String]"
     }
     ```
 
