@@ -22,33 +22,42 @@ Para iniciar este proyecto, se deben correr los comandos:
 
       ```
     {
-        "IdUsuario": "[Integer]"
+        "idUsuario": "[Integer]"
     }
     ```
 
 * **Respuesta Exitosa:**
 
-  * **Codigo:** 200 <br />
+  * **Codigo:** 201 <br />
   * **Contenido:** 
     ```json
     {
-        "CalificacionPromedio": "3.5000",
-        "NombreReceta": "Biscochuelo marmolado",
-        "NickNameUsuarioReceta": "TPAD",
-        "IdReceta": 4,
-        "IdFavorito": 4
+        "IdReceta": 2,
+        "IdUsuario": 10,
+        "alias": "mrv",
+        "Nombre": "Budin marmolado",
+        "Descripcion": "Budin marmolado bien esponjoso",
+        "foto": "https://img-global.cpcdn.com/recipes/796ec38d64c576de/680x482cq70/budin-marmolado-foto-principal.webp",
+        "Porciones": 16,
+        "CantidadPersonas": 8,
+        "IdTipo": 1,
+        "DescTipo": "Budines",
+        "CalificacionProm": "3.0",
+        "FecAlta": "2022-04-30T03:00:00.000Z",
+        "SnAutorizada": "N"
     }
 
 * **Respuesta No Exitosa:**
 
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot ERROR`
+  
 
 ## Agregar a Favoritos
 
 * **URL**
 
-  http://localhost:3000/receta/agregarFavorito
+  http://localhost:3000/receta/cargarFavorito
 
 * **Metodo:**
 
@@ -58,8 +67,8 @@ Para iniciar este proyecto, se deben correr los comandos:
 
    ```json
    {
-       "IdUsuario": "[Integer]",
-       "IdReceta": "[Integer]"
+       "idUsuario": "[Integer]",
+       "idReceta": "[Integer]"
    }
 
 * **Respuesta Exitosa:**
@@ -85,14 +94,14 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Metodo:**
 
-  `DELETE`
+  `POST`
 
 * **Data Params**: JSON
 
    ```json
    {
-       "IdUsuario": "[Integer]",
-       "IdReceta": "[Integer]"
+       "idUsuario": "[Integer]",
+       "idReceta": "[Integer]"
    }
 
 * **Respuesta Exitosa:**
@@ -109,6 +118,50 @@ Para iniciar este proyecto, se deben correr los comandos:
 
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot ERROR`
+
+
+## Es Favorito por Usuario/Receta
+
+* **URL**
+
+  http://localhost:3000/receta/isFavorito
+
+* **Metodo:**
+
+  `GET`
+  
+*  **URL Parametros**
+
+      ```
+    {
+        "idUsuario": "[Integer]",
+        "idReceta": "[Integer]"
+    }
+    ```
+
+* **Respuesta Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+        1
+    }
+    ```
+
+  * **Codigo:** 202 <br />
+  * **Contenido:** 
+    ```json
+    {
+        2
+    }
+    ```
+
+* **Respuesta No Exitosa:**
+
+  * **Codigo:** 404 NOT FOUND <br />
+  * **Contenido:** `Cannot ERROR`
+
 
 
 # Ingredientes
