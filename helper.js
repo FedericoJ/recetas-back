@@ -6,6 +6,7 @@ function getOffset(currentPage = 1, listPerPage) {
     if (!rows) {
       return [];
     }
+    
     return rows;
   }
   

@@ -167,7 +167,7 @@ router.get('/isFavorito', async function(req, res, next) {
   }
 });
 
-router.delete('/eliminarFavorito', async function(req, res, next) {
+router.post('/eliminarFavorito', async function(req, res, next) {
   try {
     res.json(await favorito.eliminarFavorito(req.body));
   } catch (err) {

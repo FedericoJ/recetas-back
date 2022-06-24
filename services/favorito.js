@@ -94,7 +94,7 @@ async function eliminarFavorito(favorito){
     const rows = await db.query(
       `delete from favoritos 
       where idUsuario =${favorito.idUsuario}
-      and idReceta =${favorito.idReceta} `
+      and idReceta =${favorito.idReceta}`
     );
 
    let message = 'Error al eliminar el favorito';
