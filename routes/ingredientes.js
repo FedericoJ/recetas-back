@@ -53,19 +53,6 @@ router.post('/guardarMultimedia', async function(req, res, next) {
     }
   });
 
-  router.post('/postIngredientes', async function(req, res, next) {
-    try {
-
-      const result= await multimedia.postIngredientes(req.body);  
-      
-      res.status(result.code).json({result});
-
-    } catch (err) {
-      console.error(`Error obteniendo los ingredientes`, err.message);
-      next(err);
-    }
-  });
-
   router.get('/getFactorConversion', async function(req, res, next) {
     try {
 

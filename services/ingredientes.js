@@ -258,6 +258,5 @@ module.exports = {
     getConversiones,
     getIngredienteUtilizadoPorReceta,
     postIngredienteUtilizadoPorReceta,
-    postIngredientes,
     getUnidades
 }

@@ -293,42 +293,6 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot ERROR`
 
-## Crear Ingrediente
-
-* **URL**
-
-  http://localhost:3000/ingredientes/postIngredientes
-
-* **Metodo:**
-
-  `POST`
-
-*  **Data Params**
-
-   **Requeridos:**
- 
-   ```json
-    {
-        "nombre": "[String]"
-    }
-    ```
-
-* **Respuesta Exitosa:**
-
-  * **Codigo:** 201 <br />
-  * **Contenido:** 
-    ```json
-    {
-        "code": 201,
-        "message": "Ingrediente creado correctamente"
-    }
-    ```
-
-* **Respuesta No Exitosa:**
-
-  * **Codigo:** 404 NOT FOUND <br />
-  * **Contenido:** `Cannot POST`
-
 
 ## Cargar Ingrediente utilizado en una receta
 
@@ -347,11 +311,19 @@ Para iniciar este proyecto, se deben correr los comandos:
    ```json
     {
         "idReceta": "[Integer]",
-        "idIngrediente": "[Integer]",
+        "descripcion": "[Integer]",
         "cantidad": "[Integer]",
         "idUnidad": "[Integer]",
         "Observaciones": "[String]"
-    }
+    },
+        {
+        "idReceta": "[Integer]",
+        "descripcion": "[Integer]",
+        "cantidad": "[Integer]",
+        "idUnidad": "[Integer]",
+        "Observaciones": "[String]"
+    },...
+
     ```
 
 * **Respuesta Exitosa:**
@@ -823,13 +795,32 @@ Para iniciar este proyecto, se deben correr los comandos:
       {
         "idReceta": "[Integer]" , 
         "nroPaso": "[Integer]",
-        "texto": "[String]"
+        "texto": "[String]",
+        "multimedia": [
+            {
+              "tipo_contenido": "[String]",
+              "extension": "[String]",
+              "urlContenido": "[String]"
+            },
+            {
+              "tipo_contenido": "[String]",
+              "extension": "[String]",
+              "urlContenido": "[String]"
+            },...
+        ]
       },
-       {
+      {
         "idReceta": "[Integer]" , 
         "nroPaso": "[Integer]",
-        "texto": "[String]"
-      },
+        "texto": "[String]",
+        "multimedia": [
+          {
+            "tipo_contenido": "[String]",
+            "extension": "[String]",
+            "urlContenido": "[String]"
+          },...
+        ]
+      },...
     ]
 
     ```
