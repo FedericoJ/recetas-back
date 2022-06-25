@@ -514,6 +514,17 @@ async function postPaso(paso) {
             VALUES 
             (${paso.idReceta}, '${paso.nroPaso}', '${paso.texto}')`
         );
+        
+      if(paso.multimedia.length>0){
+        console.log(paso.texto);
+        paso.multimedia.forEach(async multimedia=> {
+          const result2 = await db.query(
+            `insert into multimedia ( idPaso, tipo_contenido,extension, urlcontenido) 
+            VALUES 
+            (${result.insertId}, '${multimedia.tipo_contenido}', '${multimedia.extension}', '${multimedia.urlContenido}')`);
+          }
+        )
+      }
 
     });
 
