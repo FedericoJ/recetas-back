@@ -101,19 +101,15 @@ async function postIngredientes(ingrediente) {
 
     try {
 
-        ingrediente.forEach(async ingrediente => {
-
        
             const result = await db.query(
                 `insert into ingredientes (nombre) 
-                VALUES ('${ingrediente.nombre}')`
+                VALUES ('${ingrediente}')`
             );
 
             if (!result.affectedRows) {
                 return { code: 400, message: "Error a la hora de cargar un ingrediente" };
-            }
-
-         });
+            };
 
         let message = 'Ingrediente creado correctamente';
 
@@ -154,19 +150,37 @@ async function getIngredienteUtilizadoPorReceta(multimedia) {
 
 }
 
+async function buscarIngrediente(descripcion){
+    
+    try {
+        const result = await db.query(
+        `select IdIngrediente from Ingredientes
+        where upper(nombre)=upper('${descripcion}')`);
+        return result;
+    } catch (e) {
+        // return a Error message describing the reason     
+        return 0;
+    }
+}
+
 async function postIngredienteUtilizadoPorReceta(utilizado) {
 
-    let message = 'Ingrediente utilizado guardado correctamente';;
- 
-
     try {
-
-        utilizado.forEach(async utilizado => {
+        let message = 'Ingrediente utilizado guardado correctamente';
+        utilizado.forEach(async utilizado => {            
+            let rows = await buscarIngrediente(utilizado.descripcion);
+            const data = helper.emptyOrRows(rows);
+            if (data.length==0){
+                await postIngredientes(utilizado.descripcion);
+            }
+            let rows1 = await buscarIngrediente(utilizado.descripcion);
+            const data1 = helper.emptyOrRows(rows1);
+            var idIngredienteBusq = data1[0].IdIngrediente;
 
             const result = await db.query(
                 `insert into utilizados (idReceta, idIngrediente, cantidad, idUnidad, Observaciones) 
                 VALUES 
-                (${utilizado.idReceta}, '${utilizado.idIngrediente}', '${utilizado.cantidad}',
+                (${utilizado.idReceta}, '${idIngredienteBusq}', '${utilizado.cantidad}',
                 '${utilizado.idUnidad}','${utilizado.observaciones}')`
             );
 
@@ -175,9 +189,6 @@ async function postIngredienteUtilizadoPorReceta(utilizado) {
             }
 
         });
-   
-       
-  
         return { code: 201, message: message }
   
     } catch (e) {

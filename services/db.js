@@ -10,7 +10,6 @@ async function query(sql, params) {
   } catch(err){
     console.log(err.msg)
   }finally{
-    console.log("pase a cerrar la conexion")
     await connection.end();
   }
 }
