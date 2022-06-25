@@ -5,6 +5,7 @@ const config = {
       user: "b3f048077a6302",
       password: "2ff3882b",
       database: "heroku_74a9ca87042394f",
+      multipleStatements:true
     },
     listPerPage: 10,
   };

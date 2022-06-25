@@ -10,9 +10,20 @@ async function query(sql, params) {
   return results;
 }
 
+async function query3(sql, params) {
+  console.log(sql);
+  const connection = await mysql.createConnection(config.db);
+  connection.multipleStatements = true;
+  const [results] = await connection.query(sql, params);
+
+
+  return results;
+}
+
 module.exports = {
   query,
-  query2
+  query2,
+  query3
 }
 function query2(sql,params){
   let result;

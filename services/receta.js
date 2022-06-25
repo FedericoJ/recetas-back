@@ -242,29 +242,11 @@ async function eliminarReceta(receta){
 
       let message = 'Error al eliminar la receta';
 
-      await db.query(`delete from utilizados
-        where idReceta =${idReceta}`);
+      var sql = "delete from utilizados where idReceta = ?; delete from multimedia where multimedia.idPaso in (select P.idPaso from pasos P where P.idPaso=multimedia.idPaso and P.idReceta=?); delete from pasos where idReceta = ?; delete from calificaciones where idReceta = ?;delete from favoritos where idReceta = ?; delete from fotos where idReceta = ?;delete from recetasAdicional where idReceta = ?;"
 
-      await db.query(`delete from multimedia
-      where multimedia.idPaso in (select P.idPaso from pasos P where P.idPaso=multimedia.idPaso and P.idReceta=${idReceta})`);
+      await db.query3(sql, [idReceta,idReceta,idReceta,idReceta,idReceta,idReceta,idReceta]);
 
-      await db.query(`delete from pasos 
-        where idReceta =${idReceta}`);
-
-      await db.query(`delete from calificaciones 
-        where idReceta =${idReceta}`);
-
-      await db.query(`delete from favoritos 
-        where idReceta =${idReceta}`);
-
-      await db.query(`delete from fotos 
-        where idReceta =${idReceta}`);
-
-      await db.query(`delete from recetasAdicional 
-        where idReceta =${idReceta}`);
-
-      const rows=await db.query(`delete from recetas 
-        where idReceta =${idReceta}`);
+      const rows=await db.query(`delete from recetas where idReceta =${idReceta}`);
 
 
       if (rows.affectedRows) {
