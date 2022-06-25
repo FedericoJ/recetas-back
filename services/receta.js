@@ -199,11 +199,29 @@ async function buscarRecetaPorUsuarioyNombre(receta){
   try{
     const rows = await db.query(
       `select idReceta from recetas
-      where UPPER(nombre) like  UPPER('%${receta.nombre}%') and idUsuario = ('${receta.idUsuario}')`
+      where UPPER(nombre) like  UPPER('${receta.nombre}') and idUsuario = ('${receta.idUsuario}')`
     );
     const data = helper.emptyOrRows(rows);
   
     return {code: 201, receta:data};
+    
+  }  catch(e){
+    return -1;
+  }
+ 
+
+}
+
+async function buscarRecetaPorUsuarioyNombreParaEliminar(nombre,idUsuario){
+
+  try{
+    const rows = await db.query(
+      `select idReceta from recetas
+      where UPPER(nombre) like  UPPER('${nombre}') and idUsuario = ('${idUsuario}')`
+    );
+    const data = helper.emptyOrRows(rows);
+  
+    return data;
     
   }  catch(e){
     return -1;
@@ -217,41 +235,50 @@ async function eliminarReceta(receta){
 
   try{
     
-    data = await buscarRecetaPorUsuarioyNombre(receta,idUsuario);
+    data = await buscarRecetaPorUsuarioyNombreParaEliminar(receta.nombre,receta.idUsuario);
+    console.log(data.length);
+    if(data.length!=0){
+      var idReceta =data[0].idReceta;
+
+      let message = 'Error al eliminar la receta';
+
+      await db.query(`delete from utilizados
+        where idReceta =${idReceta}`);
+
+      await db.query(`delete from multimedia
+      where multimedia.idPaso in (select P.idPaso from pasos P where P.idPaso=multimedia.idPaso and P.idReceta=${idReceta})`);
+
+      await db.query(`delete from pasos 
+        where idReceta =${idReceta}`);
+
+      await db.query(`delete from calificaciones 
+        where idReceta =${idReceta}`);
+
+      await db.query(`delete from favoritos 
+        where idReceta =${idReceta}`);
+
+      await db.query(`delete from fotos 
+        where idReceta =${idReceta}`);
+
+      await db.query(`delete from recetasAdicional 
+        where idReceta =${idReceta}`);
+
+      const rows=await db.query(`delete from recetas 
+        where idReceta =${idReceta}`);
 
 
-    idReceta =data.data[0].idReceta;
-
-
-    const rowsDelete = await db.query(`delete from utilizados
-      where idReceta =${idReceta}`)
-
-      if (rowsDelete.affectedRows){
-
-        const rows = await db.query(
-          `delete from recetas 
-          where idReceta =${idReceta}`
-        
-        );
-
-        if (rows.affectedRows) {
-          message = 'Receta eliminada correctamente';
-        }
-
-
+      if (rows.affectedRows) {
+        message = 'La receta ha sido eliminada exitosamente';
       }
-
-    let message = 'Error al eliminar la receta';
-    
-
-    return {code: 201, message};
+      return {code: 200, message};
+    }
+    return {code: 201, message:"No existe la receta a eliminar"};
 
   }catch(e){
 
     return {code: 400, message: e.message};
   }
   
-
 }
 
 
@@ -562,5 +589,6 @@ module.exports = {
   postPaso,
   getPasos,
   getRecetasSemana,
-  buscarRecetaPorUsuarioyNombre
+  buscarRecetaPorUsuarioyNombre,
+  eliminarReceta
 }

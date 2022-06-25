@@ -1084,12 +1084,21 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** 
     ```json
     {
-      "status": 200,
+      "code": 200,
       "message": "La receta ha sido eliminada exitosamente"
     }
     ```
 
 * **Respuesta No Exitosa:**
+
+  * **Codigo:** 201 <br />
+  * **Contenido:** 
+    ```json
+    {
+      "code": 201,
+      "message": "No existe la receta a eliminar"
+    }
+    ```
 
   * **Codigo:** 404 NOT FOUND <br />
   * **Contenido:** `Cannot ERROR`
