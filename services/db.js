@@ -4,10 +4,15 @@ const config = require('../config');
 async function query(sql, params) {
   console.log(sql);
   const connection = await mysql.createConnection(config.db);
-  const [results] = await connection.execute(sql, params);
-
-
-  return results;
+  try{
+    const [results] = await connection.execute(sql, params);
+    return results;
+  } catch(err){
+    console.log(err.msg)
+  }finally{
+    console.log("pase a cerrar la conexion")
+    await connection.end();
+  }
 }
 
 async function query3(sql, params) {
