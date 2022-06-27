@@ -676,7 +676,8 @@ Para iniciar este proyecto, se deben correr los comandos:
     ```json
     "result": {
         "code": 201,
-        "message": "Receta creada correctamente"
+        "message": "Receta creada correctamente",
+        "IdRecetaCreado": 264
     }
     ```
 

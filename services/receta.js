@@ -25,11 +25,11 @@ async function postReceta(receta){
       message = 'Receta creada correctamente';
       db.query(
         `INSERT INTO recetasadicional (idReceta,fecAlta,SnAutorizada)
-      VALUES((select max(idReceta) from recetas),'${receta.fecAlta}', 'N');`
+      VALUES(${result.insertId},'${receta.fecAlta}', 'N');`
       );
     }
   
-    return {code: 201, message:message};
+    return {code: 201, message:message, IdRecetaCreado:result.insertId};
 
 
 }catch(e){
