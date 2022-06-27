@@ -558,16 +558,17 @@ Para iniciar este proyecto, se deben correr los comandos:
             {
                 "IdReceta": 7,
                 "IdUsuario": 11,
-                "nombre": "Libritos de grasa",
+                "alias": "TPAD",
+                "Nombre": "Libritos de grasa",
                 "Descripcion": "Libritos caseros",
-                "foto": "Libritos.jpg",
-                "porciones": 10,
+                "foto": "https://matesargentinos.net/wp-content/uploads/2021/05/criollitos-de-hojaldre.jpg",
+                "Porciones": 10,
                 "CantidadPersonas": 5,
                 "IdTipo": 4,
-                "DescripcionTipo": "Scones/Libritos",
+                "DescTipo": "Libritos",
+                "CalificacionProm": "3.5",
                 "FecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S",
-                "avg (C.calificacion)": "4.0000"
+                "SnAutorizada": "S"
             }
         ]
     }
