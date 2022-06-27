@@ -166,9 +166,6 @@ async function buscarIngrediente(descripcion){
 async function postIngredienteUtilizadoPorReceta(utilizado) {
 
     try {
-        const rec = await db.query(
-            `select max(idreceta) as IdReceta from recetas`
-        );
         const IdRecetaM=utilizado.idReceta//rec[0].IdReceta;
         let message = 'Ingrediente utilizado guardado correctamente';
         utilizado.ingredientes.forEach(async utilizado => {            
