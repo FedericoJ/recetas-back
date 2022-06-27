@@ -310,7 +310,6 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "idReceta": "[Integer]",
         "descripcion": "[Integer]",
         "cantidad": "[Integer]",
         "idUnidad": "[Integer]",
@@ -793,7 +792,6 @@ Para iniciar este proyecto, se deben correr los comandos:
    ```json
    [
       {
-        "idReceta": "[Integer]" , 
         "nroPaso": "[Integer]",
         "texto": "[String]",
         "multimedia": [
