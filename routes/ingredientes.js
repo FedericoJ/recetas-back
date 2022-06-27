@@ -83,7 +83,7 @@ router.post('/guardarMultimedia', async function(req, res, next) {
 router.post('/postIngredienteUtilizadoPorReceta', async function(req, res, next) {
   try {
     res.json(await multimedia.postIngredienteUtilizadoPorReceta(req.body));
-    res.status(result.code).json(result.multimedia);
+    res.status(res.code).json(res.multimedia);
   } catch (err) {
     console.error(`Error creando el ingrediente utilizado.`, err.message);
     next(err);
