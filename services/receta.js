@@ -113,7 +113,7 @@ async function getRecetaPorId(receta){
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
-      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada,1 as numero 
       from recetas R, recetasAdicional RA, usuarios usr, tipos t, calificaciones C
       where R.idReceta=RA.idReceta
       and usr.idUsuario = R.idUsuario
@@ -121,7 +121,7 @@ async function getRecetaPorId(receta){
       and C.IdReceta=R.IdReceta 
       and R.idreceta=${receta.idReceta}
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada`
+      R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada,numero`
     );
     const data = helper.emptyOrRows(rows);
     
