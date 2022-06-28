@@ -309,20 +309,23 @@ Para iniciar este proyecto, se deben correr los comandos:
    **Requeridos:**
  
    ```json
-    {
-        "descripcion": "[Integer]",
-        "cantidad": "[Integer]",
-        "idUnidad": "[Integer]",
-        "Observaciones": "[String]"
-    },
+   {"IdReceta": "[Integer]",
+   "ingredientes":[
         {
-        "idReceta": "[Integer]",
-        "descripcion": "[Integer]",
-        "cantidad": "[Integer]",
-        "idUnidad": "[Integer]",
-        "Observaciones": "[String]"
-    },...
-
+            "descripcion": "[Integer]",
+            "cantidad": "[Integer]",
+            "idUnidad": "[Integer]",
+            "Observaciones": "[String]"
+        },
+            {
+            "idReceta": "[Integer]",
+            "descripcion": "[Integer]",
+            "cantidad": "[Integer]",
+            "idUnidad": "[Integer]",
+            "Observaciones": "[String]"
+        },...
+      ]
+    }
     ```
 
 * **Respuesta Exitosa:**
@@ -792,37 +795,38 @@ Para iniciar este proyecto, se deben correr los comandos:
    **Requeridos:**
  
    ```json
-   [
-      {
-        "nroPaso": "[Integer]",
-        "texto": "[String]",
-        "multimedia": [
-            {
-              "tipo_contenido": "[String]",
-              "extension": "[String]",
-              "urlContenido": "[String]"
-            },
+   {"idreceta":"[Integer]",
+   "paso":[
+        {
+          "nroPaso": "[Integer]",
+          "texto": "[String]",
+          "multimedia": [
+              {
+                "tipo_contenido": "[String]",
+                "extension": "[String]",
+                "urlContenido": "[String]"
+              },
+              {
+                "tipo_contenido": "[String]",
+                "extension": "[String]",
+                "urlContenido": "[String]"
+              },...
+          ]
+        },
+        {
+          "idReceta": "[Integer]" , 
+          "nroPaso": "[Integer]",
+          "texto": "[String]",
+          "multimedia": [
             {
               "tipo_contenido": "[String]",
               "extension": "[String]",
               "urlContenido": "[String]"
             },...
-        ]
-      },
-      {
-        "idReceta": "[Integer]" , 
-        "nroPaso": "[Integer]",
-        "texto": "[String]",
-        "multimedia": [
-          {
-            "tipo_contenido": "[String]",
-            "extension": "[String]",
-            "urlContenido": "[String]"
-          },...
-        ]
-      },...
-    ]
-
+          ]
+        },...
+      ]
+   }
     ```
 
 * **Respuesta Exitosa:**

@@ -510,12 +510,9 @@ async function postPaso(paso) {
 
   
   try {
-    const rec = await db.query(
-      `select max(idreceta) as IdReceta from recetas`
-    );
-    const IdRecetaM=rec[0].IdReceta;
+    const IdRecetaM=paso.idreceta;//rec[0].IdReceta;
 
-      paso.forEach(async paso => {
+      paso.paso.forEach(async paso => {
       
          const  result = await db.query(
             `insert into pasos (idReceta,nroPaso,texto) 
@@ -524,7 +521,6 @@ async function postPaso(paso) {
         );
         
       if(paso.multimedia.length>0){
-        console.log(paso.texto);
         paso.multimedia.forEach(async multimedia=> {
           const result2 = await db.query(
             `insert into multimedia ( idPaso, tipo_contenido,extension, urlcontenido) 
