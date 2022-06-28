@@ -129,7 +129,7 @@ async function getRecetaPorId(receta){
 
   }catch(e){
 
-    return {code: 400, message: e.message};
+    return {code: 400, receta: e.message};
   }
   
 

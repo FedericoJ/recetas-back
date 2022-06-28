@@ -36,8 +36,8 @@ router.get('/recetaPorUsuario', async function(req, res, next) {
 
 router.get('/recetaPorId', async function(req, res, next) {
   try {
-    const result = await receta.getRecetaPorId(req.body);
-    res.status(result.code).json({result});
+    const result = await receta.getRecetaPorId(req.query);
+    res.status(result.code).json(result.receta);
   } catch (err) {
     console.error(`Error obteniendo la receta `, err.message);
     next(err);
