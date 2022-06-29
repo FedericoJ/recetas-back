@@ -6,9 +6,9 @@ var jwt = require('jsonwebtoken');
 const env = process.env.NODE_ENV || 'development';
 const configClave = require('../config/config.json')[env]
 
-async function postReceta(receta){
+async function postReceta(receta) {
 
-  try{
+  try {
 
     const result = await db.query(
       `INSERT INTO recetas 
@@ -18,9 +18,9 @@ async function postReceta(receta){
         '${receta.porciones}','${receta.cantidadPersonas}', '${receta.idTipo}');`
     );
 
-  
+
     let message = 'Error creando la receta';
-  
+
     if (result.affectedRows) {
       message = 'Receta creada correctamente';
       db.query(
@@ -28,20 +28,20 @@ async function postReceta(receta){
       VALUES(${result.insertId},now(), 'N');`
       );
     }
-  
-    return {code: 201, message:message, IdRecetaCreado:result.insertId};
+
+    return { code: 201, message: message, IdRecetaCreado: result.insertId };
 
 
-}catch(e){
-  return {code: 400, message:e.message};
+  } catch (e) {
+    return { code: 400, message: e.message };
+
+  }
 
 }
 
-}
+async function getRecetasSemana(receta) {
 
-async function getRecetasSemana(receta){
-
-  try{
+  try {
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
@@ -58,28 +58,28 @@ async function getRecetasSemana(receta){
       limit 5`
     );
     const data = helper.emptyOrRows(rows);
-    
-    return {code: 201, receta:data};
 
-  }catch(e){
+    return { code: 201, receta: data };
 
-    return {code: 400, message: e.message};
+  } catch (e) {
+
+    return { code: 400, message: e.message };
   }
-  
+
 
 }
 
-async function getRecetaPorUsuario(receta){
+async function getRecetaPorUsuario(receta) {
 
   var order;
 
-  if (receta.order ==="Abc") order = " order by R.nombre"
-  
-  if(receta.order ==="User") order =" order by usr.nickname"
+  if (receta.order === "Abc") order = " order by R.nombre"
 
-  if(receta.order =="Date") order =" order by RA.fecAlta"
+  if (receta.order === "User") order = " order by usr.nickname"
 
-  try{
+  if (receta.order == "Date") order = " order by RA.fecAlta"
+
+  try {
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
@@ -96,20 +96,20 @@ async function getRecetaPorUsuario(receta){
 
     );
     const data = helper.emptyOrRows(rows);
-    
-    return {code: 201, receta:data};
 
-  }catch(e){
+    return { code: 201, receta: data };
 
-    return {code: 400, message: e.message};
+  } catch (e) {
+
+    return { code: 400, message: e.message };
   }
-  
+
 
 }
 
-async function getRecetaPorId(receta){
+async function getRecetaPorId(receta) {
 
-  try{
+  try {
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
@@ -124,20 +124,20 @@ async function getRecetaPorId(receta){
       R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada,numero`
     );
     const data = helper.emptyOrRows(rows);
-    
-    return {code: 201, receta:data};
 
-  }catch(e){
+    return { code: 201, receta: data };
 
-    return {code: 400, receta: e.message};
+  } catch (e) {
+
+    return { code: 400, receta: e.message };
   }
-  
+
 
 }
 
-async function valorarReceta(receta){
+async function valorarReceta(receta) {
 
-  try{
+  try {
     const rows = await db.query(
       `insert into calificaciones 
       (idUsuario,idReceta,calificacion,comentarios)
@@ -146,28 +146,28 @@ async function valorarReceta(receta){
     );
 
     let message = 'Error creando una valoracion';
-    
-      if (rows.affectedRows) {
-        message = 'Valoracion creada correctamente';
-      }
-    
-      return {code: 201, message:message};
 
-  }catch(e){
-    return {code: 400, message:e.message};
+    if (rows.affectedRows) {
+      message = 'Valoracion creada correctamente';
+    }
+
+    return { code: 201, message: message };
+
+  } catch (e) {
+    return { code: 400, message: e.message };
   }
-  
+
 }
 
-async function getRecetaPorNombre(receta){
+async function getRecetaPorNombre(receta) {
 
   var order;
 
-  if (receta.order ==="Abc") order = " order by R.nombre"
-  
-  if(receta.order ==="User") order =" order by usr.nickname"
+  if (receta.order === "Abc") order = " order by R.nombre"
 
-  if(receta.order =="Date") order =" order by RA.fecAlta"
+  if (receta.order === "User") order = " order by usr.nickname"
+
+  if (receta.order == "Date") order = " order by RA.fecAlta"
 
   try {
 
@@ -188,95 +188,89 @@ async function getRecetaPorNombre(receta){
     );
     const data = helper.emptyOrRows(rows);
 
-    return {code: 201, receta:data};
+    return { code: 201, receta: data };
 
-  }catch(e){
-    return {code: 400, message: e.message};
+  } catch (e) {
+    return { code: 400, message: e.message };
   }
-  
+
 
 }
 
-async function buscarRecetaPorUsuarioyNombre(receta){
+async function buscarRecetaPorUsuarioyNombre(receta) {
 
-  try{
+  try {
     const rows = await db.query(
       `select idReceta from recetas
       where UPPER(nombre) like  UPPER('${receta.nombre}') and idUsuario = ('${receta.idUsuario}')`
     );
     const data = helper.emptyOrRows(rows);
-  
-    return {code: 201, receta:data};
-    
-  }  catch(e){
+
+    return { code: 201, receta: data };
+
+  } catch (e) {
     return -1;
   }
- 
+
 
 }
 
-async function buscarRecetaPorUsuarioyNombreParaEliminar(nombre,idUsuario){
+async function buscarRecetaPorUsuarioyNombreParaEliminar(nombre, idUsuario) {
 
-  try{
+  try {
     const rows = await db.query(
       `select idReceta from recetas
       where UPPER(nombre) like  UPPER('${nombre}') and idUsuario = ('${idUsuario}')`
     );
     const data = helper.emptyOrRows(rows);
-  
+
     return data;
-    
-  }  catch(e){
+
+  } catch (e) {
     return -1;
   }
- 
+
 
 }
 
 
-async function eliminarReceta(receta){
+async function eliminarReceta(receta) {
 
-  try{
-    
-    data = await buscarRecetaPorUsuarioyNombreParaEliminar(receta.nombre,receta.idUsuario);
-    console.log(data.length);
-    if(data.length!=0){
-      var idReceta =data[0].idReceta;
+  try {
 
-      let message = 'Error al eliminar la receta';
+    let message = 'Error al eliminar la receta';
 
-      var sql = "delete from utilizados where idReceta = ?; delete from multimedia where multimedia.idPaso in (select P.idPaso from pasos P where P.idPaso=multimedia.idPaso and P.idReceta=?); delete from pasos where idReceta = ?; delete from calificaciones where idReceta = ?;delete from favoritos where idReceta = ?; delete from fotos where idReceta = ?;delete from recetasAdicional where idReceta = ?;"
+    var sql = "delete from utilizados where idReceta = ?; delete from multimedia where multimedia.idPaso in (select P.idPaso from pasos P where P.idPaso=multimedia.idPaso and P.idReceta=?); delete from pasos where idReceta = ?; delete from calificaciones where idReceta = ?;delete from favoritos where idReceta = ?; delete from fotos where idReceta = ?;delete from recetasAdicional where idReceta = ?;"
 
-      await db.query3(sql, [idReceta,idReceta,idReceta,idReceta,idReceta,idReceta,idReceta]);
+    await db.query3(sql, [receta.idReceta, receta.idReceta, receta.idReceta, receta.idReceta, receta.idReceta, receta.idReceta, receta.idReceta]);
 
-      const rows=await db.query(`delete from recetas where idReceta =${idReceta}`);
+    const rows = await db.query(`delete from recetas where idReceta =${receta.idReceta}`);
 
-
-      if (rows.affectedRows) {
-        message = 'La receta ha sido eliminada exitosamente';
-      }
-      return {code: 200, message};
+    if (rows.affectedRows) {
+      message = 'La receta ha sido eliminada exitosamente';
+      return { code: 200, message };
+    }else{
+      return { code: 201, message: "No existe la receta a eliminar" };
     }
-    return {code: 201, message:"No existe la receta a eliminar"};
+    
+  } catch (e) {
 
-  }catch(e){
-
-    return {code: 400, message: e.message};
+    return { code: 400, message: e.message };
   }
-  
+
 }
 
 
-async function getRecetaPorIngrediente(receta){
+async function getRecetaPorIngrediente(receta) {
 
   var order;
   console.log(receta);
 
-  if (receta.order ==="Abc") order = " order by R.nombre"
-  
-  if(receta.order ==="User") order =" order by usr.nickname"
+  if (receta.order === "Abc") order = " order by R.nombre"
 
-  if(receta.order =="Date") order =" order by RA.fecAlta"
+  if (receta.order === "User") order = " order by usr.nickname"
+
+  if (receta.order == "Date") order = " order by RA.fecAlta"
 
   try {
 
@@ -299,27 +293,27 @@ async function getRecetaPorIngrediente(receta){
     );
     const data = helper.emptyOrRows(rows);
 
-    return {code: 201, receta:data};
+    return { code: 201, receta: data };
 
-  }catch(e){
-    return {code: 400, message: e.message};
+  } catch (e) {
+    return { code: 400, message: e.message };
   }
-  
+
 
 }
 
-async function getRecetaSinIngrediente(receta){
-   var order;
+async function getRecetaSinIngrediente(receta) {
+  var order;
 
-    if (receta.order ==="Abc") order = " order by R.nombre";
-  
-    if(receta.order ==="User") order =" order by usr.nickname";
+  if (receta.order === "Abc") order = " order by R.nombre";
 
-    if(receta.order =="Date") order =" order by RA.fecAlta";
+  if (receta.order === "User") order = " order by usr.nickname";
+
+  if (receta.order == "Date") order = " order by RA.fecAlta";
 
 
-  try{
-    
+  try {
+
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
@@ -339,17 +333,17 @@ async function getRecetaSinIngrediente(receta){
     );
     const data = helper.emptyOrRows(rows);
 
-    return {code: 201, receta:data};
+    return { code: 201, receta: data };
 
-  }catch(e){
-    return {code: 400, message: e.message};
+  } catch (e) {
+    return { code: 400, message: e.message };
   }
-  
+
 
 }
 
-async function getRecetaPorTipo(receta){
-  try{
+async function getRecetaPorTipo(receta) {
+  try {
 
     const rows = await db.query(
 
@@ -367,26 +361,26 @@ async function getRecetaPorTipo(receta){
     const data = helper.emptyOrRows(rows);
 
 
-    return {code: 201, receta:data};
+    return { code: 201, receta: data };
 
-  }catch(e){
+  } catch (e) {
 
-    return {code: 400, receta: e.message};
+    return { code: 400, receta: e.message };
 
   }
 
 }
 
-async function getRecetaPorNombreTipo(receta){
+async function getRecetaPorNombreTipo(receta) {
 
   var order;
 
-  if (receta.order ==="Abc") order = " order by R.nombre"
-  
-  if(receta.order ==="User") order =" order by usr.nickname"
+  if (receta.order === "Abc") order = " order by R.nombre"
 
-  if(receta.order =="Date") order =" order by RA.fecAlta"
-  try{
+  if (receta.order === "User") order = " order by usr.nickname"
+
+  if (receta.order == "Date") order = " order by RA.fecAlta"
+  try {
 
     const rows = await db.query(
       `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones, R.cantidadPersonas,
@@ -404,20 +398,20 @@ async function getRecetaPorNombreTipo(receta){
     const data = helper.emptyOrRows(rows);
 
 
-    return {code: 201, receta:data};
+    return { code: 201, receta: data };
 
-  }catch(e){
+  } catch (e) {
 
-    return {code: 400, message: e.message};
+    return { code: 400, message: e.message };
 
   }
 
 }
 
 
-async function getValoracionesByReceta(receta){
+async function getValoracionesByReceta(receta) {
 
-  try{
+  try {
     const rows = await db.query(
       `select c.idUsuario , usr.nickname, c.comentarios , c.calificacion, c.idReceta
       from calificaciones c 
@@ -425,32 +419,32 @@ async function getValoracionesByReceta(receta){
       where idReceta =${receta.idReceta}`
     );
     const data = helper.emptyOrRows(rows);
-    
-    return {code: 201, receta:data};
 
-  }catch(e){
+    return { code: 201, receta: data };
 
-    return {code: 400, message: e.message};
+  } catch (e) {
+
+    return { code: 400, message: e.message };
   }
-  
+
 
 }
 
-async function getValoracionPromedio(receta){
+async function getValoracionPromedio(receta) {
 
-  try{
+  try {
     const rows = await db.query(
       `select AVG(calificacion) as PromedioCalificacion from calificaciones where idReceta =${receta.idReceta}`
     );
     const data = helper.emptyOrRows(rows);
-    
-    return {code: 201, receta:data};
 
-  }catch(e){
+    return { code: 201, receta: data };
 
-    return {code: 400, message: e.message};
+  } catch (e) {
+
+    return { code: 400, message: e.message };
   }
-  
+
 
 }
 
@@ -458,24 +452,24 @@ async function guardarFoto(receta) {
 
 
   try {
-      const result = await db.query(
-          `insert into fotos (idReceta,urlFoto,extension) 
+    const result = await db.query(
+      `insert into fotos (idReceta,urlFoto,extension) 
           VALUES 
           (${receta.idReceta}, '${receta.url}', '${receta.extension}')`
-      );
+    );
 
 
-      let message = 'Error guardando los datos multimedia de la receta';
+    let message = 'Error guardando los datos multimedia de la receta';
 
-      if (result.affectedRows) {
-          message = 'Foto guardada correctamente';
-      }
+    if (result.affectedRows) {
+      message = 'Foto guardada correctamente';
+    }
 
-      return { code: 201, message: message }
+    return { code: 201, message: message }
 
   } catch (e) {
 
-      return { code: 400, message: e.message };
+    return { code: 400, message: e.message };
   }
 
 }
@@ -485,20 +479,20 @@ async function getFoto(receta) {
 
 
   try {
-      // Find the User 
+    // Find the User 
 
-      const result = await db.query(
-          `select idReceta,urlFoto,extension from fotos
+    const result = await db.query(
+      `select idReceta,urlFoto,extension from fotos
           where idReceta=${receta.idReceta}`
-      );
+    );
 
-      const data = helper.emptyOrRows(result);
+    const data = helper.emptyOrRows(result);
 
-      return { code: 201, foto: data };
+    return { code: 201, foto: data };
 
   } catch (e) {
-      // return a Error message describing the reason     
-      return { code: 400, message: e.message };
+    // return a Error message describing the reason     
+    return { code: 400, message: e.message };
   }
 
 }
@@ -507,39 +501,39 @@ async function getFoto(receta) {
 
 async function postPaso(paso) {
 
-  
-  try {
-    const IdRecetaM=paso.idreceta;//rec[0].IdReceta;
 
-      paso.paso.forEach(async paso => {
-      
-         const  result = await db.query(
-            `insert into pasos (idReceta,nroPaso,texto) 
+  try {
+    const IdRecetaM = paso.idreceta;//rec[0].IdReceta;
+
+    paso.paso.forEach(async paso => {
+
+      const result = await db.query(
+        `insert into pasos (idReceta,nroPaso,texto) 
             VALUES 
             (${IdRecetaM}, '${paso.nroPaso}', '${paso.texto}')`
-        );
-        
-      if(paso.multimedia.length>0){
-        paso.multimedia.forEach(async multimedia=> {
+      );
+
+      if (paso.multimedia.length > 0) {
+        paso.multimedia.forEach(async multimedia => {
           const result2 = await db.query(
             `insert into multimedia ( idPaso, tipo_contenido,extension, urlcontenido) 
             VALUES 
             (${result.insertId}, '${multimedia.tipo_contenido}', '${multimedia.extension}', '${multimedia.urlContenido}')`);
-          }
+        }
         )
       }
 
     });
 
 
-    let message="paso guardado correctamente";
+    let message = "paso guardado correctamente";
 
 
-      return { code: 201, message: message }
+    return { code: 201, message: message }
 
   } catch (e) {
 
-      return { code: 400, message: e.message };
+    return { code: 400, message: e.message };
   }
 
 }
@@ -549,21 +543,21 @@ async function getPasos(paso) {
 
 
   try {
-      // Find the User 
+    // Find the User 
 
-      const result = await db.query(
-          `select idPaso, idReceta, nroPaso, texto from pasos
+    const result = await db.query(
+      `select idPaso, idReceta, nroPaso, texto from pasos
           where idReceta=${paso.idReceta}
           order by nroPaso`
-      );
+    );
 
-      const data = helper.emptyOrRows(result);
+    const data = helper.emptyOrRows(result);
 
-      return { code: 201, pasos: data };
+    return { code: 201, pasos: data };
 
   } catch (e) {
-      // return a Error message describing the reason     
-      return { code: 400, message: e.message };
+    // return a Error message describing the reason     
+    return { code: 400, message: e.message };
   }
 
 }

@@ -3,7 +3,7 @@ const router = express.Router();
 const receta = require('../services/receta');
 const favorito =require('../services/favorito');
 
-router.delete('/eliminarReceta', async function(req, res, next) {
+router.post('/eliminarReceta', async function(req, res, next) {
   try {
 
     res.json(await receta.eliminarReceta(req.body));

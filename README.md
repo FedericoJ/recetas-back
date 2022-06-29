@@ -1058,7 +1058,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **Metodo:**
 
-  `DEL`
+  `POST`
 
 *  **Data Params**
 
@@ -1066,8 +1066,7 @@ Para iniciar este proyecto, se deben correr los comandos:
  
    ```json
     {
-        "nombre": "[String]",
-        "idUsaurio": "[Integer]"
+        "idReceta": "[Integer]"
     }
     ```
 
