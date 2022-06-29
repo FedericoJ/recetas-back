@@ -556,24 +556,22 @@ Para iniciar este proyecto, se deben correr los comandos:
   * **Contenido:** 
     ```json
     {
-      "code": 201,
-        "receta": [
-            {
-                "IdReceta": 7,
-                "IdUsuario": 11,
-                "alias": "TPAD",
-                "Nombre": "Libritos de grasa",
-                "Descripcion": "Libritos caseros",
-                "foto": "https://matesargentinos.net/wp-content/uploads/2021/05/criollitos-de-hojaldre.jpg",
-                "Porciones": 10,
-                "CantidadPersonas": 5,
-                "IdTipo": 4,
-                "DescTipo": "Libritos",
-                "CalificacionProm": "3.5",
-                "FecAlta": "2022-04-30T03:00:00.000Z",
-                "SnAutorizada": "S"
-            }
-        ]
+      {
+        "IdReceta": 7,
+        "IdUsuario": 11,
+        "alias": "TPAD",
+        "Nombre": "Libritos de grasa",
+        "Descripcion": "Libritos caseros",
+        "foto": "https://matesargentinos.net/wp-content/uploads/2021/05/criollitos-de-hojaldre.jpg",
+        "Porciones": 10,
+        "CantidadPersonas": 5,
+        "IdTipo": 4,
+        "DescTipo": "Libritos",
+        "CalificacionProm": "3.5",
+        "FecAlta": "2022-04-30T03:00:00.000Z",
+        "SnAutorizada": "S",
+        "numero": 1
+      }
     }
 
 * **Respuesta No Exitosa:**
