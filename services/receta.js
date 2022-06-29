@@ -83,7 +83,7 @@ async function getRecetaPorUsuario(receta){
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
-      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, ifnull(TRUNCATE(avg(C.calificacion),1),0) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
       from recetas R
       join recetasAdicional RA on R.idReceta=RA.idReceta
       join usuarios usr on usr.idUsuario = R.idUsuario
@@ -113,7 +113,7 @@ async function getRecetaPorId(receta){
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
-      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada,1 as numero 
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, ifnull(TRUNCATE(avg(C.calificacion),1),0) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada,1 as numero 
       from recetas R 
       join recetasAdicional RA on R.idReceta=RA.idReceta
       join usuarios usr on usr.idUsuario = R.idUsuario
@@ -175,7 +175,7 @@ async function getRecetaPorNombre(receta){
 
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, U.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
-      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada      
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, ifnull(TRUNCATE(avg(C.calificacion),1),0) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada      
       from recetas R
       join usuarios U on R.IdUsuario=U.IdUsuario
       join recetasadicional RA on R.IdReceta=RA.IdReceta
@@ -283,7 +283,7 @@ async function getRecetaPorIngrediente(receta){
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
-      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, ifnull(TRUNCATE(avg(C.calificacion),1),0) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
         from recetas R 
         join recetasAdicional RA on R.idReceta=RA.idReceta
         join usuarios usr on usr.idUsuario = R.idUsuario
@@ -323,7 +323,7 @@ async function getRecetaSinIngrediente(receta){
     const rows = await db.query(
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
-      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
+      R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, ifnull(TRUNCATE(avg(C.calificacion),1),0) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
         from recetas R 
         join recetasAdicional RA on R.idReceta=RA.idReceta
         join usuarios usr on usr.idUsuario = R.idUsuario
@@ -354,7 +354,7 @@ async function getRecetaPorTipo(receta){
     const rows = await db.query(
 
       `select R.IdReceta, R.idUsuario, usr.nickname as alias, R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.Porciones, R.CantidadPersonas,
-      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada,TRUNCATE(avg(C.calificacion),1) as CalificacionProm
+      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada, ifnull(TRUNCATE(avg(C.calificacion),1),0) as CalificacionProm
       from recetas R
       left join calificaciones C on C.idReceta = R.idReceta
       inner join recetasAdicional RA on R.idReceta=RA.idReceta
@@ -390,7 +390,7 @@ async function getRecetaPorNombreTipo(receta){
 
     const rows = await db.query(
       `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones, R.cantidadPersonas,
-      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada,TRUNCATE(avg(C.calificacion),1) as CalificacionProm
+      R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada, ifnull(TRUNCATE(avg(C.calificacion),1),0) as CalificacionProm
       from recetas R
       join recetasAdicional RA on R.idReceta=RA.idReceta
       join tipos T on R.idTipo=T.idTipo
