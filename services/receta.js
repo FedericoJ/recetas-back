@@ -47,7 +47,7 @@ async function getRecetasSemana(receta){
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
       from recetas R
-      join Calificaciones C on C.IdReceta=R.IdReceta
+      left join Calificaciones C on C.IdReceta=R.IdReceta
       join recetasAdicional RA on RA.IdReceta=R.IdReceta
       join usuarios usr on usr.idUsuario = R.idUsuario
       join Tipos t on t.idTipo=R.idTipo
@@ -84,12 +84,12 @@ async function getRecetaPorUsuario(receta){
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
-      from recetas R, recetasAdicional RA, usuarios usr, tipos t, calificaciones C
-      where R.idReceta=RA.idReceta
-      and usr.idUsuario = R.idUsuario
-      and t.idTipo=R.idTipo
-      and C.IdReceta=R.IdReceta
-      and UPPER(usr.nickname) like UPPER('%${receta.nombre}%')
+      from recetas R
+      join recetasAdicional RA on R.idReceta=RA.idReceta
+      join usuarios usr on usr.idUsuario = R.idUsuario
+      join tipos t on t.idTipo=R.idTipo
+      left join calificaciones C on C.IdReceta=R.IdReceta
+      where UPPER(usr.nickname) like UPPER('%${receta.nombre}%')
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
       R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada
       ${order}`
@@ -114,12 +114,12 @@ async function getRecetaPorId(receta){
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada,1 as numero 
-      from recetas R, recetasAdicional RA, usuarios usr, tipos t, calificaciones C
-      where R.idReceta=RA.idReceta
-      and usr.idUsuario = R.idUsuario
-      and t.idTipo=R.idTipo
-      and C.IdReceta=R.IdReceta 
-      and R.idreceta=${receta.idReceta}
+      from recetas R 
+      join recetasAdicional RA on R.idReceta=RA.idReceta
+      join usuarios usr on usr.idUsuario = R.idUsuario
+      join tipos t on t.idTipo=R.idTipo
+      left join calificaciones C on C.IdReceta=R.IdReceta 
+      where R.idreceta=${receta.idReceta}
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
       R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada,numero`
     );
@@ -176,13 +176,12 @@ async function getRecetaPorNombre(receta){
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, U.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada      
-      from recetas R, usuarios U, recetasadicional RA, tipos T,calificaciones C
-      where R.IdReceta=RA.IdReceta and
-      R.IdUsuario=U.IdUsuario and
-      T.IdTipo=R.IdTipo and
-      R.idReceta=RA.idReceta and
-      R.idReceta = C.idReceta
-      and UPPER(R.nombre)  like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'
+      from recetas R
+      join usuarios U on R.IdUsuario=U.IdUsuario
+      join recetasadicional RA on R.IdReceta=RA.IdReceta
+      join tipos T on T.IdTipo=R.IdTipo
+      left join calificaciones C on C.idReceta = R.idReceta
+      where UPPER(R.nombre)  like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
       R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada
       ${order}`
@@ -285,12 +284,12 @@ async function getRecetaPorIngrediente(receta){
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
-        from recetas R, recetasAdicional RA, usuarios usr, tipos t, calificaciones C
-            where R.idReceta=RA.idReceta
-            and usr.idUsuario = R.idUsuario
-            and t.idTipo=R.idTipo
-            and C.IdReceta=R.IdReceta
-            and exists (select 1 from Utilizados U, Ingredientes I
+        from recetas R 
+        join recetasAdicional RA on R.idReceta=RA.idReceta
+        join usuarios usr on usr.idUsuario = R.idUsuario
+        join tipos t on t.idTipo=R.idTipo
+        left join calificaciones C on C.IdReceta=R.IdReceta
+            where exists (select 1 from Utilizados U, Ingredientes I
 							where U.idReceta=R.IdReceta and U.idIngrediente=I.IdIngrediente
                             and UPPER(i.nombre) like UPPER('%${receta.nombre}%'))
       and RA.snAutorizada ='S'
@@ -325,12 +324,12 @@ async function getRecetaSinIngrediente(receta){
       `select distinct R.idReceta as IdReceta, R.idUsuario as IdUsuario, usr.nickname as alias, 
       R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones as Porciones, 
       R.cantidadPersonas as CantidadPersonas, R.idTipo as IdTipo, t.descripcion as DescTipo, TRUNCATE(avg(C.calificacion),1) as CalificacionProm,RA.fecAlta as FecAlta, RA.SnAutorizada as SnAutorizada
-        from recetas R, recetasAdicional RA, usuarios usr, tipos t, Calificaciones C 
-            where R.idReceta=RA.idReceta
-            and usr.idUsuario = R.idUsuario
-            and t.idTipo=R.idTipo
-            and C.IdReceta=R.IdReceta
-            and not exists (select 1 from Utilizados U, Ingredientes I
+        from recetas R 
+        join recetasAdicional RA on R.idReceta=RA.idReceta
+        join usuarios usr on usr.idUsuario = R.idUsuario
+        join tipos t on t.idTipo=R.idTipo
+        left join calificaciones C on C.IdReceta=R.IdReceta
+            where not exists (select 1 from Utilizados U, Ingredientes I
 							where U.idReceta=R.IdReceta and U.idIngrediente=I.IdIngrediente
                             and UPPER(i.nombre) like UPPER('%${receta.nombre}%'))
       and RA.snAutorizada ='S'
@@ -392,12 +391,12 @@ async function getRecetaPorNombreTipo(receta){
     const rows = await db.query(
       `select R.idReceta, R.idUsuario, usr.nickname as alias, R.nombre as Nombre, R.descripcion as Descripcion, R.foto as foto, R.porciones, R.cantidadPersonas,
       R.idTipo, t.descripcion as descTipo, RA.fecAlta, RA.SnAutorizada,TRUNCATE(avg(C.calificacion),1) as CalificacionProm
-      from recetas R, recetasAdicional RA, tipos T , usuarios usr,calificaciones C
-      where R.idReceta=RA.idReceta
-      and R.idTipo=T.idTipo
-      and R.idReceta = C.idReceta
-      and usr.idUsuario=R.idUsuario
-      and UPPER(T.descripcion) like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'
+      from recetas R
+      join recetasAdicional RA on R.idReceta=RA.idReceta
+      join tipos T on R.idTipo=T.idTipo
+      join usuarios usr on usr.idUsuario=R.idUsuario
+      left join calificaciones C on C.idReceta = R.idReceta
+      where UPPER(T.descripcion) like UPPER('%${receta.nombre}%') and RA.snAutorizada ='S'
       group by  R.idReceta, R.idUsuario, R.nombre,R.descripcion , R.foto , R.porciones, R.cantidadPersonas,
       R.idTipo, t.descripcion, RA.fecAlta, RA.SnAutorizada
       ${order}`
@@ -554,7 +553,8 @@ async function getPasos(paso) {
 
       const result = await db.query(
           `select idPaso, idReceta, nroPaso, texto from pasos
-          where idReceta=${paso.idReceta}`
+          where idReceta=${paso.idReceta}
+          order by nroPaso`
       );
 
       const data = helper.emptyOrRows(result);
