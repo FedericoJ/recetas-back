@@ -25,7 +25,7 @@ async function postReceta(receta){
       message = 'Receta creada correctamente';
       db.query(
         `INSERT INTO recetasadicional (idReceta,fecAlta,SnAutorizada)
-      VALUES(${result.insertId},'${receta.fecAlta}', 'N');`
+      VALUES(${result.insertId},now(), 'N');`
       );
     }
   
