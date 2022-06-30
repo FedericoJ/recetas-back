@@ -12,7 +12,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/getFavorito
+  https://recetas-node-deploy.herokuapp.com/receta/getFavorito
 
 * **Metodo:**
 
@@ -57,7 +57,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/cargarFavorito
+  https://recetas-node-deploy.herokuapp.com/receta/cargarFavorito
 
 * **Metodo:**
 
@@ -90,7 +90,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/eliminarFavorito
+  https://recetas-node-deploy.herokuapp.com/receta/eliminarFavorito
 
 * **Metodo:**
 
@@ -124,7 +124,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/isFavorito
+  https://recetas-node-deploy.herokuapp.com/receta/isFavorito
 
 * **Metodo:**
 
@@ -169,7 +169,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/ingredientes/guardarMultimedia
+  https://recetas-node-deploy.herokuapp.com/ingredientes/guardarMultimedia
 
 * **Metodo:**
 
@@ -212,7 +212,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener multimedia de un paso de la receta
 * **URL**
 
-  http://localhost:3000/ingredientes/getMultimedia
+  https://recetas-node-deploy.herokuapp.com/ingredientes/getMultimedia
 
 * **Metodo:**
 
@@ -258,7 +258,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Buscar Ingrediente
 * **URL**
 
-  http://localhost:3000/ingredientes/getIngredientes
+  https://recetas-node-deploy.herokuapp.com/ingredientes/getIngredientes
 
 * **Metodo:**
 
@@ -298,7 +298,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/ingredientes/postIngredienteUtilizadoPorReceta
+  https://recetas-node-deploy.herokuapp.com/ingredientes/postIngredienteUtilizadoPorReceta
 
 * **Metodo:**
 
@@ -348,7 +348,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener ingredientes de una receta
 * **URL**
 
-  http://localhost:3000/ingredientes/getIngredienteUtilizadoPorReceta
+  https://recetas-node-deploy.herokuapp.com/ingredientes/getIngredienteUtilizadoPorReceta
 
 * **Metodo:**
 
@@ -395,7 +395,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener Tipos de receta
 * **URL**
 
-  http://localhost:3000/ingredientes/getTiposreceta
+  https://recetas-node-deploy.herokuapp.com/ingredientes/getTiposreceta
 
 * **Metodo:**
 
@@ -440,7 +440,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener Factores de Conversión
 * **URL**
 
-  http://localhost:3000/ingredientes/getFactorConversion
+  https://recetas-node-deploy.herokuapp.com/ingredientes/getFactorConversion
 
 * **Metodo:**
 
@@ -472,7 +472,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener unidades
 * **URL**
 
-  http://localhost:3000/ingredientes/getUnidades
+  https://recetas-node-deploy.herokuapp.com/ingredientes/getUnidades
 
 * **Metodo:**
 
@@ -534,7 +534,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener Receta por ID
 * **URL**
 
-  http://localhost:3000/receta/recetaPorId
+  https://recetas-node-deploy.herokuapp.com/receta/recetaPorId
 
 * **Metodo:**
 
@@ -582,7 +582,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Home Principal - Mejores Recetas
 * **URL**
 
-  http://localhost:3000/receta/recetasSemana
+  https://recetas-node-deploy.herokuapp.com/receta/recetasSemana
 
 * **Metodo:**
 
@@ -647,7 +647,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/postReceta
+  https://recetas-node-deploy.herokuapp.com/receta/postReceta
 
 * **Metodo:**
 
@@ -692,7 +692,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/guardarFoto
+  https://recetas-node-deploy.herokuapp.com/receta/guardarFoto
 
 * **Metodo:**
 
@@ -730,7 +730,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener Fotos de una Receta
 * **URL**
 
-  http://localhost:3000/receta/getFoto
+  https://recetas-node-deploy.herokuapp.com/receta/getFoto
 
 * **Metodo:**
 
@@ -782,7 +782,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/postPaso
+  https://recetas-node-deploy.herokuapp.com/receta/postPaso
 
 * **Metodo:**
 
@@ -847,7 +847,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener Pasos por IdReceta
 * **URL**
 
-  http://localhost:3000/receta/getPasos
+  https://recetas-node-deploy.herokuapp.com/receta/getPasos
 
 * **Metodo:**
 
@@ -898,7 +898,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener Pasos de un Usuario
 * **URL**
 
-  http://localhost:3000/receta/recetaPorUsuario
+  https://recetas-node-deploy.herokuapp.com/receta/recetaPorUsuario
 
 * **Metodo:**
 
@@ -964,7 +964,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/valorarReceta
+  https://recetas-node-deploy.herokuapp.com/receta/valorarReceta
 
 * **Metodo:**
 
@@ -1003,7 +1003,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener Recetas por Nombre
 * **URL**
 
-  http://localhost:3000/receta/RecetaPorNombre
+  https://recetas-node-deploy.herokuapp.com/receta/RecetaPorNombre
 
 * **Metodo:**
 
@@ -1054,7 +1054,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/receta/eliminarReceta
+  https://recetas-node-deploy.herokuapp.com/receta/eliminarReceta
 
 * **Metodo:**
 
@@ -1100,7 +1100,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener recetas buscando que tenga un ingrediente
 * **URL**
 
-  http://localhost:3000/receta/recetaPorIngrediente
+  https://recetas-node-deploy.herokuapp.com/receta/recetaPorIngrediente
 
 * **Metodo:**
 
@@ -1150,7 +1150,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener recetas buscando que no tenga un ingrediente
 * **URL**
 
-  http://localhost:3000/receta/recetaSinIngrediente
+  https://recetas-node-deploy.herokuapp.com/receta/recetaSinIngrediente
 
 * **Metodo:**
 
@@ -1215,7 +1215,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener recetas por IdTipo
 * **URL**
 
-  http://localhost:3000/receta/recetaPorTipo
+  https://recetas-node-deploy.herokuapp.com/receta/recetaPorTipo
 
 * **Metodo:**
 
@@ -1281,7 +1281,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener recetas por Descripcion Tipo
 * **URL**
 
-  http://localhost:3000/receta/RecetaPorNombreTipo
+  https://recetas-node-deploy.herokuapp.com/receta/RecetaPorNombreTipo
 
 * **Metodo:**
 
@@ -1331,7 +1331,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener recetas por Usuario y nombre de receta
 * **URL**
 
-  http://localhost:3000/receta/buscarRecetaPorUsuarioyNombre
+  https://recetas-node-deploy.herokuapp.com/receta/buscarRecetaPorUsuarioyNombre
 
 * **Metodo:**
 
@@ -1377,7 +1377,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener valoraciones de una receta
 * **URL**
 
-  http://localhost:3000/receta/getValoracionesByReceta
+  https://recetas-node-deploy.herokuapp.com/receta/getValoracionesByReceta
 
 * **Metodo:**
 
@@ -1426,7 +1426,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Obtener valoracion promedio de una receta
 * **URL**
 
-  http://localhost:3000/receta/getValoracionPromedio
+  https://recetas-node-deploy.herokuapp.com/receta/getValoracionPromedio
 
 * **Metodo:**
 
@@ -1466,7 +1466,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Buscar Usuario
 * **URL**
 
-  http://localhost:3000/usuario/getUsuario
+  https://recetas-node-deploy.herokuapp.com/usuario/getUsuario
 
 * **Metodo:**
 
@@ -1514,7 +1514,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/usuario/modificarUsuario
+  https://recetas-node-deploy.herokuapp.com/usuario/modificarUsuario
 
 * **Metodo:**
 
@@ -1560,7 +1560,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/usuario/create
+  https://recetas-node-deploy.herokuapp.com/usuario/create
 
 * **Metodo:**
 
@@ -1604,7 +1604,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/usuario/modificarPass
+  https://recetas-node-deploy.herokuapp.com/usuario/modificarPass
 
 * **Metodo:**
 
@@ -1641,7 +1641,7 @@ Para iniciar este proyecto, se deben correr los comandos:
   ## Validar Codigo Recuperacion
 * **URL**
 
-  http://localhost:3000/usuario/validarCodigoRecuperacion
+  https://recetas-node-deploy.herokuapp.com/usuario/validarCodigoRecuperacion
 
 * **Metodo:**
 
@@ -1686,7 +1686,7 @@ Para iniciar este proyecto, se deben correr los comandos:
   ## Enviar Código de Recuperación
 * **URL**
 
-  http://localhost:3000/usuario/SendRecoveryPassword
+  https://recetas-node-deploy.herokuapp.com/usuario/SendRecoveryPassword
 
 * **Metodo:**
 
@@ -1722,7 +1722,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 ## Loguear Usuario
 * **URL**
 
-  http://localhost:3000/usuario/login
+  https://recetas-node-deploy.herokuapp.com/usuario/login
 
 * **Metodo:**
 
@@ -1780,7 +1780,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/usuario/crearInvitado
+  https://recetas-node-deploy.herokuapp.com/usuario/crearInvitado
 
 * **Metodo:**
 
@@ -1838,7 +1838,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/usuario/crearInvitadoUpdate
+  https://recetas-node-deploy.herokuapp.com/usuario/crearInvitadoUpdate
 
 * **Metodo:**
 
@@ -1877,7 +1877,7 @@ Para iniciar este proyecto, se deben correr los comandos:
 
 * **URL**
 
-  http://localhost:3000/usuario/validarAlias
+  https://recetas-node-deploy.herokuapp.com/usuario/validarAlias
 
 * **Metodo:**
 
